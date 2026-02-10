@@ -39,8 +39,7 @@
       --fs-title:16px;
       --fs-text:12px;
       --sidebar-w:270px;
-      /* RADIUS ZERO PARA FORMAS QUADRADAS */
-      --radius:0px;
+      --radius:0px; /* Quadrado */
     }
 
     html[data-theme="light"]{
@@ -50,7 +49,7 @@
       --text:#151515;
       --muted:rgba(21,21,21,.72);
       --line:rgba(21,21,21,.12);
-      --shadow:none; 
+      --shadow:none;
       --card:#ffffff;
       --card-hover:#f0f0f2;
       --accent: var(--g2);
@@ -82,7 +81,6 @@
     a{color:inherit}
     .app{display:flex; min-height:100vh}
 
-    /* SIDEBAR QUADRADA */
     .sidebar{
       width:var(--sidebar-w);
       padding:18px;
@@ -130,13 +128,8 @@
       font-size:12px;
       transition: background .2s ease;
     }
-    /* SÓ MUDA A COR NO HOVER */
     .tab-btn:hover{ background: var(--panel-2); }
-    
-    .tab-btn[aria-selected="true"]{
-      background: var(--accent);
-      color: white;
-    }
+    .tab-btn[aria-selected="true"]{ background: var(--accent); color: white; }
 
     .search{
       margin-top:12px;
@@ -149,9 +142,8 @@
     }
     .search input{ border:none; outline:none; background:transparent; color: var(--text); width:100%; font-size:12px; }
 
-    .theme-row{ margin-top:12px; display:flex; }
     .btn{
-      flex:1;
+      flex:1; margin-top:12px;
       border:none;
       background:var(--panel-2);
       color:var(--text);
@@ -182,7 +174,6 @@
 
     .grid{ display:grid; grid-template-columns:repeat(12, 1fr); gap:12px; margin-top:12px; }
     
-    /* CARDS QUADRADOS E MUDANÇA DE COR */
     .card{
       grid-column:span 12;
       background:var(--panel-2);
@@ -190,30 +181,24 @@
       border-radius:0;
       transition: background .2s ease;
     }
-    .card:hover{
-      background:var(--card-hover);
-    }
+    .card:hover{ background:var(--card-hover); }
 
     .projects .card{grid-column:span 6;}
     .pubs .card{grid-column:span 6;}
     .members .card{grid-column:span 4;}
 
-    .avatar, .avatar-fallback{
-      width:64px; height:64px; 
-      border-radius:0; /* Quadrado */
+    .avatar-fallback{
+      width:54px; height:54px; 
+      border-radius:0;
       background:var(--line);
       flex:0 0 auto;
+      display:flex; align-items:center; justify-content:center;
+      font-weight:700; font-size:14px;
     }
 
-    .icon-btn{
-      display:inline-flex; align-items:center; gap:6px;
-      padding:6px 8px; border-radius:0;
-      background:var(--panel);
-      text-decoration:none;
-      font-size:11px;
-      transition: background .2s ease;
-    }
-    .icon-btn:hover{ background: var(--accent); color: white; }
+    .member{ display:flex; gap:12px; align-items:center; }
+    .member b{ font-size:13px; display:block; line-height:1.2; }
+    .member small{ color:var(--muted); font-size:11px; }
 
     .tab-panel{display:none;}
     .tab-panel.active{display:block;}
@@ -221,7 +206,8 @@
     @media (max-width: 980px){
       .app{flex-direction:column;}
       .sidebar{ width:100%; height:auto; position:relative; }
-      .projects .card, .pubs .card, .members .card{grid-column:span 12;}
+      .members .card{grid-column:span 12;}
+      .projects .card, .pubs .card{grid-column:span 12;}
     }
   </style>
 </head>
@@ -250,56 +236,50 @@
         <input id="searchInput" type="search" placeholder="Pesquisar...">
       </div>
 
-      <div class="theme-row">
-        <button class="btn" id="btn-theme" type="button"><span id="themeIconWrap"></span></button>
-      </div>
+      <button class="btn" id="btn-theme" type="button"><span id="themeIconWrap"></span></button>
     </aside>
 
     <main class="main">
       <div class="topbar">
         <div>
-          <p class="title" style="font-weight:700;" id="pageTitle">GISPRAD</p>
-          <p class="hint" id="pageHint">Informações institucionais</p>
+          <p class="title" style="font-weight:700; margin:0;" id="pageTitle">GISPRAD</p>
+          <p class="hint" style="margin:0; font-size:11px;" id="pageHint">Informações institucionais</p>
         </div>
-        <div class="contact">
+        <div style="font-size:11px; text-align:right;">
           <b>Contato:</b> contato@gisprad.org
         </div>
       </div>
 
       <section class="panel tab-panel active" id="tab-gisprad" role="tabpanel">
-        <h2 class="section-title">GISPRAD</h2>
-        <p class="text">O GISPRAD é um laboratório voltado a pesquisa e geotecnologias.</p>
+        <h2 style="margin-top:0;">GISPRAD</h2>
+        <p>Laboratório voltado a pesquisa, desenvolvimento e aplicação de geotecnologias.</p>
         <div class="grid">
           <div class="card">
-            <h3>Linhas de pesquisa</h3>
-            <p>Geoprocessamento e sensoriamento remoto.</p>
-          </div>
-          <div class="card">
-            <h3>Localização</h3>
-            <p>Instituição — Cidade/Estado.</p>
+            <h3>Nossa Missão</h3>
+            <p>Gerar conhecimento científico e soluções espaciais para suporte à tomada de decisão.</p>
           </div>
         </div>
       </section>
 
       <section class="panel tab-panel" id="tab-projetos" role="tabpanel">
-        <h2 class="section-title">PROJETOS</h2>
+        <h2 style="margin-top:0;">PROJETOS</h2>
         <div class="grid projects" id="projectsGrid"></div>
       </section>
 
       <section class="panel tab-panel" id="tab-pubs" role="tabpanel">
-        <h2 class="section-title">PUBLICAÇÕES</h2>
+        <h2 style="margin-top:0;">PUBLICAÇÕES</h2>
         <div class="grid pubs" id="pubsGrid"></div>
       </section>
 
       <section class="panel tab-panel" id="tab-integrantes" role="tabpanel">
-        <h2 class="section-title">INTEGRANTES</h2>
+        <h2 style="margin-top:0;">INTEGRANTES</h2>
         <div class="grid members" id="membersGrid"></div>
       </section>
     </main>
   </div>
 
   <script>
-    // SCRIPT MANTIDO EXATAMENTE COMO SOLICITADO
+    // TEMA
     const SUN_SVG = `<svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zM2 13h2v-2H2v2zm18 0h2v-2h-2v2zM11 2v2h2V2h-2zm0 18v2h2v-2h-2zM5.99 4.58 4.58 5.99l1.41 1.41 1.41-1.41-1.41-1.41zm12.02 12.02-1.41 1.41 1.41 1.41 1.41-1.41-1.41-1.41zM5.99 19.42l1.41-1.41-1.41-1.41-1.41 1.41 1.41 1.41zm12.02-12.02-1.41-1.41-1.41 1.41 1.41 1.41 1.41-1.41z"/></svg>`;
     const MOON_SVG = `<svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg>`;
 
@@ -312,23 +292,19 @@
       localStorage.setItem("gisprad_theme", theme);
       if(themeIconWrap) themeIconWrap.innerHTML = (theme === "dark") ? SUN_SVG : MOON_SVG;
     }
-
     setTheme(localStorage.getItem("gisprad_theme") || "light");
+    btnTheme.addEventListener("click", () => setTheme(html.getAttribute("data-theme") === "dark" ? "light" : "dark"));
 
-    btnTheme.addEventListener("click", () => {
-      const current = html.getAttribute("data-theme");
-      setTheme(current === "dark" ? "light" : "dark");
-    });
-
+    // ABAS
     const tabs = document.querySelectorAll(".tab-btn");
     const panels = document.querySelectorAll(".tab-panel");
     const pageTitle = document.getElementById("pageTitle");
     const pageHint = document.getElementById("pageHint");
 
     const meta = {
-      "tab-gisprad": { title:"GISPRAD", hint:"Informações institucionais" },
-      "tab-projetos": { title:"PROJETOS", hint:"Pesquisas em andamento" },
-      "tab-pubs": { title:"PUBLICAÇÕES", hint:"Produção científica" },
+      "tab-gisprad": { title:"GISPRAD", hint:"Institucional" },
+      "tab-projetos": { title:"PROJETOS", hint:"Pesquisas desenvolvidas" },
+      "tab-pubs": { title:"PUBLICAÇÕES", hint:"Produção acadêmica" },
       "tab-integrantes": { title:"INTEGRANTES", hint:"Nossa equipe" },
     };
 
@@ -338,18 +314,57 @@
       pageTitle.textContent = meta[tabId].title;
       pageHint.textContent = meta[tabId].hint;
     }
-
     tabs.forEach(btn => btn.addEventListener("click", () => activateTab(btn.dataset.tab)));
 
-    const projects = Array.from({length: 10}, (_, i) => ({ title:`Projeto ${i+1}`, desc:"Descrição breve do projeto geotecnológico." }));
-    document.getElementById("projectsGrid").innerHTML = projects.map(p => `<article class="card"><h3>${p.title}</h3><p>${p.desc}</p></article>`).join("");
+    // RENDER INTEGRANTES (LISTA ATUALIZADA)
+    const members = [
+      { name: "Álvaro P. Berghetti", role: "Professor" },
+      { name: "Viviane Maia Corrêa", role: "Doutorado" },
+      { name: "Cleberson Porath", role: "Mestrado" },
+      { name: "Eduardo Praxedes B. Raymundo", role: "Mestrado" },
+      { name: "Julia Silva Rodrigues", role: "Mestrado" },
+      { name: "Juliana Hoepers M. Tedesco", role: "Mestrado" },
+      { name: "Kemelyn Hack Pires", role: "Mestrado" },
+      { name: "Lucas Soares Miguez", role: "Mestrado" },
+      { name: "Patrícia Portela Feldmann", role: "Mestrado" },
+      { name: "Thainá Aloísio Saraiva", role: "Mestrado" },
+      { name: "Agnes Aleixo da Luz", role: "Graduação" },
+      { name: "Alonso Cortés do Amaral", role: "Graduação" },
+      { name: "Carolina Pulido Arce", role: "Graduação" },
+      { name: "Dheimilly Krachinski", role: "Graduação" },
+      { name: "Eduarda Cristina M. dos Santos", role: "Graduação" },
+      { name: "Francisco Erê Consani Steidle", role: "Graduação" },
+      { name: "Gabriel de Oliveira Bonfim Araujo", role: "Graduação" },
+      { name: "Heitor do Nascimento Moreira", role: "Graduação" },
+      { name: "Katrielle Alessandra R. S. Isaias", role: "Graduação" },
+      { name: "Lara Brand Bordenousky", role: "Graduação" },
+      { name: "Laura Gabriela Bortoli Mariotto", role: "Graduação" },
+      { name: "Ruan Pablo da Trindade", role: "Graduação" }
+    ];
 
-    const pubs = [{ title:"Artigos", items:[{label:"Publicação 2026", link:"#"}] }];
-    document.getElementById("pubsGrid").innerHTML = pubs.map(sec => `<article class="card"><h3>${sec.title}</h3><ul>${sec.items.map(it => `<li>${it.label}</li>`).join("")}</ul></article>`).join("");
+    function getInitials(name) {
+      return name.split(" ").map(n => n[0]).join("").toUpperCase().substring(0, 2);
+    }
 
-    const members = Array.from({length: 20}, (_, i) => ({ name:`Membro ${i+1}`, role:"Pesquisador" }));
-    document.getElementById("membersGrid").innerHTML = members.map(m => `<article class="card"><div class="member"><div class="avatar-fallback">${m.name[0]}</div><div><b>${m.name}</b><br><small>${m.role}</small></div></div></article>`).join("");
+    document.getElementById("membersGrid").innerHTML = members.map(m => `
+      <article class="card">
+        <div class="member">
+          <div class="avatar-fallback">${getInitials(m.name)}</div>
+          <div>
+            <b>${m.name}</b>
+            <small>${m.role}</small>
+          </div>
+        </div>
+      </article>
+    `).join("");
 
+    // PROJETOS (Exemplo)
+    document.getElementById("projectsGrid").innerHTML = Array.from({length: 4}, (_, i) => `<article class="card"><h3>Projeto ${i+1}</h3><p>Descrição do projeto.</p></article>`).join("");
+    
+    // PUBLICAÇÕES (Exemplo)
+    document.getElementById("pubsGrid").innerHTML = `<article class="card"><h3>Artigos 2026</h3><p>Lista de publicações em breve.</p></article>`;
+
+    // BUSCA
     const searchInput = document.getElementById("searchInput");
     searchInput.addEventListener("input", (e) => {
       const q = e.target.value.toLowerCase();
