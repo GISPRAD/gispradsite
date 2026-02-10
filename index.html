@@ -5,66 +5,92 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>GISPRAD</title>
 
+  <!-- =========================================================
+    FONTES
+    Para usar Glacial Indifference e SUGO DISPLAY:
+    1) Crie a pasta /fonts na raiz do repositório
+    2) Suba os arquivos (ajuste os nomes abaixo se necessário):
+       - fonts/GlacialIndifference-Regular.woff2
+       - fonts/GlacialIndifference-Bold.woff2
+       - fonts/SugoDisplay.woff2
+    Se não subir, o site usa fontes padrão.
+  ========================================================== -->
   <style>
     @font-face{
       font-family:"Glacial Indifference";
       src:url("fonts/GlacialIndifference-Regular.woff2") format("woff2"),
           url("fonts/GlacialIndifference-Regular.woff") format("woff");
-      font-weight:400; font-style:normal; font-display:swap;
+      font-weight:400;
+      font-style:normal;
+      font-display:swap;
     }
     @font-face{
       font-family:"Glacial Indifference";
       src:url("fonts/GlacialIndifference-Bold.woff2") format("woff2"),
           url("fonts/GlacialIndifference-Bold.woff") format("woff");
-      font-weight:700; font-style:normal; font-display:swap;
+      font-weight:700;
+      font-style:normal;
+      font-display:swap;
     }
     @font-face{
       font-family:"SUGO DISPLAY";
       src:url("fonts/SugoDisplay.woff2") format("woff2"),
           url("fonts/SugoDisplay.woff") format("woff");
-      font-weight:400; font-style:normal; font-display:swap;
+      font-weight:400;
+      font-style:normal;
+      font-display:swap;
     }
 
+    /* =========================================================
+      PALETA (da imagem que você mandou)
+      Verdes:  #436526 #33551A #274910 #163105 #050F00
+      Dourados/Marrons: #FFF4DE #DDB871 #BE8141 #5C3A17 #1C1107
+    ========================================================== */
     :root{
       --g1:#436526; --g2:#33551A; --g3:#274910; --g4:#163105; --g5:#050F00;
       --b1:#FFF4DE; --b2:#DDB871; --b3:#BE8141; --b4:#5C3A17; --b5:#1C1107;
+
       --font-text:"Glacial Indifference","Segoe UI",Arial,sans-serif;
       --font-tabs:"SUGO DISPLAY","Glacial Indifference","Segoe UI",Arial,sans-serif;
-      --fs-title:16px; --fs-text:12px;
-      --sidebar-w:270px; --radius:14px;
-      --blur: 10px; /* Intensidade do efeito de vidro */
+
+      --fs-title:16px;
+      --fs-text:12px;
+
+      --sidebar-w:270px;
+      --radius:14px;
     }
 
-    /* =============== TEMA CLARO =============== */
+    /* =============== TEMA CLARO (DIA) =============== */
     html[data-theme="light"]{
       --bg:#fbfbfc;
-      --panel: rgba(255, 255, 255, 0.7);
-      --panel-2: rgba(255, 255, 255, 0.4);
+      --panel:#ffffff;
+      --panel-2:#f6f6f7;
       --text:#151515;
       --muted:rgba(21,21,21,.72);
-      --line: transparent; /* Removendo linhas visíveis */
-      --shadow: 0 8px 32px rgba(0,0,0,0.05);
-      --card: rgba(255, 255, 255, 0.5);
-      --card-hover: rgba(255, 255, 255, 0.8);
+      --line:rgba(21,21,21,.12);
+      --shadow:0 14px 30px rgba(0,0,0,.10);
+      --card:#ffffff;
+      --card-hover:#fffdfa;
       --accent: var(--g2);
       --accent-2: var(--b3);
     }
 
-    /* =============== TEMA ESCURO =============== */
+    /* =============== TEMA ESCURO (NOITE) =============== */
     html[data-theme="dark"]{
       --bg:#0b0f0b;
-      --panel: rgba(255, 255, 255, 0.05);
-      --panel-2: rgba(255, 255, 255, 0.03);
-      --text:rgba(255,255,255,0.92);
-      --muted:rgba(255,255,255,0.70);
-      --line: transparent;
-      --shadow: 0 8px 32px rgba(0,0,0,0.3);
-      --card: rgba(255, 255, 255, 0.04);
-      --card-hover: rgba(255, 255, 255, 0.08);
+      --panel:rgba(255,255,255,.06);
+      --panel-2:rgba(255,255,255,.04);
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.70);
+      --line:rgba(255,255,255,.14);
+      --shadow:0 18px 40px rgba(0,0,0,.40);
+      --card:rgba(255,255,255,.06);
+      --card-hover:rgba(255,255,255,.09);
       --accent: var(--b2);
       --accent-2: var(--g1);
     }
 
+    /* =============== BASE =============== */
     *{box-sizing:border-box}
     body{
       margin:0;
@@ -75,142 +101,343 @@
         var(--bg);
       color:var(--text);
       min-height:100vh;
-      background-attachment: fixed;
     }
-    
+    a{color:inherit}
     .app{display:flex; min-height:100vh}
 
     /* =============== SIDEBAR =============== */
     .sidebar{
       width:var(--sidebar-w);
       padding:18px;
-      background: var(--panel-2);
-      backdrop-filter: blur(var(--blur));
-      -webkit-backdrop-filter: blur(var(--blur));
+      border-right:1px solid var(--line);
+      background:linear-gradient(180deg, var(--panel), transparent);
       position:sticky;
-      top:0; height:100vh; overflow:auto;
-      border-right: 1px solid rgba(255,255,255,0.1); /* Sutilíssima linha para separação */
+      top:0;
+      height:100vh;
+      overflow:auto;
     }
 
     .brand{
-      display:flex; align-items:center; gap:12px; padding:12px;
+      display:flex;
+      align-items:center;
+      gap:12px;
+      padding:12px;
+      border:1px solid var(--line);
       border-radius:var(--radius);
-      background:var(--panel);
+      background:var(--panel-2);
       box-shadow:var(--shadow);
     }
 
+    /* Quadrado com LOGO */
     .brand-mark{
       width:44px; height:44px; border-radius:14px;
-      background: var(--panel-2);
+      border:1px solid var(--line);
+      background: var(--panel);
       display:flex; align-items:center; justify-content:center;
       overflow:hidden;
     }
-    .brand-logo{ width:100%; height:100%; object-fit: cover; }
+    .brand-logo{
+      width:100%;
+      height:100%;
+      object-fit: cover; /* troque por contain se quiser ver a logo inteira sem corte */
+    }
 
-    .brand h1{ margin:0; font-size:14px; font-weight:700; }
-    .brand p{ margin:0; font-size:11px; color:var(--muted); }
+    .brand h1{
+      margin:0;
+      font-size:14px;
+      font-weight:700;
+      letter-spacing:.2px;
+    }
+    .brand p{
+      margin:0;
+      font-size:11px;
+      color:var(--muted);
+    }
 
-    .tabs{ margin-top:14px; display:flex; flex-direction:column; gap:10px; }
+    .tabs{
+      margin-top:14px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
     .tab-btn{
       font-family:var(--font-tabs);
       text-align:left;
-      border:none;
-      background:var(--panel-2);
+      border:1px solid var(--line);
+      background:var(--panel);
       color:var(--text);
-      padding:12px;
+      padding:12px 12px;
       border-radius:12px;
       cursor:pointer;
       letter-spacing:.8px;
       text-transform:uppercase;
       font-size:12px;
-      transition: all .2s ease;
+      transition:transform .08s ease, border-color .15s ease, background .15s ease;
     }
     .tab-btn:hover{
-      background: var(--panel);
-      transform:translateX(4px);
+      transform:translateY(-1px);
+      border-color:color-mix(in srgb, var(--accent) 60%, var(--line));
     }
     .tab-btn[aria-selected="true"]{
       background:linear-gradient(135deg,
-        color-mix(in srgb, var(--g2) 40%, transparent),
-        color-mix(in srgb, var(--b3) 30%, transparent));
-      color: #fff;
-      box-shadow: var(--shadow);
+        color-mix(in srgb, var(--g2) 20%, var(--panel)),
+        color-mix(in srgb, var(--b3) 16%, var(--panel)));
+      border-color:color-mix(in srgb, var(--accent) 55%, var(--line));
     }
 
+    /* Busca (lupa) */
     .search{
-      margin-top:12px; display:flex; align-items:center; gap:8px; padding:10px 12px;
-      border-radius:12px; background: var(--panel);
+      margin-top:12px;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 12px;
+      border:1px solid var(--line);
+      border-radius:12px;
+      background: var(--panel);
     }
-    .search input{ border:none; outline:none; background:transparent; color: var(--text); width:100%; font-size:12px; }
+    .search-icon{width:16px; height:16px; opacity:.9; flex:0 0 auto;}
+    .search input{
+      border:none;
+      outline:none;
+      background:transparent;
+      color: var(--text);
+      width:100%;
+      font-family: var(--font-text);
+      font-size:12px;
+    }
+    .search input::placeholder{ color: var(--muted); }
 
-    .btn{
-      flex:1; border:none; background:var(--panel); color:var(--text);
-      padding:10px 12px; border-radius:12px; cursor:pointer; font-weight:700;
-      transition: all .2s ease;
+    /* Botão de tema (somente ícone) */
+    .theme-row{
+      margin-top:12px;
+      display:flex;
     }
-    .btn:hover{ transform:scale(1.02); background: var(--card-hover); }
+    .btn{
+      flex:1;
+      border:1px solid var(--line);
+      background:var(--panel);
+      color:var(--text);
+      padding:10px 12px;
+      border-radius:12px;
+      cursor:pointer;
+      font-weight:700;
+      font-family:var(--font-text);
+      transition:transform .08s ease, border-color .15s ease;
+    }
+    .btn:hover{
+      transform:translateY(-1px);
+      border-color:color-mix(in srgb, var(--accent-2) 60%, var(--line));
+    }
+    .btn.icon-only{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+    }
+    .btn.icon-only svg{ width:18px; height:18px; }
+
+    .sidebar small{
+      display:block;
+      margin-top:12px;
+      font-size:12px;
+      color:var(--muted);
+      line-height:1.5;
+    }
 
     /* =============== MAIN =============== */
     .main{flex:1; padding:22px}
 
     .topbar{
-      display:flex; justify-content:space-between; align-items:center; padding:14px 16px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:14px;
+      padding:14px 16px;
+      border:1px solid var(--line);
       border-radius:var(--radius);
       background:var(--panel);
-      backdrop-filter: blur(var(--blur));
       box-shadow:var(--shadow);
     }
+    .topbar .title{
+      margin:0;
+      font-size:var(--fs-title);
+      font-weight:700;
+      font-family:var(--font-text);
+    }
+    .topbar .hint{
+      margin:4px 0 0;
+      font-size:var(--fs-text);
+      color:var(--muted);
+      line-height:1.5;
+    }
+    .topbar .contact{
+      font-size:var(--fs-text);
+      color:var(--muted);
+      text-align:right;
+      line-height:1.5;
+    }
+    .topbar .contact b{color:var(--text)}
 
     .panel{
       margin-top:16px;
+      border:1px solid var(--line);
       border-radius:var(--radius);
       background:var(--panel);
-      backdrop-filter: blur(var(--blur));
       box-shadow:var(--shadow);
       padding:16px;
     }
 
+    h2.section-title{
+      margin:0 0 10px;
+      font-size:var(--fs-title);
+      font-weight:700;
+      font-family:var(--font-text);
+    }
+    p.text{
+      margin:0 0 10px;
+      font-size:var(--fs-text);
+      color:var(--muted);
+      line-height:1.65;
+    }
+
+    /* Logo grande (na aba GISPRAD) */
+    .logo-wrap{
+      display:flex;
+      justify-content:center;
+      padding:10px 0 6px;
+    }
     .logo-wrap img{
-      width:420px; max-width:92%; height:auto; border-radius:12px;
+      width:420px;         /* ajuste o tamanho aqui */
+      max-width:92%;
+      height:auto;
+      border-radius:12px;
+      border:1px solid var(--line);
       background:var(--panel-2);
-      border: none;
     }
 
     /* Grid / cards */
-    .grid{ display:grid; grid-template-columns:repeat(12, 1fr); gap:12px; margin-top:12px; }
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(12, 1fr);
+      gap:12px;
+      margin-top:12px;
+    }
     .card{
       grid-column:span 12;
       background:var(--card);
+      border:1px solid var(--line);
       border-radius:14px;
       padding:14px;
-      transition: all .2s ease;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+      transition:transform .08s ease, border-color .15s ease, background .15s ease;
     }
     .card:hover{
-      transform:translateY(-4px);
+      transform:translateY(-1px);
       background:var(--card-hover);
-      box-shadow: var(--shadow);
+      border-color:color-mix(in srgb, var(--accent) 55%, var(--line));
+    }
+    .card h3{
+      margin:0 0 8px;
+      font-size:var(--fs-title);
+      font-weight:700;
+      font-family:var(--font-text);
+    }
+    .card p{
+      margin:0;
+      font-size:var(--fs-text);
+      color:var(--muted);
+      line-height:1.65;
     }
 
-    /* Integrantes e Outros */
-    .avatar, .avatar-fallback, .icon-btn{ border: none !important; }
-    .icon-btn{ background: var(--panel); }
-    
+    .projects .card{grid-column:span 6;}
+    .pubs .card{grid-column:span 6;}
+    .members .card{grid-column:span 4;}
+
+    .list{
+      margin:10px 0 0;
+      padding-left:16px;
+      color:var(--muted);
+      font-size:var(--fs-text);
+      line-height:1.9;
+    }
+
+    /* Integrantes */
+    .member{display:flex; gap:12px; align-items:flex-start;}
+    .avatar{
+      width:64px; height:64px; border-radius:14px; border:1px solid var(--line);
+      object-fit:cover; background:linear-gradient(135deg,
+        color-mix(in srgb, var(--g2) 35%, transparent),
+        color-mix(in srgb, var(--b3) 25%, transparent));
+      flex:0 0 auto;
+    }
+    .avatar-fallback{
+      width:64px; height:64px; border-radius:14px; border:1px solid var(--line);
+      background:linear-gradient(135deg,
+        color-mix(in srgb, var(--g2) 35%, transparent),
+        color-mix(in srgb, var(--b3) 25%, transparent));
+      display:flex; align-items:center; justify-content:center;
+      font-weight:700; font-size:14px; color:var(--text);
+      flex:0 0 auto; user-select:none;
+    }
+    .member b{
+      display:block;
+      font-size:var(--fs-title);
+      font-weight:700;
+      margin-bottom:4px;
+    }
+    .member small{
+      display:block;
+      font-size:var(--fs-text);
+      color:var(--muted);
+      line-height:1.5;
+      margin-bottom:8px;
+    }
+
+    .social{display:flex; gap:8px; flex-wrap:wrap;}
+    .icon-btn{
+      display:inline-flex; align-items:center; gap:6px;
+      padding:6px 8px; border-radius:10px;
+      border:1px solid var(--line);
+      background:var(--panel-2);
+      text-decoration:none;
+      font-size:11px; color:var(--text);
+      transition:transform .08s ease, border-color .15s ease;
+    }
+    .icon-btn:hover{
+      transform:translateY(-1px);
+      border-color:color-mix(in srgb, var(--accent-2) 55%, var(--line));
+    }
+    .icon{width:16px; height:16px;}
+
     .tab-panel{display:none;}
     .tab-panel.active{display:block;}
 
     @media (max-width: 980px){
       .app{flex-direction:column;}
-      .sidebar{ width:100%; height:auto; position:relative; border-right:none; }
+      .sidebar{
+        width:100%;
+        height:auto;
+        position:relative;
+        border-right:none;
+        border-bottom:1px solid var(--line);
+      }
+      .main{padding:16px;}
+      .projects .card,
+      .pubs .card,
+      .members .card{grid-column:span 12;}
+      .topbar{flex-direction:column; align-items:flex-start;}
+      .topbar .contact{text-align:left;}
     }
   </style>
 </head>
 
 <body>
   <div class="app">
+    <!-- ====================== SIDEBAR ====================== -->
     <aside class="sidebar">
       <div class="brand">
         <div class="brand-mark">
+          <!-- NÃO TROCAR O NOME DO ARQUIVO -->
           <img src="IDENTIDADE%20VISUAL%20.png" alt="Logo GISPRAD" class="brand-logo">
         </div>
         <div>
@@ -219,52 +446,362 @@
         </div>
       </div>
 
-      <div class="tabs" role="tablist">
+      <div class="tabs" role="tablist" aria-label="Abas do site">
         <button class="tab-btn" role="tab" aria-selected="true" data-tab="tab-gisprad">GISPRAD</button>
         <button class="tab-btn" role="tab" aria-selected="false" data-tab="tab-projetos">PROJETOS</button>
-        <button class="tab-btn" role="tab" aria-selected="false" data-tab="tab-pubs">PUBLICAÇÕES</button>
+        <button class="tab-btn" role="tab" aria-selected="false" data-tab="tab-pubs">PUBLICAÇÕES (EM CONSTRUÇÃO)</button>
         <button class="tab-btn" role="tab" aria-selected="false" data-tab="tab-integrantes">INTEGRANTES</button>
       </div>
 
-      <div class="search" role="search">
-        <svg class="search-icon" style="width:16px" viewBox="0 0 24 24"><path fill="currentColor" d="M10 2a8 8 0 1 0 4.9 14.3l4.4 4.4 1.4-1.4-4.4-4.4A8 8 0 0 0 10 2Zm0 2a6 6 0 1 1 0 12 6 6 0 0 1 0-12Z"/></svg>
-        <input id="searchInput" type="search" placeholder="Pesquisar...">
+      <!-- Busca -->
+      <div class="search" role="search" aria-label="Pesquisar no site">
+        <!-- Ícone LUPA (SVG) -->
+        <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="currentColor" d="M10 2a8 8 0 1 0 4.9 14.3l4.4 4.4 1.4-1.4-4.4-4.4A8 8 0 0 0 10 2Zm0 2a6 6 0 1 1 0 12 6 6 0 0 1 0-12Z"/>
+        </svg>
+        <input id="searchInput" type="search" placeholder="Pesquisar..." aria-label="Pesquisar">
       </div>
 
+      <!-- Botão tema: sol/lua (SVG) -->
       <div class="theme-row">
-        <button class="btn" id="btn-theme" type="button">
-          <span id="themeIconWrap"></span>
+        <button class="btn icon-only" id="btn-theme" type="button" title="Alternar tema" aria-label="Alternar tema">
+          <span id="themeIconWrap" aria-hidden="true"></span>
         </button>
       </div>
+
+      <small>Edite este arquivo <b>index.html</b> e faça commit. O site atualiza automaticamente.</small>
     </aside>
 
+    <!-- ====================== CONTEÚDO ====================== -->
     <main class="main">
       <div class="topbar">
         <div>
           <p class="title" id="pageTitle">GISPRAD</p>
-          <p class="hint" id="pageHint">Informações institucionais</p>
+          <p class="hint" id="pageHint">Informações institucionais do laboratório</p>
         </div>
         <div class="contact">
-          <b>Contato:</b> contato@gisprad.org
+          <b>Contato:</b> contato@gisprad.org<br>
+          <b>Instagram:</b> @gisprad
         </div>
       </div>
 
-      <section class="panel tab-panel active" id="tab-gisprad">
+      <!-- =============== ABA 1: GISPRAD =============== -->
+      <section class="panel tab-panel active" id="tab-gisprad" role="tabpanel">
         <h2 class="section-title">GISPRAD</h2>
-        <div class="logo-wrap"><img src="IDENTIDADE%20VISUAL%20.png" alt="Logo"></div>
-        <div class="grid" id="mainGrid">
-           </div>
+
+        <div class="logo-wrap">
+          <!-- NÃO TROCAR O NOME DO ARQUIVO -->
+          <img src="IDENTIDADE%20VISUAL%20.png" alt="Identidade visual do GISPRAD">
+        </div>
+
+        <p class="text">
+          O GISPRAD é um laboratório voltado a pesquisa, desenvolvimento e aplicação de soluções em geotecnologias,
+          análise espacial e integração de dados para suporte à tomada de decisão e geração de conhecimento científico.
+        </p>
+
+        <div class="grid">
+          <div class="card">
+            <h3>Linhas de pesquisa</h3>
+            <ul class="list">
+              <li>Geoprocessamento e sensoriamento remoto</li>
+              <li>Análise espacial e modelagem ambiental</li>
+              <li>WebGIS, dashboards e visualização interativa</li>
+              <li>Automação de rotinas (scripts, ETL, relatórios)</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Áreas correlatas</h3>
+            <ul class="list">
+              <li>Conservação e manejo</li>
+              <li>Cartografia e planejamento territorial</li>
+              <li>Ecologia, solo e recursos naturais</li>
+              <li>Ciência de dados aplicada</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Localização</h3>
+            <p>Universidade/Instituição — Cidade/Estado (edite aqui com o endereço completo).</p>
+          </div>
+
+          <div class="card">
+            <h3>Redes sociais e contatos</h3>
+            <p>
+              Email: <b>contato@gisprad.org</b><br>
+              Instagram: <b>@gisprad</b><br>
+              LinkedIn: <b>/company/gisprad</b><br>
+              GitHub: <b>@GISPRAD</b>
+            </p>
+          </div>
+        </div>
       </section>
-      
-      <section class="panel tab-panel" id="tab-projetos"><div class="grid projects" id="projectsGrid"></div></section>
-      <section class="panel tab-panel" id="tab-pubs"><div class="grid pubs" id="pubsGrid"></div></section>
-      <section class="panel tab-panel" id="tab-integrantes"><div class="grid members" id="membersGrid"></div></section>
+
+      <!-- =============== ABA 2: PROJETOS =============== -->
+      <section class="panel tab-panel" id="tab-projetos" role="tabpanel">
+        <h2 class="section-title">PROJETOS</h2>
+        <p class="text">10 projetos em destaque (cartões com espaçamento para facilitar a leitura).</p>
+        <div class="grid projects" id="projectsGrid"></div>
+      </section>
+
+      <!-- =============== ABA 3: PUBLICAÇÕES =============== -->
+      <section class="panel tab-panel" id="tab-pubs" role="tabpanel">
+        <h2 class="section-title">PUBLICAÇÕES (EM CONSTRUÇÃO)</h2>
+        <p class="text">Estrutura pronta para adicionar artigos, livros e capítulos (com links).</p>
+        <div class="grid pubs" id="pubsGrid"></div>
+      </section>
+
+      <!-- =============== ABA 4: INTEGRANTES =============== -->
+      <section class="panel tab-panel" id="tab-integrantes" role="tabpanel">
+        <h2 class="section-title">INTEGRANTES</h2>
+        <p class="text">20 integrantes em cartões individuais (foto, nome, ocupação e links pessoais).</p>
+        <div class="grid members" id="membersGrid"></div>
+      </section>
     </main>
   </div>
 
   <script>
-    /* Mantenha todo o seu código JavaScript original aqui para renderizar os cards e as abas */
-    // ... (Copie o script do seu código original aqui)
+    /* =========================================================
+      SVGs do Sol e da Lua (para o botão de tema)
+    ========================================================== */
+    const SUN_SVG = `
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path fill="currentColor" d="M6.76 4.84 5.35 3.43 3.93 4.85l1.42 1.41 1.41-1.42ZM12 4a1 1 0 0 0 1-1V1h-2v2a1 1 0 0 0 1 1Zm8.07.85-1.42-1.42-1.41 1.41 1.42 1.42 1.41-1.41ZM20 13h2v-2h-2a1 1 0 0 0-1 1 1 1 0 0 0 1 1ZM4 12a1 1 0 0 0-1-1H1v2h2a1 1 0 0 0 1-1Zm14.24 7.16 1.41 1.41 1.42-1.42-1.41-1.41-1.42 1.42ZM12 20a1 1 0 0 0-1 1v2h2v-2a1 1 0 0 0-1-1ZM4.85 20.07l1.41-1.41-1.42-1.42-1.41 1.42 1.42 1.41ZM12 6a6 6 0 1 0 0 12 6 6 0 0 0 0-12Z"/>
+      </svg>
+    `;
+    const MOON_SVG = `
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path fill="currentColor" d="M12.7 2.05a1 1 0 0 0-1.2 1.35 8.5 8.5 0 0 1-8.1 11.6 1 1 0 0 0-.61 1.8A10 10 0 1 0 12.7 2.05Zm1.06 18.93a8 8 0 0 1-8.1-4.42A10.5 10.5 0 0 0 13.44 4.1a8 8 0 0 1 .32 16.88Z"/>
+      </svg>
+    `;
+
+    /* =========================================================
+      1) TEMA (Dia/Noite) + ícone sol/lua
+    ========================================================== */
+    const html = document.documentElement;
+    const btnTheme = document.getElementById("btn-theme");
+    const themeIconWrap = document.getElementById("themeIconWrap");
+
+    function setTheme(theme){
+      html.setAttribute("data-theme", theme);
+      localStorage.setItem("gisprad_theme", theme);
+
+      // No modo escuro, mostra SOL (pra voltar pro claro). No claro, mostra LUA.
+      if(themeIconWrap){
+        themeIconWrap.innerHTML = (theme === "dark") ? SUN_SVG : MOON_SVG;
+      }
+    }
+
+    const savedTheme = localStorage.getItem("gisprad_theme");
+    setTheme(savedTheme || "light");
+
+    btnTheme.addEventListener("click", () => {
+      const current = html.getAttribute("data-theme");
+      setTheme(current === "dark" ? "light" : "dark");
+    });
+
+    /* =========================================================
+      2) ABAS
+    ========================================================== */
+    const tabs = document.querySelectorAll(".tab-btn");
+    const panels = document.querySelectorAll(".tab-panel");
+    const pageTitle = document.getElementById("pageTitle");
+    const pageHint  = document.getElementById("pageHint");
+
+    const meta = {
+      "tab-gisprad": { title:"GISPRAD", hint:"Informações institucionais do laboratório" },
+      "tab-projetos": { title:"PROJETOS", hint:"Projetos desenvolvidos no laboratório" },
+      "tab-pubs": { title:"PUBLICAÇÕES", hint:"Artigos, livros e produções (em construção)" },
+      "tab-integrantes": { title:"INTEGRANTES", hint:"Equipe, pesquisadores e colaboradores" },
+    };
+
+    function activateTab(tabId){
+      tabs.forEach(t => t.setAttribute("aria-selected", String(t.dataset.tab === tabId)));
+      panels.forEach(p => p.classList.toggle("active", p.id === tabId));
+      pageTitle.textContent = meta[tabId].title;
+      pageHint.textContent  = meta[tabId].hint;
+    }
+
+    tabs.forEach(btn => btn.addEventListener("click", () => activateTab(btn.dataset.tab)));
+    activateTab("tab-gisprad"); // padrão
+
+    /* =========================================================
+      3) PROJETOS (10)
+    ========================================================== */
+    const projects = [
+      { title:"Projeto 01 — Monitoramento ambiental", desc:"Integração de dados de campo e satélite para indicadores ambientais e diagnóstico espacial em diferentes escalas." },
+      { title:"Projeto 02 — WebGIS e portais", desc:"Criação de aplicações web para mapas, camadas temáticas e acesso a resultados do laboratório." },
+      { title:"Projeto 03 — Automação de processamento", desc:"Pipelines para ETL, padronização, versionamento e relatórios automáticos (reprodutibilidade)." },
+      { title:"Projeto 04 — Cartografia aplicada", desc:"Produtos cartográficos para planejamento territorial, apoio a projetos e comunicação científica." },
+      { title:"Projeto 05 — Modelagem espacial", desc:"Modelos de predição, interpolação e análise de padrões espaciais para suporte à decisão." },
+      { title:"Projeto 06 — Sensoriamento remoto", desc:"Classificação, índices espectrais, séries temporais e validação em campo para monitoramento." },
+      { title:"Projeto 07 — Inventários e bases", desc:"Estruturação de bancos de dados geográficos e integração com coleta digital." },
+      { title:"Projeto 08 — Indicadores e dashboards", desc:"Dashboards para indicadores de pesquisa e operação, com atualização quando possível." },
+      { title:"Projeto 09 — Análise multitemporal", desc:"Detecção de mudanças e avaliação de tendências ao longo do tempo com dados geoespaciais." },
+      { title:"Projeto 10 — Métodos e validação", desc:"Padronização de metodologias, validação estatística e documentação técnica." },
+    ];
+
+    function renderProjects(){
+      const grid = document.getElementById("projectsGrid");
+      grid.innerHTML = projects.map(p => `
+        <article class="card" data-kind="projeto">
+          <h3>${p.title}</h3>
+          <p>${p.desc}</p>
+        </article>
+      `).join("");
+    }
+
+    /* =========================================================
+      4) PUBLICAÇÕES (exemplo)
+    ========================================================== */
+    const pubs = [
+      { title:"Artigos (exemplos)", items:[
+        {label:"2026 — Título do Artigo A", link:"#"},
+        {label:"2025 — Título do Artigo B", link:"#"},
+        {label:"2025 — Título do Artigo C", link:"#"},
+      ]},
+      { title:"Livros e capítulos (exemplos)", items:[
+        {label:"2025 — Título do Livro", link:"#"},
+        {label:"2024 — Capítulo: Tema X", link:"#"},
+      ]},
+      { title:"Eventos (exemplos)", items:[
+        {label:"2026 — Congresso: Trabalho Y", link:"#"},
+        {label:"2025 — Simpósio: Pôster Z", link:"#"},
+      ]},
+      { title:"Em breve", items:[
+        {label:"Página em construção: em breve com DOI/PDF/links oficiais.", link:"#"},
+      ]},
+    ];
+
+    function renderPubs(){
+      const grid = document.getElementById("pubsGrid");
+      grid.innerHTML = pubs.map(sec => `
+        <article class="card" data-kind="publicacao">
+          <h3>${sec.title}</h3>
+          <ul class="list" style="margin-top:8px;">
+            ${sec.items.map(it => `<li><a href="${it.link}" target="_blank" rel="noopener">${it.label}</a></li>`).join("")}
+          </ul>
+        </article>
+      `).join("");
+    }
+
+    /* =========================================================
+      5) INTEGRANTES (20)
+    ========================================================== */
+    const members = [
+      { name:"Integrante 01", role:"Coordenação", line:"Geoprocessamento e Modelagem", img:"", links:{ linkedin:"#", lattes:"#", scholar:"#"} },
+      { name:"Integrante 02", role:"Pesquisador(a)", line:"Sensoriamento Remoto", img:"", links:{ linkedin:"#", orcid:"#"} },
+      { name:"Integrante 03", role:"Pesquisador(a)", line:"WebGIS e Visualização", img:"", links:{ linkedin:"#", github:"#"} },
+      { name:"Integrante 04", role:"Doutorando(a)", line:"Análise Espacial", img:"", links:{ linkedin:"#"} },
+      { name:"Integrante 05", role:"Doutorando(a)", line:"Modelagem Ambiental", img:"", links:{ scholar:"#"} },
+      { name:"Integrante 06", role:"Mestrando(a)", line:"Cartografia Aplicada", img:"", links:{ linkedin:"#", lattes:"#"} },
+      { name:"Integrante 07", role:"Mestrando(a)", line:"Séries Temporais", img:"", links:{ orcid:"#"} },
+      { name:"Integrante 08", role:"Mestrando(a)", line:"Automação e Pipelines", img:"", links:{ github:"#"} },
+      { name:"Integrante 09", role:"Iniciação Científica", line:"Coleta e Banco de Dados", img:"", links:{ linkedin:"#"} },
+      { name:"Integrante 10", role:"Iniciação Científica", line:"Classificação e Validação", img:"", links:{ linkedin:"#"} },
+      { name:"Integrante 11", role:"Técnico(a)", line:"Geodatabase e QA/QC", img:"", links:{ linkedin:"#"} },
+      { name:"Integrante 12", role:"Colaborador(a)", line:"Planejamento Territorial", img:"", links:{ linkedin:"#"} },
+      { name:"Integrante 13", role:"Colaborador(a)", line:"Ecologia e Conservação", img:"", links:{ scholar:"#"} },
+      { name:"Integrante 14", role:"Pesquisador(a)", line:"Indicadores e Dashboards", img:"", links:{ github:"#", linkedin:"#"} },
+      { name:"Integrante 15", role:"Pesquisador(a)", line:"Inventários e Integração", img:"", links:{ lattes:"#"} },
+      { name:"Integrante 16", role:"Doutorando(a)", line:"Detecção de Mudanças", img:"", links:{ orcid:"#"} },
+      { name:"Integrante 17", role:"Mestrando(a)", line:"Interpolação e Predição", img:"", links:{ scholar:"#"} },
+      { name:"Integrante 18", role:"Iniciação Científica", line:"Cartografia e Produtos", img:"", links:{ linkedin:"#"} },
+      { name:"Integrante 19", role:"Técnico(a)", line:"Processamento e Dados", img:"", links:{ github:"#"} },
+      { name:"Integrante 20", role:"Colaborador(a)", line:"Métodos e Estatística", img:"", links:{ linkedin:"#"} },
+    ];
+
+    function initials(name){
+      const parts = name.trim().split(/\s+/);
+      const a = parts[0]?.[0] || "";
+      const b = parts[1]?.[0] || "";
+      return (a + b).toUpperCase();
+    }
+
+    const icons = {
+      linkedin: `
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="currentColor" d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.95v5.66H9.38V9h3.41v1.56h.05c.48-.9 1.66-1.85 3.42-1.85 3.66 0 4.33 2.41 4.33 5.54v6.2ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12Zm-1.78 13.02h3.55V9H3.56v11.45Z"/>
+        </svg>`,
+      github: `
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="currentColor" d="M12 .5a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.58v-2.2c-3.34.73-4.04-1.42-4.04-1.42-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.74.08-.74 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.5.99.11-.78.42-1.3.76-1.6-2.66-.3-5.46-1.33-5.46-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.17 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.3-1.55 3.3-1.23 3.3-1.23.66 1.65.24 2.87.12 3.17.77.84 1.24 1.91 1.24 3.22 0 4.61-2.8 5.62-5.47 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.22.69.83.58A12 12 0 0 0 12 .5Z"/>
+        </svg>`,
+      scholar: `
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="currentColor" d="M12 3 1 9l11 6 9-4.91V17h2V9L12 3Zm0 14L4.5 12.91V16.5C4.5 18.99 7.91 21 12 21s7.5-2.01 7.5-4.5v-3.59L12 17Z"/>
+        </svg>`,
+      orcid: `
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="currentColor" d="M12 2a10 10 0 1 0 .001 20.001A10 10 0 0 0 12 2Zm-1.65 14.8H8.5V9.2h1.85v7.6Zm-.93-8.46a1.07 1.07 0 1 1 0-2.14 1.07 1.07 0 0 1 0 2.14ZM12 16.8h-1.2V9.2H12c2.44 0 4.2 1.55 4.2 3.8 0 2.25-1.76 3.8-4.2 3.8Zm0-5.95h-.2v4.3H12c1.45 0 2.4-.82 2.4-2.15 0-1.33-.95-2.15-2.4-2.15Z"/>
+        </svg>`,
+      lattes: `
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="currentColor" d="M4 4h16v3H4V4Zm0 5h16v3H4V9Zm0 5h16v3H4v-3Z"/>
+        </svg>`
+    };
+
+    function socialButtons(links){
+      const order = ["linkedin","lattes","scholar","orcid","github"];
+      return order
+        .filter(k => links && links[k])
+        .map(k => `
+          <a class="icon-btn" href="${links[k]}" target="_blank" rel="noopener">
+            ${icons[k] || ""} ${k.toUpperCase()}
+          </a>
+        `).join("");
+    }
+
+    function renderMembers(){
+      const grid = document.getElementById("membersGrid");
+      grid.innerHTML = members.map(m => {
+        const photo = m.img
+          ? `<img class="avatar" src="${m.img}" alt="Foto de ${m.name}">`
+          : `<div class="avatar-fallback" aria-hidden="true">${initials(m.name)}</div>`;
+
+        return `
+          <article class="card" data-kind="integrante">
+            <div class="member">
+              ${photo}
+              <div>
+                <b>${m.name}</b>
+                <small>${m.role} • ${m.line}</small>
+                <div class="social">${socialButtons(m.links)}</div>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    /* =========================================================
+      6) BUSCA (lupa): filtra cartões em Projetos/Publicações/Integrantes
+    ========================================================== */
+    const searchInput = document.getElementById("searchInput");
+
+    function filterCards(query){
+      const q = (query || "").toLowerCase().trim();
+      const grids = ["projectsGrid","pubsGrid","membersGrid"];
+
+      grids.forEach(id => {
+        const grid = document.getElementById(id);
+        if(!grid) return;
+
+        grid.querySelectorAll(".card").forEach(card => {
+          const text = card.textContent.toLowerCase();
+          card.style.display = text.includes(q) ? "" : "none";
+        });
+      });
+    }
+
+    if(searchInput){
+      searchInput.addEventListener("input", (e) => filterCards(e.target.value));
+    }
+
+    // Render inicial
+    renderProjects();
+    renderPubs();
+    renderMembers();
   </script>
 </body>
 </html>
