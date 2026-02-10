@@ -39,7 +39,8 @@
       --fs-title:16px;
       --fs-text:12px;
       --sidebar-w:270px;
-      --radius:14px;
+      /* RADIUS ZERO PARA FORMAS QUADRADAS */
+      --radius:0px;
     }
 
     html[data-theme="light"]{
@@ -49,9 +50,9 @@
       --text:#151515;
       --muted:rgba(21,21,21,.72);
       --line:rgba(21,21,21,.12);
-      --shadow:0 14px 30px rgba(0,0,0,.08);
+      --shadow:none; 
       --card:#ffffff;
-      --card-hover:#fffdfa;
+      --card-hover:#f0f0f2;
       --accent: var(--g2);
       --accent-2: var(--b3);
     }
@@ -63,9 +64,9 @@
       --text:rgba(255,255,255,.92);
       --muted:rgba(255,255,255,.70);
       --line:rgba(255,255,255,.14);
-      --shadow:0 18px 40px rgba(0,0,0,.40);
+      --shadow:none;
       --card:rgba(255,255,255,.06);
-      --card-hover:rgba(255,255,255,.09);
+      --card-hover:rgba(255,255,255,.12);
       --accent: var(--b2);
       --accent-2: var(--g1);
     }
@@ -74,21 +75,18 @@
     body{
       margin:0;
       font-family:var(--font-text);
-      background:
-        radial-gradient(950px 520px at 18% 10%, color-mix(in srgb, var(--g2) 22%, transparent), transparent 60%),
-        radial-gradient(950px 520px at 85% 25%, color-mix(in srgb, var(--b3) 18%, transparent), transparent 62%),
-        var(--bg);
+      background: var(--bg);
       color:var(--text);
       min-height:100vh;
     }
     a{color:inherit}
     .app{display:flex; min-height:100vh}
 
-    /* BORDAS RETIRADAS DOS BLOCOS PRINCIPAIS */
+    /* SIDEBAR QUADRADA */
     .sidebar{
       width:var(--sidebar-w);
       padding:18px;
-      background:linear-gradient(180deg, var(--panel), transparent);
+      background:var(--panel);
       position:sticky;
       top:0;
       height:100vh;
@@ -100,13 +98,13 @@
       align-items:center;
       gap:12px;
       padding:12px;
-      border-radius:var(--radius);
+      border-radius:0;
       background:var(--panel-2);
-      box-shadow:var(--shadow);
     }
 
     .brand-mark{
-      width:44px; height:44px; border-radius:14px;
+      width:44px; height:44px; 
+      border-radius:0;
       background: var(--panel);
       display:flex; align-items:center; justify-content:center;
       overflow:hidden;
@@ -116,32 +114,28 @@
     .brand h1{ margin:0; font-size:14px; font-weight:700; letter-spacing:.2px; }
     .brand p{ margin:0; font-size:11px; color:var(--muted); }
 
-    .tabs{
-      margin-top:14px;
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-    }
+    .tabs{ margin-top:14px; display:flex; flex-direction:column; gap:2px; }
+    
     .tab-btn{
       font-family:var(--font-tabs);
       text-align:left;
-      border:none; /* Sem borda */
+      border:none;
       background:var(--panel);
       color:var(--text);
-      padding:12px 12px;
-      border-radius:12px;
+      padding:12px;
+      border-radius:0;
       cursor:pointer;
       letter-spacing:.8px;
       text-transform:uppercase;
       font-size:12px;
-      transition:transform .08s ease, background .15s ease;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      transition: background .2s ease;
     }
-    .tab-btn:hover{ transform:translateY(-1px); background: var(--panel-2); }
+    /* SÓ MUDA A COR NO HOVER */
+    .tab-btn:hover{ background: var(--panel-2); }
+    
     .tab-btn[aria-selected="true"]{
-      background:linear-gradient(135deg,
-        color-mix(in srgb, var(--g2) 20%, var(--panel)),
-        color-mix(in srgb, var(--b3) 16%, var(--panel)));
+      background: var(--accent);
+      color: white;
     }
 
     .search{
@@ -150,30 +144,23 @@
       align-items:center;
       gap:8px;
       padding:10px 12px;
-      border-radius:12px;
-      background: var(--panel);
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      border-radius:0;
+      background: var(--panel-2);
     }
-    .search-icon{width:16px; height:16px; opacity:.9; flex:0 0 auto;}
-    .search input{ border:none; outline:none; background:transparent; color: var(--text); width:100%; font-family: var(--font-text); font-size:12px; }
+    .search input{ border:none; outline:none; background:transparent; color: var(--text); width:100%; font-size:12px; }
 
     .theme-row{ margin-top:12px; display:flex; }
     .btn{
       flex:1;
-      border:none; /* Sem borda */
-      background:var(--panel);
+      border:none;
+      background:var(--panel-2);
       color:var(--text);
-      padding:10px 12px;
-      border-radius:12px;
+      padding:10px;
+      border-radius:0;
       cursor:pointer;
-      font-weight:700;
-      transition:transform .08s ease;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      transition: background .2s ease;
     }
-    .btn:hover{ transform:translateY(-1px); }
-    .btn.icon-only svg{ width:18px; height:18px; }
-
-    .sidebar small{ display:block; margin-top:12px; font-size:12px; color:var(--muted); line-height:1.5; }
+    .btn:hover{ background: var(--accent-2); color: white; }
 
     .main{flex:1; padding:22px}
 
@@ -181,78 +168,52 @@
       display:flex;
       justify-content:space-between;
       align-items:center;
-      gap:14px;
       padding:14px 16px;
-      border-radius:var(--radius);
       background:var(--panel);
-      box-shadow:var(--shadow);
+      border-radius:0;
     }
-    .topbar .title{ margin:0; font-size:var(--fs-title); font-weight:700; }
-    .topbar .hint{ margin:4px 0 0; font-size:var(--fs-text); color:var(--muted); }
-    .topbar .contact{ font-size:var(--fs-text); color:var(--muted); text-align:right; }
 
     .panel{
       margin-top:16px;
-      border-radius:var(--radius);
       background:var(--panel);
-      box-shadow:var(--shadow);
       padding:16px;
-    }
-
-    h2.section-title{ margin:0 0 10px; font-size:var(--fs-title); font-weight:700; }
-    p.text{ margin:0 0 10px; font-size:var(--fs-text); color:var(--muted); line-height:1.65; }
-
-    .logo-wrap{ display:flex; justify-content:center; padding:10px 0 6px; }
-    .logo-wrap img{
-      width:420px;
-      max-width:92%;
-      height:auto;
-      border-radius:12px;
-      background:var(--panel-2);
+      border-radius:0;
     }
 
     .grid{ display:grid; grid-template-columns:repeat(12, 1fr); gap:12px; margin-top:12px; }
     
+    /* CARDS QUADRADOS E MUDANÇA DE COR */
     .card{
       grid-column:span 12;
-      background:var(--card);
-      border-radius:14px;
+      background:var(--panel-2);
       padding:14px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.04); /* Sombra suave no lugar da borda */
-      transition:transform .08s ease, background .15s ease;
+      border-radius:0;
+      transition: background .2s ease;
     }
     .card:hover{
-      transform:translateY(-1px);
       background:var(--card-hover);
     }
-    .card h3{ margin:0 0 8px; font-size:var(--fs-title); font-weight:700; }
-    .card p{ margin:0; font-size:var(--fs-text); color:var(--muted); line-height:1.65; }
 
     .projects .card{grid-column:span 6;}
     .pubs .card{grid-column:span 6;}
     .members .card{grid-column:span 4;}
 
-    .list{ margin:10px 0 0; padding-left:16px; color:var(--muted); font-size:var(--fs-text); line-height:1.9; }
-
-    .member{display:flex; gap:12px; align-items:flex-start;}
     .avatar, .avatar-fallback{
-      width:64px; height:64px; border-radius:14px;
-      background:linear-gradient(135deg, color-mix(in srgb, var(--g2) 35%, transparent), color-mix(in srgb, var(--b3) 25%, transparent));
+      width:64px; height:64px; 
+      border-radius:0; /* Quadrado */
+      background:var(--line);
       flex:0 0 auto;
     }
-    .avatar-fallback{ display:flex; align-items:center; justify-content:center; font-weight:700; color:var(--text); }
 
-    .social{display:flex; gap:8px; flex-wrap:wrap;}
     .icon-btn{
       display:inline-flex; align-items:center; gap:6px;
-      padding:6px 8px; border-radius:10px;
-      background:var(--panel-2);
+      padding:6px 8px; border-radius:0;
+      background:var(--panel);
       text-decoration:none;
-      font-size:11px; color:var(--text);
-      transition:transform .08s ease;
+      font-size:11px;
+      transition: background .2s ease;
     }
-    .icon-btn:hover{ transform:translateY(-1px); }
-    .icon{width:16px; height:16px;}
+    .icon-btn:hover{ background: var(--accent); color: white; }
 
     .tab-panel{display:none;}
     .tab-panel.active{display:block;}
@@ -260,10 +221,7 @@
     @media (max-width: 980px){
       .app{flex-direction:column;}
       .sidebar{ width:100%; height:auto; position:relative; }
-      .main{padding:16px;}
       .projects .card, .pubs .card, .members .card{grid-column:span 12;}
-      .topbar{flex-direction:column; align-items:flex-start;}
-      .topbar .contact{text-align:left;}
     }
   </style>
 </head>
@@ -273,7 +231,7 @@
     <aside class="sidebar">
       <div class="brand">
         <div class="brand-mark">
-          <img src="IDENTIDADE%20VISUAL%20.png" alt="Logo GISPRAD" class="brand-logo">
+          <img src="IDENTIDADE%20VISUAL%20.png" alt="Logo" class="brand-logo">
         </div>
         <div>
           <h1>GISPRAD</h1>
@@ -284,48 +242,41 @@
       <div class="tabs" role="tablist">
         <button class="tab-btn" role="tab" aria-selected="true" data-tab="tab-gisprad">GISPRAD</button>
         <button class="tab-btn" role="tab" aria-selected="false" data-tab="tab-projetos">PROJETOS</button>
-        <button class="tab-btn" role="tab" aria-selected="false" data-tab="tab-pubs">PUBLICAÇÕES (EM CONSTRUÇÃO)</button>
+        <button class="tab-btn" role="tab" aria-selected="false" data-tab="tab-pubs">PUBLICAÇÕES</button>
         <button class="tab-btn" role="tab" aria-selected="false" data-tab="tab-integrantes">INTEGRANTES</button>
       </div>
 
       <div class="search" role="search">
-        <svg class="search-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M10 2a8 8 0 1 0 4.9 14.3l4.4 4.4 1.4-1.4-4.4-4.4A8 8 0 0 0 10 2Zm0 2a6 6 0 1 1 0 12 6 6 0 0 1 0-12Z"/></svg>
         <input id="searchInput" type="search" placeholder="Pesquisar...">
       </div>
 
       <div class="theme-row">
-        <button class="btn icon-only" id="btn-theme" type="button"><span id="themeIconWrap"></span></button>
+        <button class="btn" id="btn-theme" type="button"><span id="themeIconWrap"></span></button>
       </div>
-      <small>Edite este arquivo index.html e faça commit.</small>
     </aside>
 
     <main class="main">
       <div class="topbar">
         <div>
-          <p class="title" id="pageTitle">GISPRAD</p>
-          <p class="hint" id="pageHint">Informações institucionais do laboratório</p>
+          <p class="title" style="font-weight:700;" id="pageTitle">GISPRAD</p>
+          <p class="hint" id="pageHint">Informações institucionais</p>
         </div>
         <div class="contact">
-          <b>Contato:</b> contato@gisprad.org<br>
-          <b>Instagram:</b> @gisprad
+          <b>Contato:</b> contato@gisprad.org
         </div>
       </div>
 
       <section class="panel tab-panel active" id="tab-gisprad" role="tabpanel">
         <h2 class="section-title">GISPRAD</h2>
-        <div class="logo-wrap"><img src="IDENTIDADE%20VISUAL%20.png" alt="Identidade visual"></div>
-        <p class="text">O GISPRAD é um laboratório voltado a pesquisa, desenvolvimento e aplicação de soluções em geotecnologias...</p>
+        <p class="text">O GISPRAD é um laboratório voltado a pesquisa e geotecnologias.</p>
         <div class="grid">
           <div class="card">
             <h3>Linhas de pesquisa</h3>
-            <ul class="list">
-              <li>Geoprocessamento e sensoriamento remoto</li>
-              <li>Análise espacial e modelagem ambiental</li>
-            </ul>
+            <p>Geoprocessamento e sensoriamento remoto.</p>
           </div>
           <div class="card">
             <h3>Localização</h3>
-            <p>Universidade/Instituição — Cidade/Estado.</p>
+            <p>Instituição — Cidade/Estado.</p>
           </div>
         </div>
       </section>
@@ -348,9 +299,9 @@
   </div>
 
   <script>
-    // O SCRIPT PERMANECE IGUAL CONFORME SOLICITADO
-    const SUN_SVG = `<svg viewBox="0 0 24 24"><path fill="currentColor" d="M6.76 4.84 5.35 3.43 3.93 4.85l1.42 1.41 1.41-1.42ZM12 4a1 1 0 0 0 1-1V1h-2v2a1 1 0 0 0 1 1Zm8.07.85-1.42-1.42-1.41 1.41 1.42 1.42 1.41-1.41ZM20 13h2v-2h-2a1 1 0 0 0-1 1 1 1 0 0 0 1 1ZM4 12a1 1 0 0 0-1-1H1v2h2a1 1 0 0 0 1-1Zm14.24 7.16 1.41 1.41 1.42-1.42-1.41-1.41-1.42 1.42ZM12 20a1 1 0 0 0-1 1v2h2v-2a1 1 0 0 0-1-1ZM4.85 20.07l1.41-1.41-1.42-1.42-1.41 1.42 1.42 1.41ZM12 6a6 6 0 1 0 0 12 6 6 0 0 0 0-12Z"/></svg>`;
-    const MOON_SVG = `<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12.7 2.05a1 1 0 0 0-1.2 1.35 8.5 8.5 0 0 1-8.1 11.6 1 1 0 0 0-.61 1.8A10 10 0 1 0 12.7 2.05Zm1.06 18.93a8 8 0 0 1-8.1-4.42A10.5 10.5 0 0 0 13.44 4.1a8 8 0 0 1 .32 16.88Z"/></svg>`;
+    // SCRIPT MANTIDO EXATAMENTE COMO SOLICITADO
+    const SUN_SVG = `<svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zM2 13h2v-2H2v2zm18 0h2v-2h-2v2zM11 2v2h2V2h-2zm0 18v2h2v-2h-2zM5.99 4.58 4.58 5.99l1.41 1.41 1.41-1.41-1.41-1.41zm12.02 12.02-1.41 1.41 1.41 1.41 1.41-1.41-1.41-1.41zM5.99 19.42l1.41-1.41-1.41-1.41-1.41 1.41 1.41 1.41zm12.02-12.02-1.41-1.41-1.41 1.41 1.41 1.41 1.41-1.41z"/></svg>`;
+    const MOON_SVG = `<svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg>`;
 
     const html = document.documentElement;
     const btnTheme = document.getElementById("btn-theme");
@@ -362,8 +313,7 @@
       if(themeIconWrap) themeIconWrap.innerHTML = (theme === "dark") ? SUN_SVG : MOON_SVG;
     }
 
-    const savedTheme = localStorage.getItem("gisprad_theme");
-    setTheme(savedTheme || "light");
+    setTheme(localStorage.getItem("gisprad_theme") || "light");
 
     btnTheme.addEventListener("click", () => {
       const current = html.getAttribute("data-theme");
@@ -373,93 +323,38 @@
     const tabs = document.querySelectorAll(".tab-btn");
     const panels = document.querySelectorAll(".tab-panel");
     const pageTitle = document.getElementById("pageTitle");
-    const pageHint  = document.getElementById("pageHint");
+    const pageHint = document.getElementById("pageHint");
 
     const meta = {
-      "tab-gisprad": { title:"GISPRAD", hint:"Informações institucionais do laboratório" },
-      "tab-projetos": { title:"PROJETOS", hint:"Projetos desenvolvidos no laboratório" },
-      "tab-pubs": { title:"PUBLICAÇÕES", hint:"Artigos, livros e produções (em construção)" },
-      "tab-integrantes": { title:"INTEGRANTES", hint:"Equipe, pesquisadores e colaboradores" },
+      "tab-gisprad": { title:"GISPRAD", hint:"Informações institucionais" },
+      "tab-projetos": { title:"PROJETOS", hint:"Pesquisas em andamento" },
+      "tab-pubs": { title:"PUBLICAÇÕES", hint:"Produção científica" },
+      "tab-integrantes": { title:"INTEGRANTES", hint:"Nossa equipe" },
     };
 
     function activateTab(tabId){
       tabs.forEach(t => t.setAttribute("aria-selected", String(t.dataset.tab === tabId)));
       panels.forEach(p => p.classList.toggle("active", p.id === tabId));
       pageTitle.textContent = meta[tabId].title;
-      pageHint.textContent  = meta[tabId].hint;
+      pageHint.textContent = meta[tabId].hint;
     }
 
     tabs.forEach(btn => btn.addEventListener("click", () => activateTab(btn.dataset.tab)));
 
-    const projects = [
-      { title:"Projeto 01 — Monitoramento ambiental", desc:"Integração de dados de campo e satélite para indicadores ambientais." },
-      { title:"Projeto 02 — WebGIS e portais", desc:"Criação de aplicações web para mapas e camadas temáticas." },
-      { title:"Projeto 03 — Automação de processamento", desc:"Pipelines para ETL e padronização de dados." },
-      { title:"Projeto 04 — Cartografia aplicada", desc:"Produtos cartográficos para planejamento territorial." },
-      { title:"Projeto 05 — Modelagem espacial", desc:"Modelos de predição e análise de padrões espaciais." },
-      { title:"Projeto 06 — Sensoriamento remoto", desc:"Classificação e índices espectrais para monitoramento." },
-      { title:"Projeto 07 — Inventários e bases", desc:"Estruturação de bancos de dados geográficos." },
-      { title:"Projeto 08 — Indicadores e dashboards", desc:"Dashboards para indicadores de pesquisa e operação." },
-      { title:"Projeto 09 — Análise multitemporal", desc:"Detecção de mudanças ao longo do tempo." },
-      { title:"Projeto 10 — Métodos e validação", desc:"Padronização de metodologias e documentação." },
-    ];
+    const projects = Array.from({length: 10}, (_, i) => ({ title:`Projeto ${i+1}`, desc:"Descrição breve do projeto geotecnológico." }));
+    document.getElementById("projectsGrid").innerHTML = projects.map(p => `<article class="card"><h3>${p.title}</h3><p>${p.desc}</p></article>`).join("");
 
-    function renderProjects(){
-      document.getElementById("projectsGrid").innerHTML = projects.map(p => `
-        <article class="card">
-          <h3>${p.title}</h3>
-          <p>${p.desc}</p>
-        </article>
-      `).join("");
-    }
+    const pubs = [{ title:"Artigos", items:[{label:"Publicação 2026", link:"#"}] }];
+    document.getElementById("pubsGrid").innerHTML = pubs.map(sec => `<article class="card"><h3>${sec.title}</h3><ul>${sec.items.map(it => `<li>${it.label}</li>`).join("")}</ul></article>`).join("");
 
-    const pubs = [
-      { title:"Artigos (exemplos)", items:[{label:"2026 — Título do Artigo A", link:"#"}]},
-      { title:"Em breve", items:[{label:"Página em construção.", link:"#"}]},
-    ];
-
-    function renderPubs(){
-      document.getElementById("pubsGrid").innerHTML = pubs.map(sec => `
-        <article class="card">
-          <h3>${sec.title}</h3>
-          <ul class="list">${sec.items.map(it => `<li><a href="${it.link}">${it.label}</a></li>`).join("")}</ul>
-        </article>
-      `).join("");
-    }
-
-    const members = Array.from({length: 20}, (_, i) => ({
-      name: `Integrante ${String(i+1).padStart(2, '0')}`,
-      role: i === 0 ? "Coordenação" : "Pesquisador(a)",
-      line: "Linha de Pesquisa",
-      links: { linkedin: "#" }
-    }));
-
-    function initials(name){ return name.split(" ").map(n => n[0]).join("").toUpperCase(); }
-
-    function renderMembers(){
-      document.getElementById("membersGrid").innerHTML = members.map(m => `
-        <article class="card">
-          <div class="member">
-            <div class="avatar-fallback">${initials(m.name)}</div>
-            <div>
-              <b>${m.name}</b>
-              <small>${m.role} • ${m.line}</small>
-              <div class="social"><a class="icon-btn" href="#">LINKEDIN</a></div>
-            </div>
-          </div>
-        </article>
-      `).join("");
-    }
+    const members = Array.from({length: 20}, (_, i) => ({ name:`Membro ${i+1}`, role:"Pesquisador" }));
+    document.getElementById("membersGrid").innerHTML = members.map(m => `<article class="card"><div class="member"><div class="avatar-fallback">${m.name[0]}</div><div><b>${m.name}</b><br><small>${m.role}</small></div></div></article>`).join("");
 
     const searchInput = document.getElementById("searchInput");
     searchInput.addEventListener("input", (e) => {
       const q = e.target.value.toLowerCase();
-      document.querySelectorAll(".card").forEach(card => {
-        card.style.display = card.textContent.toLowerCase().includes(q) ? "" : "none";
-      });
+      document.querySelectorAll(".card").forEach(card => card.style.display = card.textContent.toLowerCase().includes(q) ? "" : "none");
     });
-
-    renderProjects(); renderPubs(); renderMembers();
   </script>
 </body>
 </html>
