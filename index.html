@@ -33,7 +33,7 @@
       --fs-title:16px;
       --fs-text:12px;
       --sidebar-w:270px;
-      --radius:0px;
+      --radius:0px; /* Estilo Quadrado solicitado */
     }
 
     html[data-theme="light"]{
@@ -72,7 +72,7 @@
     .brand{ display:flex; align-items:center; gap:12px; padding:12px; background:var(--panel-2); }
     .brand-mark{ width:44px; height:44px; background: var(--panel); display:flex; align-items:center; justify-content:center; overflow:hidden; }
     .brand-logo{ width:100%; height:100%; object-fit: cover; }
-    .brand h1{ margin:0; font-size:14px; font-weight:700; }
+    .brand h1{ margin:0; font-size:14px; font-weight:700; letter-spacing:.2px; }
     .brand p{ margin:0; font-size:11px; color:var(--muted); }
 
     .tabs{ margin-top:14px; display:flex; flex-direction:column; gap:2px; }
@@ -94,18 +94,18 @@
 
     .grid{ display:grid; grid-template-columns:repeat(12, 1fr); gap:16px; }
     
-    /* CARD INTEGRANTE AUMENTADO */
-    .card{ grid-column:span 12; background:var(--panel-2); padding:20px; transition: background .2s; }
+    /* CARDS */
+    .card{ grid-column:span 12; background:var(--panel-2); padding:20px; transition: background .2s; border: none; }
     .card:hover{ background:var(--card-hover); }
 
     .projects .card{ grid-column:span 6; }
     
-    /* INTEGRANTES AGORA OCUPAM 6 COLUNAS (2 por linha) */
+    /* INTEGRANTES AMPLIADOS (2 por linha) */
     .members .card{ grid-column:span 6; }
 
     .member{ display:flex; gap:16px; align-items:center; }
     
-    /* AVATAR AUMENTADO */
+    /* AVATAR QUADRADO AMPLIADO */
     .avatar-fallback{ 
         width:70px; height:70px; 
         background:var(--line); 
@@ -116,7 +116,7 @@
     .member-info b{ font-size:15px; display:block; line-height:1.2; margin-bottom: 2px; }
     .member-info small{ color:var(--muted); font-size:13px; display: block; margin-bottom: 6px; }
 
-    /* ÍCONE LINKEDIN */
+    /* LINKEDIN */
     .ln-link{ display: inline-flex; color: var(--muted); transition: color .2s; }
     .ln-link:hover{ color: #0077b5; }
     .ln-link svg{ width: 18px; height: 18px; }
@@ -140,16 +140,17 @@
   <div class="app">
     <aside class="sidebar">
       <div class="brand">
-        <div class="brand-mark"><img src="IDENTIDADE%20VISUAL%20.png" class="brand-logo"></div>
+        <div class="brand-mark"><img src="IDENTIDADE%20VISUAL%20.png" class="brand-logo" alt="Logo"></div>
         <div>
           <h1>GISPRAD</h1>
-          <p>Laboratório de Pesquisa</p>
+          <p>Laboratório • Institucional</p>
         </div>
       </div>
 
       <div class="tabs" role="tablist">
         <button class="tab-btn" role="tab" aria-selected="true" data-tab="tab-gisprad">GISPRAD</button>
         <button class="tab-btn" role="tab" aria-selected="false" data-tab="tab-projetos">PROJETOS</button>
+        <button class="tab-btn" role="tab" aria-selected="false" data-tab="tab-pubs">PUBLICAÇÕES</button>
         <button class="tab-btn" role="tab" aria-selected="false" data-tab="tab-integrantes">INTEGRANTES</button>
       </div>
 
@@ -159,53 +160,91 @@
 
     <main class="main">
       <div class="topbar">
-        <div><p id="pageTitle" style="font-weight:700; margin:0; font-size: 18px;">GISPRAD</p></div>
-        <div style="font-size:12px;">contato@gisprad.org</div>
+        <div>
+            <p id="pageTitle" style="font-weight:700; margin:0; font-size: 18px;">GISPRAD</p>
+            <p id="pageHint" style="margin:0; font-size:11px; color:var(--muted);">Informações institucionais</p>
+        </div>
+        <div style="font-size:12px; text-align: right;">
+            <b>Contato:</b> contato@gisprad.org<br>
+            <b>Instagram:</b> @gisprad
+        </div>
       </div>
 
       <section class="panel tab-panel active" id="tab-gisprad">
-        <h2>Início</h2>
-        <p>Bem-vindo ao GISPRAD. Explore nossa equipe e projetos no menu lateral.</p>
+        <h2>Laboratório GISPRAD</h2>
+        <p>O GISPRAD é um laboratório voltado a pesquisa, desenvolvimento e aplicação de soluções em geotecnologias, análise espacial e integração de dados para suporte à tomada de decisão.</p>
+        
+        <div class="grid">
+            <div class="card">
+                <h3>Linhas de pesquisa</h3>
+                <p>Geoprocessamento, Sensoriamento Remoto, WebGIS e Automação de Dados Ambientais.</p>
+            </div>
+            <div class="card">
+                <h3>Localização</h3>
+                <p>Edite aqui com o endereço completo da instituição.</p>
+            </div>
+        </div>
       </section>
 
       <section class="panel tab-panel" id="tab-projetos">
-        <h2>PROJETOS</h2>
+        <h2>Projetos em Destaque</h2>
         <div class="grid projects" id="projectsGrid"></div>
       </section>
 
+      <section class="panel tab-panel" id="tab-pubs">
+        <h2>Publicações</h2>
+        <div class="grid pubs" id="pubsGrid"></div>
+      </section>
+
       <section class="panel tab-panel" id="tab-integrantes">
-        <h2 style="margin-bottom: 20px;">EQUIPE GISPRAD</h2>
+        <h2 style="margin-bottom: 20px;">Equipe</h2>
         <div class="grid members" id="membersGrid"></div>
       </section>
     </main>
   </div>
 
   <script>
-    const SUN_SVG = `<svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zM11 2v2h2V2h-2zm0 18v2h2v-2h-2z"/></svg>`;
+    // TEMA
+    const SUN_SVG = `<svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zM11 2v2h2V2h-2zM11 20v2h2v-2h-2z"/></svg>`;
     const MOON_SVG = `<svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg>`;
     const LINKEDIN_SVG = `<svg viewBox="0 0 24 24"><path fill="currentColor" d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a2.7 2.7 0 0 0-2.7-2.7c-1.2 0-2.3 1.1-2.3 1.1V10h-2.5v8.5h2.5v-4.8c0-.6.5-1.1 1.1-1.1.6 0 1.1.5 1.1 1.1v4.8h2.6M6.8 10h2.5v8.5H6.8V10m1.2-1.2c.8 0 1.5-.7 1.5-1.5a1.5 1.5 0 0 0-3 0c0 .8.7 1.5 1.5 1.5Z"/></svg>`;
 
     const html = document.documentElement;
     const themeIconWrap = document.getElementById("themeIconWrap");
     function setTheme(t){ html.setAttribute("data-theme", t); themeIconWrap.innerHTML = t === "dark" ? SUN_SVG : MOON_SVG; }
-    setTheme("light");
-    document.getElementById("btn-theme").onclick = () => setTheme(html.getAttribute("data-theme") === "dark" ? "light" : "dark");
+    setTheme(localStorage.getItem("gisprad_theme") || "light");
+    document.getElementById("btn-theme").onclick = () => {
+        const newTheme = html.getAttribute("data-theme") === "dark" ? "light" : "dark";
+        setTheme(newTheme);
+        localStorage.setItem("gisprad_theme", newTheme);
+    };
+
+    // NAVEGAÇÃO
+    const meta = {
+      "tab-gisprad": { title:"GISPRAD", hint:"Informações institucionais" },
+      "tab-projetos": { title:"PROJETOS", hint:"Pesquisas em desenvolvimento" },
+      "tab-pubs": { title:"PUBLICAÇÕES", hint:"Produção acadêmica e técnica" },
+      "tab-integrantes": { title:"INTEGRANTES", hint:"Equipe e pesquisadores" },
+    };
 
     document.querySelectorAll(".tab-btn").forEach(btn => {
       btn.onclick = () => {
         document.querySelectorAll(".tab-btn").forEach(b => b.setAttribute("aria-selected", "false"));
         document.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
         btn.setAttribute("aria-selected", "true");
-        document.getElementById(btn.dataset.tab).classList.add("active");
-        document.getElementById("pageTitle").textContent = btn.textContent;
+        const tid = btn.dataset.tab;
+        document.getElementById(tid).classList.add("active");
+        document.getElementById("pageTitle").textContent = meta[tid].title;
+        document.getElementById("pageHint").textContent = meta[tid].hint;
       }
     });
 
+    // LISTA DE INTEGRANTES ATUALIZADA
     const members = [
       { name: "Álvaro P. Berghetti", role: "Professor", link: "#" },
       { name: "Viviane Maia Corrêa", role: "Doutorado", link: "#" },
       { name: "Cleberson Porath", role: "Mestrado", link: "#" },
-      { name: "Eduardo Praxedes Bonfim Raymundo", role: "Mestrado", link: "#" },
+      { name: "Eduardo Praxedes B. Raymundo", role: "Mestrado", link: "#" },
       { name: "Julia Silva Rodrigues", role: "Mestrado", link: "#" },
       { name: "Juliana Hoepers M. Tedesco", role: "Mestrado", link: "#" },
       { name: "Kemelyn Hack Pires", role: "Mestrado", link: "#" },
@@ -216,7 +255,7 @@
       { name: "Alonso Cortés do Amaral", role: "Graduação", link: "#" },
       { name: "Carolina Pulido Arce", role: "Graduação", link: "#" },
       { name: "Dheimilly Krachinski", role: "Graduação", link: "#" },
-      { name: "Eduarda Cristina Moraes dos Santos", role: "Graduação", link: "#" },
+      { name: "Eduarda Cristina M. dos Santos", role: "Graduação", link: "#" },
       { name: "Francisco Erê Consani Steidle", role: "Graduação", link: "#" },
       { name: "Gabriel de Oliveira Bonfim Araujo", role: "Graduação", link: "#" },
       { name: "Heitor do Nascimento Moreira", role: "Graduação", link: "#" },
@@ -235,14 +274,24 @@
           <div class="member-info">
             <b>${m.name}</b>
             <small>${m.role}</small>
-            <a href="${m.link}" class="ln-link" target="_blank">${LINKEDIN_SVG}</a>
+            <a href="${m.link}" class="ln-link" target="_blank" title="LinkedIn">${LINKEDIN_SVG}</a>
           </div>
         </div>
       </article>
     `).join("");
 
-    document.getElementById("projectsGrid").innerHTML = Array.from({length: 4}, (_, i) => `<article class="card"><h3>Projeto ${i+1}</h3><p>Pesquisa institucional.</p></article>`).join("");
+    // PROJETOS (Exemplos)
+    const projects = [
+      { title: "Monitoramento Ambiental", desc: "Uso de sensoriamento remoto para análise de mudanças no solo." },
+      { title: "WebGIS Institucional", desc: "Desenvolvimento de plataforma interativa para visualização de dados espaciais." },
+      { title: "Automação ETL", desc: "Scripts para processamento automático de grandes volumes de dados geoespaciais." }
+    ];
+    document.getElementById("projectsGrid").innerHTML = projects.map(p => `<article class="card"><h3>${p.title}</h3><p>${p.desc}</p></article>`).join("");
 
+    // PUBLICAÇÕES (Exemplos)
+    document.getElementById("pubsGrid").innerHTML = `<article class="card"><h3>Artigos e Produções</h3><p>Estrutura pronta para listar sua produção científica.</p></article>`;
+
+    // BUSCA
     document.getElementById("searchInput").oninput = (e) => {
       const q = e.target.value.toLowerCase();
       document.querySelectorAll(".card").forEach(c => c.style.display = c.textContent.toLowerCase().includes(q) ? "" : "none");
