@@ -16,13 +16,14 @@
       --sidebar-w: 270px;
     }
 
+    /* Animação de entrada */
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
     }
-
     .animate-fade { animation: fadeIn 0.4s ease forwards; }
 
+    /* =============== TEMAS COM TRANSPARÊNCIA =============== */
     html[data-theme="light"] {
       --bg: #f0f2f5;
       --glass-panel: rgba(255, 255, 255, 0.7);
@@ -43,7 +44,8 @@
       --accent: var(--b2);
     }
 
-    * { box-sizing: border-box; border-radius: 0 !important; } 
+    /* =============== BASE (QUADRADA) =============== */
+    * { box-sizing: border-box; border-radius: 0 !important; border: none; } 
     
     body {
       margin: 0; font-family: var(--font-text); color: var(--text); min-height: 100vh;
@@ -56,55 +58,53 @@
 
     .app { display: flex; min-height: 100vh; }
 
+    /* =============== SIDEBAR =============== */
     .sidebar {
       width: var(--sidebar-w); padding: 25px 20px;
       backdrop-filter: blur(10px); background: var(--glass-panel);
       position: sticky; top: 0; height: 100vh;
     }
 
-    .brand { padding-bottom: 30px; border-bottom: 1px solid rgba(128,128,128,0.1); margin-bottom: 20px; }
+    .brand { padding-bottom: 20px; border-bottom: 1px solid rgba(128,128,128,0.1); margin-bottom: 20px; }
     .brand h1 { margin: 0; font-size: 22px; font-weight: 700; letter-spacing: -0.5px; }
 
     .tabs { display: flex; flex-direction: column; gap: 4px; }
-    
     .tab-btn {
-      border: none; background: transparent; color: var(--text);
-      padding: 15px; text-align: left; cursor: pointer;
-      font-size: 13px; font-weight: 700; /* NEGRITO NOS TÍTULOS */
-      text-transform: uppercase;
+      background: transparent; color: var(--text); padding: 15px; text-align: left; 
+      cursor: pointer; font-size: 13px; font-weight: 700; text-transform: uppercase;
       transition: all 0.2s;
     }
     .tab-btn:hover { background: rgba(128,128,128,0.05); }
     .tab-btn[aria-selected="true"] { background: var(--accent); color: #fff; }
 
-    .btn-theme {
-      margin-top: 20px; width: 100%; border: 1px solid var(--muted);
-      background: transparent; color: var(--text); padding: 10px;
-      cursor: pointer; font-size: 11px; font-weight: 700;
+    /* Busca */
+    .search-box {
+      margin-top: 15px; background: rgba(128,128,128,0.08);
+      display: flex; align-items: center; padding: 10px;
+    }
+    .search-box input {
+      background: transparent; color: var(--text); font-size: 12px; width: 100%; outline: none;
     }
 
+    .btn-theme {
+      margin-top: 20px; width: 100%; background: var(--glass-card);
+      color: var(--text); padding: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    }
+
+    /* =============== MAIN =============== */
     .main { flex: 1; padding: 40px; overflow-x: hidden; }
 
     .topbar {
       display: flex; justify-content: space-between; align-items: flex-end;
-      padding-bottom: 20px; border-bottom: 2px solid var(--accent);
-      margin-bottom: 30px;
+      padding-bottom: 20px; border-bottom: 2px solid var(--accent); margin-bottom: 30px;
     }
     .topbar .title { margin: 0; font-size: 28px; font-weight: 700; }
-    .topbar .hint { margin: 5px 0 0; font-size: 12px; color: var(--muted); max-width: 500px; line-height: 1.4; }
+    .topbar .hint { margin: 5px 0 0; font-size: 11px; color: var(--muted); max-width: 500px; line-height: 1.4; }
 
-    .panel {
-      background: var(--glass-panel); backdrop-filter: blur(12px);
-      padding: 30px; box-shadow: var(--shadow);
-    }
+    .panel { background: var(--glass-panel); backdrop-filter: blur(12px); padding: 30px; box-shadow: var(--shadow); }
 
     .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 20px; }
-    
-    .card {
-      grid-column: span 12; background: var(--glass-card);
-      padding: 25px; transition: all 0.3s ease;
-      border: none;
-    }
+    .card { grid-column: span 12; background: var(--glass-card); padding: 25px; transition: all 0.3s ease; }
     .card:hover { background: var(--accent); color: #fff; transform: translateY(-5px); }
     .card h3 { margin: 0 0 10px; font-size: 18px; }
     .card p { margin: 0; font-size: 13px; line-height: 1.6; color: var(--muted); transition: color 0.3s; }
@@ -112,44 +112,41 @@
 
     @media (min-width: 1024px) {
       .projects .card { grid-column: span 6; }
-      .members .card { grid-column: span 6; } /* Ajustado para melhor leitura */
+      .members .card { grid-column: span 6; }
     }
 
     .logo-wrap img { width: 100%; max-width: 500px; filter: grayscale(0.2); margin-bottom: 20px; }
 
-    /* Estilo Integrante */
-    .member { display: flex; gap: 20px; align-items: flex-start; }
+    /* Integrantes */
+    .member { display: flex; gap: 20px; align-items: center; }
     .avatar-fallback {
-      width: 80px; height: 80px; background: var(--accent);
+      width: 70px; height: 70px; background: var(--accent);
       color: #fff; display: flex; align-items: center; justify-content: center;
-      font-weight: 700; font-size: 24px; flex-shrink: 0;
+      font-weight: 700; font-size: 22px; flex-shrink: 0;
     }
     .social-link {
-      display: inline-flex; align-items: center; gap: 8px;
-      margin-top: 12px; padding: 8px 12px; background: rgba(0,0,0,0.05);
-      color: var(--text); text-decoration: none; font-size: 11px; font-weight: 700;
-      transition: all 0.2s;
+      display: inline-flex; align-items: center; gap: 8px; margin-top: 10px;
+      padding: 8px 12px; background: rgba(0,0,0,0.05); color: var(--text);
+      text-decoration: none; font-size: 11px; font-weight: 700;
     }
     .card:hover .social-link { background: #fff; color: var(--accent); }
-    .icon-sm { width: 14px; height: 14px; fill: currentColor; }
+    svg { width: 16px; height: 16px; fill: currentColor; }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
 
     @media (max-width: 900px) {
       .app { flex-direction: column; }
       .sidebar { width: 100%; height: auto; position: relative; }
       .main { padding: 20px; }
     }
-    
-    .tab-panel { display: none; }
-    .tab-panel.active { display: block; }
   </style>
 </head>
 
 <body>
   <div class="app">
     <aside class="sidebar">
-      <div class="brand">
-        <h1>GISPRAD</h1>
-      </div>
+      <div class="brand"><h1>GISPRAD</h1></div>
 
       <nav class="tabs" role="tablist">
         <button class="tab-btn" data-tab="tab-gisprad" aria-selected="true">Início</button>
@@ -158,7 +155,13 @@
         <button class="tab-btn" data-tab="tab-integrantes">Equipe</button>
       </nav>
 
-      <button class="btn-theme" id="btn-theme">ALTERAR MODO</button>
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="PESQUISAR...">
+      </div>
+
+      <button class="btn-theme" id="btn-theme">
+        <span id="theme-icon"></span>
+      </button>
     </aside>
 
     <main class="main">
@@ -167,9 +170,8 @@
           <div class="title" id="pageTitle">GISPRAD</div>
           <div class="hint" id="pageHint">Grupo Integrado de Estudos em Silvicultura de Plantações Florestais e Recuperação de Áreas Degradadas</div>
         </div>
-        <div style="text-align: right; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">
-          INSTAGRAM @GISPRAD<br>
-          CONTATO@GISPRAD.ORG
+        <div style="text-align: right; font-size: 11px; font-weight: 700; text-transform: uppercase;">
+          INSTAGRAM @GISPRAD<br>CONTATO@GISPRAD.ORG
         </div>
       </header>
 
@@ -180,7 +182,7 @@
         <h2 style="font-size: 24px;">Sobre o Lab</h2>
         <p style="font-size: 15px; max-width: 800px; line-height: 1.8;">
           O laboratório GISPRAD dedica-se à excelência em geotecnologias, fornecendo suporte técnico-científico 
-          através de métodos avançados de sensoriamento remoto e análise espacial.
+          através de métodos avançados de sensoriamento remoto e análise espacial aplicado à silvicultura.
         </p>
       </section>
 
@@ -194,28 +196,32 @@
               <div class="avatar-fallback">CA</div>
               <div>
                 <h3 style="margin:0">Caroline Pulido Arce</h3>
-                <p style="margin-top:5px; color:inherit">Graduanda em Engenharia Florestal pela Universidade do Paraná.</p>
+                <p style="margin:5px 0; color:inherit">Graduanda em Engenharia Florestal pela Universidade do Paraná.</p>
                 <a href="https://www.linkedin.com/in/caroline-pulido-arce-919176274/" target="_blank" class="social-link">
-                  <svg class="icon-sm" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                  <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                   LINKEDIN
                 </a>
               </div>
             </div>
           </article>
-          </div>
+        </div>
       </section>
     </main>
   </div>
 
   <script>
-    // Sistema de Temas
     const html = document.documentElement;
     const btnTheme = document.getElementById("btn-theme");
-    const setTheme = (t) => { html.setAttribute("data-theme", t); localStorage.setItem("theme", t); };
+    const themeIcon = document.getElementById("theme-icon");
+
+    const setTheme = (t) => { 
+      html.setAttribute("data-theme", t); 
+      localStorage.setItem("theme", t);
+      themeIcon.innerHTML = t === 'dark' ? '☀️ MODO CLARO' : '🌙 MODO ESCURO';
+    };
     btnTheme.addEventListener("click", () => setTheme(html.getAttribute("data-theme") === "dark" ? "light" : "dark"));
     setTheme(localStorage.getItem("theme") || "light");
 
-    // Sistema de Abas
     const tabs = document.querySelectorAll(".tab-btn");
     const panels = document.querySelectorAll(".tab-panel");
     
@@ -224,41 +230,28 @@
       tabs.forEach(t => t.setAttribute("aria-selected", t === btn));
       panels.forEach(p => {
         p.classList.remove('active', 'animate-fade');
-        if (p.id === id) {
-          p.classList.add('active');
-          void p.offsetWidth; 
-          p.classList.add('animate-fade');
-        }
+        if (p.id === id) { p.classList.add('active'); void p.offsetWidth; p.classList.add('animate-fade'); }
       });
       document.getElementById("pageTitle").textContent = btn.textContent;
     }));
 
-    // Projetos Mock
-    const projects = [
-      { t: "Inventário Florestal 4.0", d: "Uso de LiDAR e fotogrametria para estimativa de volume de madeira." },
-      { t: "Recuperação de APP", d: "Monitoramento orbital de áreas degradadas em bacias hidrográficas." }
-    ];
-    document.getElementById("projectsGrid").innerHTML = projects.map(p => `
-      <article class="card"><h3>${p.t}</h3><p>${p.d}</p></article>
-    `).join("");
+    // Busca funcional
+    document.getElementById("searchInput").addEventListener("input", (e) => {
+      const q = e.target.value.toLowerCase();
+      document.querySelectorAll(".card").forEach(c => {
+        c.style.display = c.innerText.toLowerCase().includes(q) ? "" : "none";
+      });
+    });
 
-    // Outros Integrantes (Adicionais)
-    const otherTeam = [
-      { n: "Dr. Arnaldo Silva", r: "Coordenador", i: "AS" },
-      { n: "MSc. Beatriz Costa", r: "Pesquisadora", i: "BC" }
-    ];
-    const membersGrid = document.getElementById("membersGrid");
+    // Conteúdo Dinâmico
+    const projects = [{t: "Mapeamento Florestal", d: "Uso de imagens de satélite para inventário."}];
+    document.getElementById("projectsGrid").innerHTML = projects.map(p => `<article class="card"><h3>${p.t}</h3><p>${p.d}</p></article>`).join("");
+
+    const otherTeam = [{n: "Dr. Integrante Exemplo", r: "Pesquisador", i: "IE"}];
     otherTeam.forEach(m => {
-      membersGrid.innerHTML += `
-        <article class="card">
-          <div class="member">
-            <div class="avatar-fallback">${m.i}</div>
-            <div>
-              <h3 style="margin:0">${m.n}</h3>
-              <p style="margin-top:5px; color:inherit">${m.r}</p>
-            </div>
-          </div>
-        </article>`;
+      document.getElementById("membersGrid").innerHTML += `
+        <article class="card"><div class="member"><div class="avatar-fallback">${m.i}</div>
+        <div><h3 style="margin:0">${m.n}</h3><p style="margin-top:5px; color:inherit">${m.r}</p></div></div></article>`;
     });
   </script>
 </body>
