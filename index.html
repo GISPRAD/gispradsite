@@ -1,266 +1,285 @@
 <!doctype html>
 <html lang="pt-br" data-theme="light">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>GISPRAD</title>
-
-  <!-- FONTES -->
-  <style>
-    @font-face{
-      font-family:"Glacial Indifference";
-      src:url("fonts/GlacialIndifference-Regular.woff2") format("woff2"),
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GISPRAD</title>
+    <style>
+      @font-face {
+        font-family: "Glacial Indifference";
+        src: url("fonts/GlacialIndifference-Regular.woff2") format("woff2"),
           url("fonts/GlacialIndifference-Regular.woff") format("woff");
-      font-weight:400;
-      font-style:normal;
-      font-display:swap;
-    }
-    @font-face{
-      font-family:"Glacial Indifference";
-      src:url("fonts/GlacialIndifference-Bold.woff2") format("woff2"),
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Glacial Indifference";
+        src: url("fonts/GlacialIndifference-Bold.woff2") format("woff2"),
           url("fonts/GlacialIndifference-Bold.woff") format("woff");
-      font-weight:700;
-      font-style:normal;
-      font-display:swap;
-    }
-    @font-face{
-      font-family:"SUGO DISPLAY";
-      src:url("fonts/SugoDisplay.woff2") format("woff2"),
+        font-weight: 700;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "SUGO DISPLAY";
+        src: url("fonts/SugoDisplay.woff2") format("woff2"),
           url("fonts/SugoDisplay.woff") format("woff");
-      font-weight:400;
-      font-style:normal;
-      font-display:swap;
-    }
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
 
-    :root{
-      --g1:#436526;
-      --g2:#33551A;
-      --g3:#274910;
-      --g4:#163105;
-      --g5:#050F00;
+      :root {
+        --g1: #436526;
+        --g2: #33551a;
+        --g3: #274910;
+        --g4: #163105;
+        --g5: #050f00;
+        --b1: #fff4de;
+        --b2: #ddb871;
+        --b3: #be8141;
+        --b4: #5c3a17;
+        --b5: #1c1107;
+        --font-text: "Glacial Indifference", "Segoe UI", Arial, sans-serif;
+        --font-tabs: "SUGO DISPLAY", "Glacial Indifference", "Segoe UI", Arial,
+          sans-serif;
+        --fs-title: 16px;
+        --fs-text: 12px;
+        --sidebar-w: 270px;
+        --radius: 14px;
+      }
 
-      --b1:#FFF4DE;
-      --b2:#DDB871;
-      --b3:#BE8141;
-      --b4:#5C3A17;
-      --b5:#1C1107;
+      /* =============== TEMA CLARO (DIA) =============== */
+      html[data-theme="light"] {
+        --bg: rgba(251, 251, 252, 0.7); /* Fundo com transparência */
+        --panel: rgba(255, 255, 255, 0.9); /* Painéis com leve transparência */
+        --panel-2: rgba(246, 246, 247, 0.9); /* Painéis adicionais transparentes */
+        --text: #151515;
+        --muted: rgba(21, 21, 21, 0.72);
+        --line: rgba(21, 21, 21, 0.12);
+        --shadow: 0 14px 30px rgba(0, 0, 0, 0.10);
+        --card: rgba(255, 255, 255, 0.9); /* Cartões com fundo transparente */
+        --card-hover: rgba(255, 255, 250, 0.9); /* Hover com transparência */
+        --accent: var(--g2);
+        --accent-2: var(--b3);
+      }
 
-      --font-text:"Glacial Indifference","Segoe UI",Arial,sans-serif;
-      --font-tabs:"SUGO DISPLAY","Glacial Indifference","Segoe UI",Arial,sans-serif;
+      /* =============== TEMA ESCURO (NOITE) =============== */
+      html[data-theme="dark"] {
+        --bg: rgba(11, 15, 11, 0.9); /* Fundo escuro com transparência */
+        --panel: rgba(255, 255, 255, 0.06); /* Painel com fundo transparente */
+        --panel-2: rgba(255, 255, 255, 0.04); /* Outro painel transparente */
+        --text: rgba(255, 255, 255, 0.92);
+        --muted: rgba(255, 255, 255, 0.70);
+        --line: rgba(255, 255, 255, 0.14);
+        --shadow: 0 18px 40px rgba(0, 0, 0, 0.40);
+        --card: rgba(255, 255, 255, 0.06); /* Cartões com fundo escuro transparente */
+        --card-hover: rgba(255, 255, 255, 0.09); /* Hover com leve transparência */
+        --accent: var(--b2);
+        --accent-2: var(--g1);
+      }
 
-      --fs-title:16px;
-      --fs-text:12px;
+      * {
+        box-sizing: border-box;
+      }
 
-      --sidebar-w:270px;
-      --radius:14px;
-    }
+      body {
+        margin: 0;
+        font-family: var(--font-text);
+        background: radial-gradient(
+          950px 520px at 18% 10%,
+          color-mix(in srgb, var(--g2) 22%, transparent),
+          transparent 60%
+        ),
+          radial-gradient(
+            950px 520px at 85% 25%,
+            color-mix(in srgb, var(--b3) 18%, transparent),
+            transparent 62%
+          ),
+          var(--bg);
+        color: var(--text);
+        min-height: 100vh;
+      }
 
-    /* TEMA CLARO */
-    html[data-theme="light"]{
-      --bg:#fbfbfc;
-      --panel:#ffffff;
-      --panel-2:#f6f6f7;
+      .app {
+        display: flex;
+        min-height: 100vh;
+      }
 
-      --text:#151515;
-      --muted:rgba(21,21,21,.72);
+      .sidebar {
+        width: var(--sidebar-w);
+        padding: 18px;
+        border-right: 1px solid var(--line);
+        background: linear-gradient(180deg, var(--panel), transparent);
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        overflow: auto;
+      }
 
-      --line:rgba(21,21,21,.12);
-      --shadow:0 14px 30px rgba(0,0,0,.10);
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--panel-2);
+        box-shadow: var(--shadow);
+      }
 
-      --card:#ffffff;
-      --card-hover:#fffdfa;
+      .brand-mark {
+        width: 44px;
+        height: 44px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, var(--g2), var(--b3));
+      }
 
-      --accent: var(--g2);
-      --accent-2: var(--b3);
-    }
+      .brand h1 {
+        margin: 0;
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 0.2px;
+      }
 
-    /* TEMA ESCURO */
-    html[data-theme="dark"]{
-      --bg:#0b0f0b;
-      --panel:rgba(255,255,255,.06);
-      --panel-2:rgba(255,255,255,.04);
+      .brand p {
+        margin: 0;
+        font-size: 11px;
+        color: var(--muted);
+      }
 
-      --text:rgba(255,255,255,.92);
-      --muted:rgba(255,255,255,.70);
+      /* Main Content */
+      .main {
+        flex: 1;
+        padding: 22px;
+      }
 
-      --line:rgba(255,255,255,.14);
-      --shadow:0 18px 40px rgba(0,0,0,.40);
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 14px;
+        padding: 14px 16px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--panel);
+        box-shadow: var(--shadow);
+      }
 
-      --card:rgba(255,255,255,.06);
-      --card-hover:rgba(255,255,255,.09);
+      .topbar .title {
+        margin: 0;
+        font-size: var(--fs-title);
+        font-weight: 700;
+        font-family: var(--font-text);
+      }
 
-      --accent: var(--b2);
-      --accent-2: var(--g1);
-    }
+      .topbar .hint {
+        margin: 4px 0 0;
+        font-size: var(--fs-text);
+        color: var(--muted);
+        line-height: 1.5;
+      }
 
-    /* BASE */
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family:var(--font-text);
-      background:
-        radial-gradient(950px 520px at 18% 10%, color-mix(in srgb, var(--g2) 22%, transparent), transparent 60%),
-        radial-gradient(950px 520px at 85% 25%, color-mix(in srgb, var(--b3) 18%, transparent), transparent 62%),
-        var(--bg);
-      color:var(--text);
-      min-height:100vh;
-    }
+      /* Cards */
+      .card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 14px;
+        transition: transform 0.08s ease, border-color 0.15s ease, background 0.15s ease;
+      }
 
-    a{color:inherit}
-    .app{display:flex; min-height:100vh}
+      .card:hover {
+        transform: translateY(-1px);
+        background: var(--card-hover);
+        border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
+      }
 
-    /* SIDEBAR */
-    .sidebar{
-      width:var(--sidebar-w);
-      padding:18px;
-      border-right:1px solid var(--line);
-      background:linear-gradient(180deg, var(--panel), transparent);
-      position:sticky;
-      top:0;
-      height:100vh;
-      overflow:auto;
-    }
+      .card h3 {
+        margin: 0 0 8px;
+        font-size: var(--fs-title);
+        font-weight: 700;
+        font-family: var(--font-text);
+      }
 
-    .tabs{
-      margin-top:14px;
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-    }
-    
-    /* ALTERAÇÕES NOS BOTÕES */
-    .tab-btn{
-      font-family:var(--font-tabs);
-      text-align:left;
-      border:none; /* Remove as bordas */
-      background:rgba(255, 255, 255, 0.3); /* Fundo transparente */
-      color:var(--text);
-      padding:12px;
-      border-radius:12px;
-      cursor:pointer;
-      letter-spacing:0.8px;
-      text-transform:uppercase;
-      font-size:12px;
-      transition:transform 0.08s ease, background 0.15s ease; /* Suaviza a transição */
-    }
+      .card p {
+        margin: 0;
+        font-size: var(--fs-text);
+        color: var(--muted);
+        line-height: 1.65;
+      }
 
-    .tab-btn:hover{
-      transform:translateY(-1px);
-      background:rgba(255, 255, 255, 0.5); /* Aumenta a opacidade no hover */
-    }
+      /* Grid Layout */
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 12px;
+        margin-top: 12px;
+      }
 
-    .tab-btn[aria-selected="true"]{
-      background:linear-gradient(135deg, color-mix(in srgb, var(--g2) 20%, var(--panel)), color-mix(in srgb, var(--b3) 16%, var(--panel)));
-    }
+      /* List */
+      .list {
+        margin: 10px 0 0;
+        padding-left: 16px;
+        color: var(--muted);
+        font-size: var(--fs-text);
+        line-height: 1.9;
+      }
 
-    /* BOTÃO DE ALTERNAÇÃO DE TEMA */
-    .btn{
-      flex:1;
-      border:none; /* Remove bordas */
-      background:rgba(255, 255, 255, 0.3); /* Fundo transparente */
-      color:var(--text);
-      padding:10px 12px;
-      border-radius:12px;
-      cursor:pointer;
-      font-size:12px;
-      font-weight:700;
-      font-family:var(--font-text);
-      transition:transform 0.08s ease, background 0.15s ease;
-    }
+      /* Responsivo */
+      @media (max-width: 980px) {
+        .app {
+          flex-direction: column;
+        }
 
-    .btn:hover{
-      transform:translateY(-1px);
-      background:rgba(255, 255, 255, 0.5); /* Aumenta a transparência no hover */
-    }
+        .sidebar {
+          width: 100%;
+          height: auto;
+          position: relative;
+          border-right: none;
+          border-bottom: 1px solid var(--line);
+        }
 
-    /* MAIN */
-    .main{flex:1; padding:22px}
-    .topbar{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:14px;
-      padding:14px 16px;
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      background:var(--panel);
-      box-shadow:var(--shadow);
-    }
+        .main {
+          padding: 16px;
+        }
 
-    .topbar .title{
-      margin:0;
-      font-size:var(--fs-title);
-      font-weight:700;
-      font-family:var(--font-text);
-    }
-
-    /* GRID / CARDS */
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(12, 1fr);
-      gap:12px;
-      margin-top:12px;
-    }
-
-    .card{
-      grid-column:span 12;
-      background:var(--card);
-      border:1px solid var(--line);
-      border-radius:14px;
-      padding:14px;
-      transition:transform .08s ease, border-color .15s ease, background .15s ease;
-    }
-
-    .card:hover{
-      transform:translateY(-1px);
-      background:var(--card-hover);
-      border-color:color-mix(in srgb, var(--accent) 55%, var(--line));
-    }
-  </style>
-</head>
-
-<body>
-  <div class="app">
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-      <div class="brand">
-        <div class="brand-mark" aria-hidden="true"></div>
-        <div>
-          <h1>GISPRAD</h1>
-          <p>Laboratório • Site institucional</p>
+        .projects .card {
+          margin-bottom: 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <div class="sidebar">
+        <div class="brand">
+          <div class="brand-mark"></div>
+          <div>
+            <h1>GISPRAD</h1>
+            <p>Laboratório de Geotecnologias e Pesquisa</p>
+          </div>
         </div>
       </div>
-
-      <div class="tabs" role="tablist" aria-label="Abas do site">
-        <button class="tab-btn" role="tab" aria-selected="true" data-tab="tab-gisprad">GISPRAD</button>
-        <button class="tab-btn" role="tab" aria-selected="false" data-tab="tab-projetos">PROJETOS</button>
-        <button class="tab-btn" role="tab" aria-selected="false" data-tab="tab-pubs">PUBLICAÇÕES (EM CONSTRUÇÃO)</button>
-        <button class="tab-btn" role="tab" aria-selected="false" data-tab="tab-integrantes">INTEGRANTES</button>
-      </div>
-
-      <div class="theme-row">
-        <button class="btn" id="btn-theme" type="button" title="Alternar tema">Noite / Dia</button>
-      </div>
-
-      <small>
-        Edite este arquivo <b>index.html</b> e faça commit. O site atualiza automaticamente.
-      </small>
-    </aside>
-
-    <!-- CONTEÚDO -->
-    <main class="main">
-      <div class="topbar">
-        <div class="title">GISPRAD</div>
-        <div class="tools">
-          <button class="btn">Link para GitHub</button>
+      <div class="main">
+        <div class="topbar">
+          <div class="title">Bem-vindo ao GISPRAD</div>
+          <div class="hint">Laboratório de Pesquisa em Geotecnologias</div>
+        </div>
+        <div class="grid">
+          <div class="card">
+            <h3>Projeto 1</h3>
+            <p>Descrição do projeto 1</p>
+          </div>
+          <div class="card">
+            <h3>Projeto 2</h3>
+            <p>Descrição do projeto 2</p>
+          </div>
         </div>
       </div>
-
-      <section>
-        <h3>Laboratório de Silvicultura</h3>
-        <p>Informações sobre o laboratório de pesquisa...</p>
-      </section>
-    </main>
-  </div>
-</body>
+    </div>
+  </body>
 </html>
