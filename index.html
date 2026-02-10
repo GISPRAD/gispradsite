@@ -10,25 +10,19 @@
       font-family:"Glacial Indifference";
       src:url("fonts/GlacialIndifference-Regular.woff2") format("woff2"),
           url("fonts/GlacialIndifference-Regular.woff") format("woff");
-      font-weight:400;
-      font-style:normal;
-      font-display:swap;
+      font-weight:400; font-style:normal; font-display:swap;
     }
     @font-face{
       font-family:"Glacial Indifference";
       src:url("fonts/GlacialIndifference-Bold.woff2") format("woff2"),
           url("fonts/GlacialIndifference-Bold.woff") format("woff");
-      font-weight:700;
-      font-style:normal;
-      font-display:swap;
+      font-weight:700; font-style:normal; font-display:swap;
     }
     @font-face{
       font-family:"SUGO DISPLAY";
       src:url("fonts/SugoDisplay.woff2") format("woff2"),
           url("fonts/SugoDisplay.woff") format("woff");
-      font-weight:400;
-      font-style:normal;
-      font-display:swap;
+      font-weight:400; font-style:normal; font-display:swap;
     }
 
     :root{
@@ -39,7 +33,7 @@
       --fs-title:16px;
       --fs-text:12px;
       --sidebar-w:270px;
-      --radius:0px; /* Quadrado */
+      --radius:0px;
     }
 
     html[data-theme="light"]{
@@ -49,9 +43,8 @@
       --text:#151515;
       --muted:rgba(21,21,21,.72);
       --line:rgba(21,21,21,.12);
-      --shadow:none;
       --card:#ffffff;
-      --card-hover:#f0f0f2;
+      --card-hover:#ececed;
       --accent: var(--g2);
       --accent-2: var(--b3);
     }
@@ -63,7 +56,6 @@
       --text:rgba(255,255,255,.92);
       --muted:rgba(255,255,255,.70);
       --line:rgba(255,255,255,.14);
-      --shadow:none;
       --card:rgba(255,255,255,.06);
       --card-hover:rgba(255,255,255,.12);
       --accent: var(--b2);
@@ -71,143 +63,75 @@
     }
 
     *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family:var(--font-text);
-      background: var(--bg);
-      color:var(--text);
-      min-height:100vh;
-    }
-    a{color:inherit}
-    .app{display:flex; min-height:100vh}
+    body{ margin:0; font-family:var(--font-text); background: var(--bg); color:var(--text); min-height:100vh; }
+    a{ text-decoration: none; color: inherit; }
+    .app{ display:flex; min-height:100vh; }
 
-    .sidebar{
-      width:var(--sidebar-w);
-      padding:18px;
-      background:var(--panel);
-      position:sticky;
-      top:0;
-      height:100vh;
-      overflow:auto;
-    }
-
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      padding:12px;
-      border-radius:0;
-      background:var(--panel-2);
-    }
-
-    .brand-mark{
-      width:44px; height:44px; 
-      border-radius:0;
-      background: var(--panel);
-      display:flex; align-items:center; justify-content:center;
-      overflow:hidden;
-    }
+    /* SIDEBAR */
+    .sidebar{ width:var(--sidebar-w); padding:18px; background:var(--panel); position:sticky; top:0; height:100vh; overflow:auto; }
+    .brand{ display:flex; align-items:center; gap:12px; padding:12px; background:var(--panel-2); }
+    .brand-mark{ width:44px; height:44px; background: var(--panel); display:flex; align-items:center; justify-content:center; overflow:hidden; }
     .brand-logo{ width:100%; height:100%; object-fit: cover; }
-
-    .brand h1{ margin:0; font-size:14px; font-weight:700; letter-spacing:.2px; }
+    .brand h1{ margin:0; font-size:14px; font-weight:700; }
     .brand p{ margin:0; font-size:11px; color:var(--muted); }
 
     .tabs{ margin-top:14px; display:flex; flex-direction:column; gap:2px; }
-    
-    .tab-btn{
-      font-family:var(--font-tabs);
-      text-align:left;
-      border:none;
-      background:var(--panel);
-      color:var(--text);
-      padding:12px;
-      border-radius:0;
-      cursor:pointer;
-      letter-spacing:.8px;
-      text-transform:uppercase;
-      font-size:12px;
-      transition: background .2s ease;
-    }
+    .tab-btn{ font-family:var(--font-tabs); text-align:left; border:none; background:var(--panel); color:var(--text); padding:12px; cursor:pointer; letter-spacing:.8px; text-transform:uppercase; font-size:12px; transition: background .2s; }
     .tab-btn:hover{ background: var(--panel-2); }
     .tab-btn[aria-selected="true"]{ background: var(--accent); color: white; }
 
-    .search{
-      margin-top:12px;
-      display:flex;
-      align-items:center;
-      gap:8px;
-      padding:10px 12px;
-      border-radius:0;
-      background: var(--panel-2);
-    }
+    .search{ margin-top:12px; display:flex; align-items:center; gap:8px; padding:10px 12px; background:var(--panel-2); }
     .search input{ border:none; outline:none; background:transparent; color: var(--text); width:100%; font-size:12px; }
 
-    .btn{
-      flex:1; margin-top:12px;
-      border:none;
-      background:var(--panel-2);
-      color:var(--text);
-      padding:10px;
-      border-radius:0;
-      cursor:pointer;
-      transition: background .2s ease;
-    }
-    .btn:hover{ background: var(--accent-2); color: white; }
+    .btn-theme{ width: 100%; margin-top:12px; border:none; background:var(--panel-2); color:var(--text); padding:10px; cursor:pointer; transition: background .2s; }
+    .btn-theme:hover{ background: var(--accent-2); color: white; }
 
-    .main{flex:1; padding:22px}
+    /* MAIN */
+    .main{ flex:1; padding:22px; }
+    .topbar{ display:flex; justify-content:space-between; align-items:center; padding:14px 16px; background:var(--panel); margin-bottom: 16px; }
 
-    .topbar{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      padding:14px 16px;
-      background:var(--panel);
-      border-radius:0;
-    }
+    .panel{ background:var(--panel); padding:20px; margin-bottom: 16px; }
 
-    .panel{
-      margin-top:16px;
-      background:var(--panel);
-      padding:16px;
-      border-radius:0;
-    }
-
-    .grid{ display:grid; grid-template-columns:repeat(12, 1fr); gap:12px; margin-top:12px; }
+    .grid{ display:grid; grid-template-columns:repeat(12, 1fr); gap:16px; }
     
-    .card{
-      grid-column:span 12;
-      background:var(--panel-2);
-      padding:14px;
-      border-radius:0;
-      transition: background .2s ease;
-    }
+    /* CARD INTEGRANTE AUMENTADO */
+    .card{ grid-column:span 12; background:var(--panel-2); padding:20px; transition: background .2s; }
     .card:hover{ background:var(--card-hover); }
 
-    .projects .card{grid-column:span 6;}
-    .pubs .card{grid-column:span 6;}
-    .members .card{grid-column:span 4;}
+    .projects .card{ grid-column:span 6; }
+    
+    /* INTEGRANTES AGORA OCUPAM 6 COLUNAS (2 por linha) */
+    .members .card{ grid-column:span 6; }
 
-    .avatar-fallback{
-      width:54px; height:54px; 
-      border-radius:0;
-      background:var(--line);
-      flex:0 0 auto;
-      display:flex; align-items:center; justify-content:center;
-      font-weight:700; font-size:14px;
+    .member{ display:flex; gap:16px; align-items:center; }
+    
+    /* AVATAR AUMENTADO */
+    .avatar-fallback{ 
+        width:70px; height:70px; 
+        background:var(--line); 
+        display:flex; align-items:center; justify-content:center; 
+        font-weight:700; font-size:18px; flex-shrink: 0; 
+    }
+    
+    .member-info b{ font-size:15px; display:block; line-height:1.2; margin-bottom: 2px; }
+    .member-info small{ color:var(--muted); font-size:13px; display: block; margin-bottom: 6px; }
+
+    /* ÍCONE LINKEDIN */
+    .ln-link{ display: inline-flex; color: var(--muted); transition: color .2s; }
+    .ln-link:hover{ color: #0077b5; }
+    .ln-link svg{ width: 18px; height: 18px; }
+
+    .tab-panel{ display:none; }
+    .tab-panel.active{ display:block; }
+
+    @media (max-width: 1100px){
+      .members .card{ grid-column:span 12; }
     }
 
-    .member{ display:flex; gap:12px; align-items:center; }
-    .member b{ font-size:13px; display:block; line-height:1.2; }
-    .member small{ color:var(--muted); font-size:11px; }
-
-    .tab-panel{display:none;}
-    .tab-panel.active{display:block;}
-
     @media (max-width: 980px){
-      .app{flex-direction:column;}
+      .app{ flex-direction:column; }
       .sidebar{ width:100%; height:auto; position:relative; }
-      .members .card{grid-column:span 12;}
-      .projects .card, .pubs .card{grid-column:span 12;}
+      .projects .card{ grid-column:span 12; }
     }
   </style>
 </head>
@@ -216,160 +140,113 @@
   <div class="app">
     <aside class="sidebar">
       <div class="brand">
-        <div class="brand-mark">
-          <img src="Logo_2025_sem_fundo.png" alt="Logo" class="brand-logo">
-        </div>
+        <div class="brand-mark"><img src="IDENTIDADE%20VISUAL%20.png" class="brand-logo"></div>
         <div>
           <h1>GISPRAD</h1>
-          <p>Laboratório • Site institucional</p>
+          <p>Laboratório de Pesquisa</p>
         </div>
       </div>
 
       <div class="tabs" role="tablist">
         <button class="tab-btn" role="tab" aria-selected="true" data-tab="tab-gisprad">GISPRAD</button>
         <button class="tab-btn" role="tab" aria-selected="false" data-tab="tab-projetos">PROJETOS</button>
-        <button class="tab-btn" role="tab" aria-selected="false" data-tab="tab-pubs">PUBLICAÇÕES</button>
         <button class="tab-btn" role="tab" aria-selected="false" data-tab="tab-integrantes">INTEGRANTES</button>
       </div>
 
-      <div class="search" role="search">
-        <input id="searchInput" type="search" placeholder="Pesquisar...">
-      </div>
-
-      <button class="btn" id="btn-theme" type="button"><span id="themeIconWrap"></span></button>
+      <div class="search"><input id="searchInput" type="search" placeholder="Pesquisar..."></div>
+      <button class="btn-theme" id="btn-theme"><span id="themeIconWrap"></span></button>
     </aside>
 
     <main class="main">
       <div class="topbar">
-        <div>
-          <p class="title" style="font-weight:700; margin:0;" id="pageTitle">GISPRAD</p>
-          <p class="hint" style="margin:0; font-size:11px;" id="pageHint">Informações institucionais</p>
-        </div>
-        <div style="font-size:11px; text-align:right;">
-          <b>Contato:</b> contato@gisprad.org
-        </div>
+        <div><p id="pageTitle" style="font-weight:700; margin:0; font-size: 18px;">GISPRAD</p></div>
+        <div style="font-size:12px;">contato@gisprad.org</div>
       </div>
 
-      <section class="panel tab-panel active" id="tab-gisprad" role="tabpanel">
-        <h2 style="margin-top:0;">GISPRAD</h2>
-        <p>Laboratório voltado a pesquisa, desenvolvimento e aplicação de geotecnologias.</p>
-        <div class="grid">
-          <div class="card">
-            <h3>Nossa Missão</h3>
-            <p>Gerar conhecimento científico e soluções espaciais para suporte à tomada de decisão.</p>
-          </div>
-        </div>
+      <section class="panel tab-panel active" id="tab-gisprad">
+        <h2>Início</h2>
+        <p>Bem-vindo ao GISPRAD. Explore nossa equipe e projetos no menu lateral.</p>
       </section>
 
-      <section class="panel tab-panel" id="tab-projetos" role="tabpanel">
-        <h2 style="margin-top:0;">PROJETOS</h2>
+      <section class="panel tab-panel" id="tab-projetos">
+        <h2>PROJETOS</h2>
         <div class="grid projects" id="projectsGrid"></div>
       </section>
 
-      <section class="panel tab-panel" id="tab-pubs" role="tabpanel">
-        <h2 style="margin-top:0;">PUBLICAÇÕES</h2>
-        <div class="grid pubs" id="pubsGrid"></div>
-      </section>
-
-      <section class="panel tab-panel" id="tab-integrantes" role="tabpanel">
-        <h2 style="margin-top:0;">INTEGRANTES</h2>
+      <section class="panel tab-panel" id="tab-integrantes">
+        <h2 style="margin-bottom: 20px;">EQUIPE GISPRAD</h2>
         <div class="grid members" id="membersGrid"></div>
       </section>
     </main>
   </div>
 
   <script>
-    // TEMA
-    const SUN_SVG = `<svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zM2 13h2v-2H2v2zm18 0h2v-2h-2v2zM11 2v2h2V2h-2zm0 18v2h2v-2h-2zM5.99 4.58 4.58 5.99l1.41 1.41 1.41-1.41-1.41-1.41zm12.02 12.02-1.41 1.41 1.41 1.41 1.41-1.41-1.41-1.41zM5.99 19.42l1.41-1.41-1.41-1.41-1.41 1.41 1.41 1.41zm12.02-12.02-1.41-1.41-1.41 1.41 1.41 1.41 1.41-1.41z"/></svg>`;
+    const SUN_SVG = `<svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zM11 2v2h2V2h-2zm0 18v2h2v-2h-2z"/></svg>`;
     const MOON_SVG = `<svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg>`;
+    const LINKEDIN_SVG = `<svg viewBox="0 0 24 24"><path fill="currentColor" d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a2.7 2.7 0 0 0-2.7-2.7c-1.2 0-2.3 1.1-2.3 1.1V10h-2.5v8.5h2.5v-4.8c0-.6.5-1.1 1.1-1.1.6 0 1.1.5 1.1 1.1v4.8h2.6M6.8 10h2.5v8.5H6.8V10m1.2-1.2c.8 0 1.5-.7 1.5-1.5a1.5 1.5 0 0 0-3 0c0 .8.7 1.5 1.5 1.5Z"/></svg>`;
 
     const html = document.documentElement;
-    const btnTheme = document.getElementById("btn-theme");
     const themeIconWrap = document.getElementById("themeIconWrap");
+    function setTheme(t){ html.setAttribute("data-theme", t); themeIconWrap.innerHTML = t === "dark" ? SUN_SVG : MOON_SVG; }
+    setTheme("light");
+    document.getElementById("btn-theme").onclick = () => setTheme(html.getAttribute("data-theme") === "dark" ? "light" : "dark");
 
-    function setTheme(theme){
-      html.setAttribute("data-theme", theme);
-      localStorage.setItem("gisprad_theme", theme);
-      if(themeIconWrap) themeIconWrap.innerHTML = (theme === "dark") ? SUN_SVG : MOON_SVG;
-    }
-    setTheme(localStorage.getItem("gisprad_theme") || "light");
-    btnTheme.addEventListener("click", () => setTheme(html.getAttribute("data-theme") === "dark" ? "light" : "dark"));
+    document.querySelectorAll(".tab-btn").forEach(btn => {
+      btn.onclick = () => {
+        document.querySelectorAll(".tab-btn").forEach(b => b.setAttribute("aria-selected", "false"));
+        document.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
+        btn.setAttribute("aria-selected", "true");
+        document.getElementById(btn.dataset.tab).classList.add("active");
+        document.getElementById("pageTitle").textContent = btn.textContent;
+      }
+    });
 
-    // ABAS
-    const tabs = document.querySelectorAll(".tab-btn");
-    const panels = document.querySelectorAll(".tab-panel");
-    const pageTitle = document.getElementById("pageTitle");
-    const pageHint = document.getElementById("pageHint");
-
-    const meta = {
-      "tab-gisprad": { title:"GISPRAD", hint:"Institucional" },
-      "tab-projetos": { title:"PROJETOS", hint:"Pesquisas desenvolvidas" },
-      "tab-pubs": { title:"PUBLICAÇÕES", hint:"Produção acadêmica" },
-      "tab-integrantes": { title:"INTEGRANTES", hint:"Nossa equipe" },
-    };
-
-    function activateTab(tabId){
-      tabs.forEach(t => t.setAttribute("aria-selected", String(t.dataset.tab === tabId)));
-      panels.forEach(p => p.classList.toggle("active", p.id === tabId));
-      pageTitle.textContent = meta[tabId].title;
-      pageHint.textContent = meta[tabId].hint;
-    }
-    tabs.forEach(btn => btn.addEventListener("click", () => activateTab(btn.dataset.tab)));
-
-    // RENDER INTEGRANTES (LISTA ATUALIZADA)
     const members = [
-      { name: "Álvaro P. Berghetti", role: "Professor" },
-      { name: "Viviane Maia Corrêa", role: "Doutorado" },
-      { name: "Cleberson Porath", role: "Mestrado" },
-      { name: "Eduardo Praxedes B. Raymundo", role: "Mestrado" },
-      { name: "Julia Silva Rodrigues", role: "Mestrado" },
-      { name: "Juliana Hoepers M. Tedesco", role: "Mestrado" },
-      { name: "Kemelyn Hack Pires", role: "Mestrado" },
-      { name: "Lucas Soares Miguez", role: "Mestrado" },
-      { name: "Patrícia Portela Feldmann", role: "Mestrado" },
-      { name: "Thainá Aloísio Saraiva", role: "Mestrado" },
-      { name: "Agnes Aleixo da Luz", role: "Graduação" },
-      { name: "Alonso Cortés do Amaral", role: "Graduação" },
-      { name: "Carolina Pulido Arce", role: "Graduação" },
-      { name: "Dheimilly Krachinski", role: "Graduação" },
-      { name: "Eduarda Cristina M. dos Santos", role: "Graduação" },
-      { name: "Francisco Erê Consani Steidle", role: "Graduação" },
-      { name: "Gabriel de Oliveira Bonfim Araujo", role: "Graduação" },
-      { name: "Heitor do Nascimento Moreira", role: "Graduação" },
-      { name: "Katrielle Alessandra R. S. Isaias", role: "Graduação" },
-      { name: "Lara Brand Bordenousky", role: "Graduação" },
-      { name: "Laura Gabriela Bortoli Mariotto", role: "Graduação" },
-      { name: "Ruan Pablo da Trindade", role: "Graduação" }
+      { name: "Álvaro P. Berghetti", role: "Professor", link: "#" },
+      { name: "Viviane Maia Corrêa", role: "Doutorado", link: "#" },
+      { name: "Cleberson Porath", role: "Mestrado", link: "#" },
+      { name: "Eduardo Praxedes Bonfim Raymundo", role: "Mestrado", link: "#" },
+      { name: "Julia Silva Rodrigues", role: "Mestrado", link: "#" },
+      { name: "Juliana Hoepers M. Tedesco", role: "Mestrado", link: "#" },
+      { name: "Kemelyn Hack Pires", role: "Mestrado", link: "#" },
+      { name: "Lucas Soares Miguez", role: "Mestrado", link: "#" },
+      { name: "Patrícia Portela Feldmann", role: "Mestrado", link: "#" },
+      { name: "Thainá Aloísio Saraiva", role: "Mestrado", link: "#" },
+      { name: "Agnes Aleixo da Luz", role: "Graduação", link: "#" },
+      { name: "Alonso Cortés do Amaral", role: "Graduação", link: "#" },
+      { name: "Carolina Pulido Arce", role: "Graduação", link: "#" },
+      { name: "Dheimilly Krachinski", role: "Graduação", link: "#" },
+      { name: "Eduarda Cristina Moraes dos Santos", role: "Graduação", link: "#" },
+      { name: "Francisco Erê Consani Steidle", role: "Graduação", link: "#" },
+      { name: "Gabriel de Oliveira Bonfim Araujo", role: "Graduação", link: "#" },
+      { name: "Heitor do Nascimento Moreira", role: "Graduação", link: "#" },
+      { name: "Katrielle Alessandra R. S. Isaias", role: "Graduação", link: "#" },
+      { name: "Lara Brand Bordenousky", role: "Graduação", link: "#" },
+      { name: "Laura Gabriela Bortoli Mariotto", role: "Graduação", link: "#" },
+      { name: "Ruan Pablo da Trindade", role: "Graduação", link: "#" }
     ];
 
-    function getInitials(name) {
-      return name.split(" ").map(n => n[0]).join("").toUpperCase().substring(0, 2);
-    }
+    function getIniciais(n){ return n.split(" ").map(x => x[0]).join("").substring(0,2).toUpperCase(); }
 
     document.getElementById("membersGrid").innerHTML = members.map(m => `
       <article class="card">
         <div class="member">
-          <div class="avatar-fallback">${getInitials(m.name)}</div>
-          <div>
+          <div class="avatar-fallback">${getIniciais(m.name)}</div>
+          <div class="member-info">
             <b>${m.name}</b>
             <small>${m.role}</small>
+            <a href="${m.link}" class="ln-link" target="_blank">${LINKEDIN_SVG}</a>
           </div>
         </div>
       </article>
     `).join("");
 
-    // PROJETOS (Exemplo)
-    document.getElementById("projectsGrid").innerHTML = Array.from({length: 4}, (_, i) => `<article class="card"><h3>Projeto ${i+1}</h3><p>Descrição do projeto.</p></article>`).join("");
-    
-    // PUBLICAÇÕES (Exemplo)
-    document.getElementById("pubsGrid").innerHTML = `<article class="card"><h3>Artigos 2026</h3><p>Lista de publicações em breve.</p></article>`;
+    document.getElementById("projectsGrid").innerHTML = Array.from({length: 4}, (_, i) => `<article class="card"><h3>Projeto ${i+1}</h3><p>Pesquisa institucional.</p></article>`).join("");
 
-    // BUSCA
-    const searchInput = document.getElementById("searchInput");
-    searchInput.addEventListener("input", (e) => {
+    document.getElementById("searchInput").oninput = (e) => {
       const q = e.target.value.toLowerCase();
-      document.querySelectorAll(".card").forEach(card => card.style.display = card.textContent.toLowerCase().includes(q) ? "" : "none");
-    });
+      document.querySelectorAll(".card").forEach(c => c.style.display = c.textContent.toLowerCase().includes(q) ? "" : "none");
+    };
   </script>
 </body>
 </html>
