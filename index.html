@@ -4,156 +4,140 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>GISPRAD</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+
   <style>
-    /* Fontes Fallback */
-    @font-face{
-      font-family:"Glacial Indifference";
-      src:url("fonts/GlacialIndifference-Regular.woff2") format("woff2");
-      font-weight:400; font-style:normal; font-display:swap;
-    }
-    @font-face{
-      font-family:"SUGO DISPLAY";
-      src:url("fonts/SugoDisplay.woff2") format("woff2");
-      font-weight:400; font-style:normal; font-display:swap;
+    :root {
+      --g2:#33551A; --b3:#BE8141; --b2:#DDB871; --g1:#436526;
+      --font-text: 'Open Sans', sans-serif;
+      --sidebar-w: 270px;
     }
 
-    :root{
-      --g1:#436526; --g2:#33551A; --g3:#274910; --g4:#163105; --g5:#050F00;
-      --b1:#FFF4DE; --b2:#DDB871; --b3:#BE8141; --b4:#5C3A17; --b5:#1C1107;
-      --font-text:"Glacial Indifference","Segoe UI",Arial,sans-serif;
-      --font-tabs:"SUGO DISPLAY","Glacial Indifference",sans-serif;
-      --fs-title:16px; --fs-text:12px; --sidebar-w:270px; --radius:14px;
+    /* =============== TEMAS COM TRANSPARÊNCIA =============== */
+    html[data-theme="light"] {
+      --bg: #f0f2f5;
+      --glass-panel: rgba(255, 255, 255, 0.7); /* Transparência Branca */
+      --glass-card: rgba(255, 255, 255, 0.5);
+      --text: #1a1a1a;
+      --muted: rgba(26, 26, 26, 0.6);
+      --shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+      --accent: var(--g2);
     }
 
-    /* =============== TEMAS =============== */
-    html[data-theme="light"]{
-      --bg:#fbfbfc; --panel:#ffffff; --panel-2:#f6f6f7;
-      --text:#151515; --muted:rgba(21,21,21,.72);
-      --line:transparent; /* Bordas removidas */
-      --shadow:0 10px 30px rgba(0,0,0,.08);
-      --card:#ffffff; --card-hover:#fffdfa;
-      --accent: var(--g2); --accent-2: var(--b3);
-    }
-
-    html[data-theme="dark"]{
-      --bg:#0b0f0b; --panel:rgba(255,255,255,.06); --panel-2:rgba(255,255,255,.04);
-      --text:rgba(255,255,255,.92); --muted:rgba(255,255,255,.70);
-      --line:transparent; /* Bordas removidas */
-      --shadow:0 14px 40px rgba(0,0,0,.40);
-      --card:rgba(255,255,255,.06); --card-hover:rgba(255,255,255,.09);
-      --accent: var(--b2); --accent-2: var(--g1);
+    html[data-theme="dark"] {
+      --bg: #050805;
+      --glass-panel: rgba(20, 30, 20, 0.7); /* Transparência Escura */
+      --glass-card: rgba(255, 255, 255, 0.05);
+      --text: #e0e0e0;
+      --muted: rgba(255, 255, 255, 0.5);
+      --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      --accent: var(--b2);
     }
 
     /* =============== BASE =============== */
-    *{box-sizing:border-box}
-    body{
-      margin:0; font-family:var(--font-text); color:var(--text); min-height:100vh;
-      background:
-        radial-gradient(950px 520px at 18% 10%, color-mix(in srgb, var(--g2) 22%, transparent), transparent 60%),
-        radial-gradient(950px 520px at 85% 25%, color-mix(in srgb, var(--b3) 18%, transparent), transparent 62%),
-        var(--bg);
-      transition: background 0.3s ease;
-    }
-
-    .app{display:flex; min-height:100vh}
-
-    /* =============== SIDEBAR (Sem borda lateral) =============== */
-    .sidebar{
-      width:var(--sidebar-w); padding:18px;
-      background: linear-gradient(180deg, var(--panel), transparent);
-      position:sticky; top:0; height:100vh; overflow:auto;
-    }
-
-    .brand{
-      display:flex; align-items:center; gap:12px; padding:12px;
-      border-radius:var(--radius); background:var(--panel-2);
-      box-shadow:var(--shadow);
-    }
-    .brand-mark{
-      width:44px; height:44px; border-radius:14px;
-      background:linear-gradient(135deg, var(--g2), var(--b3));
-    }
-
-    .tabs{ margin-top:14px; display:flex; flex-direction:column; gap:10px; }
+    * { box-sizing: border-box; border-radius: 0 !important; } /* Forçando tudo quadrado */
     
-    .tab-btn{
-      font-family:var(--font-tabs); text-align:left; border:none; /* S/ borda */
-      background:var(--panel); color:var(--text); padding:14px;
-      border-radius:12px; cursor:pointer; letter-spacing:.8px;
-      text-transform:uppercase; font-size:12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.02);
-      transition: all .2s ease;
-    }
-    .tab-btn:hover{ transform:translateY(-1px); box-shadow: var(--shadow); }
-    .tab-btn[aria-selected="true"]{
-      background:linear-gradient(135deg, color-mix(in srgb, var(--g2) 20%, var(--panel)), color-mix(in srgb, var(--b3) 16%, var(--panel)));
-      color: var(--accent); font-weight: 700;
+    body {
+      margin: 0; font-family: var(--font-text); color: var(--text); min-height: 100vh;
+      background: 
+        radial-gradient(1000px 600px at 10% 10%, color-mix(in srgb, var(--g2) 15%, transparent), transparent 50%),
+        radial-gradient(1000px 600px at 90% 90%, color-mix(in srgb, var(--b3) 12%, transparent), transparent 50%),
+        var(--bg);
+      background-attachment: fixed;
     }
 
-    .btn{
-      flex:1; border:none; /* S/ borda */
-      background:var(--panel-2); color:var(--text); padding:12px;
-      border-radius:12px; cursor:pointer; font-size:11px; font-weight:700;
-      transition: background .2s ease;
+    .app { display: flex; min-height: 100vh; }
+
+    /* =============== SIDEBAR =============== */
+    .sidebar {
+      width: var(--sidebar-w); padding: 25px 20px;
+      backdrop-filter: blur(10px); background: var(--glass-panel);
+      position: sticky; top: 0; height: 100vh;
+    }
+
+    .brand {
+      padding-bottom: 30px; border-bottom: 1px solid rgba(128,128,128,0.1);
+      margin-bottom: 20px;
+    }
+    .brand h1 { margin: 0; font-size: 22px; font-weight: 700; letter-spacing: -0.5px; }
+    .brand p { margin: 5px 0 0; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); }
+
+    .tabs { display: flex; flex-direction: column; gap: 4px; }
+    
+    .tab-btn {
+      border: none; background: transparent; color: var(--text);
+      padding: 15px; text-align: left; cursor: pointer;
+      font-size: 13px; font-weight: 600; text-transform: uppercase;
+      transition: all 0.2s;
+    }
+    .tab-btn:hover { background: rgba(128,128,128,0.05); }
+    .tab-btn[aria-selected="true"] {
+      background: var(--accent); color: #fff;
+    }
+
+    .btn-theme {
+      margin-top: 20px; width: 100%; border: 1px solid var(--muted);
+      background: transparent; color: var(--text); padding: 10px;
+      cursor: pointer; font-size: 11px; font-weight: 700;
     }
 
     /* =============== MAIN =============== */
-    .main{flex:1; padding:22px}
+    .main { flex: 1; padding: 40px; }
 
-    .topbar{
-      display:flex; justify-content:space-between; align-items:center;
-      padding:16px 20px; border-radius:var(--radius);
-      background:var(--panel); box-shadow:var(--shadow);
+    .topbar {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      padding-bottom: 20px; border-bottom: 2px solid var(--accent);
+      margin-bottom: 30px;
+    }
+    .topbar .title { margin: 0; font-size: 28px; font-weight: 700; }
+    .topbar .hint { margin: 5px 0 0; font-size: 14px; color: var(--muted); }
+
+    .panel {
+      background: var(--glass-panel); backdrop-filter: blur(12px);
+      padding: 30px; box-shadow: var(--shadow);
     }
 
-    .panel{
-      margin-top:16px; border-radius:var(--radius);
-      background:var(--panel); box-shadow:var(--shadow); padding:24px;
-    }
-
-    /* =============== GRID / CARDS (Sem bordas) =============== */
-    .grid{ display:grid; grid-template-columns:repeat(12, 1fr); gap:16px; margin-top:12px; }
+    /* =============== GRID / CARDS =============== */
+    .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 20px; }
     
-    .card{
-      grid-column:span 12; background:var(--card); border:none; /* S/ borda */
-      border-radius:16px; padding:18px; box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-      transition: all .2s ease;
+    .card {
+      grid-column: span 12; background: var(--glass-card);
+      padding: 25px; transition: all 0.3s ease;
+      border: none;
     }
-    .card:hover{
-      transform:translateY(-3px); background:var(--card-hover);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-    }
+    .card:hover { background: var(--accent); color: #fff; transform: translateY(-5px); }
+    .card:hover p { color: rgba(255,255,255,0.8); }
+    .card h3 { margin: 0 0 10px; font-size: 18px; }
+    .card p { margin: 0; font-size: 13px; line-height: 1.6; color: var(--muted); transition: color 0.3s; }
 
-    /* Grid Responsivo Desktop */
     @media (min-width: 1024px) {
-      .projects .card, .pubs .card { grid-column: span 6; }
+      .projects .card { grid-column: span 6; }
       .members .card { grid-column: span 4; }
     }
 
-    .logo-wrap img{
-      width:420px; max-width:92%; border-radius:12px; border:none;
-      background:var(--panel-2); box-shadow: var(--shadow);
+    .logo-wrap img {
+      width: 100%; max-width: 500px; filter: grayscale(0.2);
+      margin-bottom: 20px;
     }
 
-    /* Integrantes Style */
-    .avatar, .avatar-fallback {
-      width:64px; height:64px; border-radius:16px; border:none;
-      background:linear-gradient(135deg, var(--g2), var(--b3));
-    }
-    .icon-btn{
-      border:none; background:var(--panel-2); padding:8px 10px;
-      border-radius:10px; font-size:10px; font-weight: 700;
+    .member { display: flex; gap: 20px; align-items: center; }
+    .avatar-fallback {
+      width: 60px; height: 60px; background: var(--accent);
+      color: #fff; display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 20px;
     }
 
-    @media (max-width: 980px){
-      .app{flex-direction:column;}
-      .sidebar{ width:100%; height:auto; position:relative; }
-      .main{padding:16px;}
-      .topbar{flex-direction:column; align-items:flex-start; gap: 10px;}
+    @media (max-width: 900px) {
+      .app { flex-direction: column; }
+      .sidebar { width: 100%; height: auto; position: relative; }
+      .main { padding: 20px; }
     }
     
-    .tab-panel{display:none;}
-    .tab-panel.active{display:block;}
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
   </style>
 </head>
 
@@ -161,46 +145,50 @@
   <div class="app">
     <aside class="sidebar">
       <div class="brand">
-        <div class="brand-mark" aria-hidden="true"></div>
-        <div>
-          <h1 style="font-family: 'SUGO DISPLAY', sans-serif">GISPRAD</h1>
-          <p>Laboratório de Geotecnologias</p>
-        </div>
+        <h1>GISPRAD</h1>
+        <p>Geotecnologias & Pesquisa</p>
       </div>
 
       <nav class="tabs" role="tablist">
-        <button class="tab-btn" data-tab="tab-gisprad" aria-selected="true">GISPRAD</button>
-        <button class="tab-btn" data-tab="tab-projetos">PROJETOS</button>
-        <button class="tab-btn" data-tab="tab-pubs">PUBLICAÇÕES</button>
-        <button class="tab-btn" data-tab="tab-integrantes">INTEGRANTES</button>
+        <button class="tab-btn" data-tab="tab-gisprad" aria-selected="true">Início</button>
+        <button class="tab-btn" data-tab="tab-projetos">Projetos</button>
+        <button class="tab-btn" data-tab="tab-pubs">Publicações</button>
+        <button class="tab-btn" data-tab="tab-integrantes">Equipe</button>
       </nav>
 
-      <div class="theme-row">
-        <button class="btn" id="btn-theme">NOITE / DIA</button>
-      </div>
+      <button class="btn-theme" id="btn-theme">ALTERAR MODO</button>
     </aside>
 
     <main class="main">
       <header class="topbar">
         <div>
-          <p class="title" id="pageTitle">GISPRAD</p>
-          <p class="hint" id="pageHint">Informações institucionais</p>
+          <div class="title" id="pageTitle">GISPRAD</div>
+          <div class="hint" id="pageHint">Laboratório de Análise Espacial</div>
         </div>
-        <div class="contact" style="font-size: 11px">
-          <b>Contato:</b> contato@gisprad.org<br>
-          <b>Instagram:</b> @gisprad
+        <div style="text-align: right; font-size: 12px; font-weight: 600;">
+          INSTAGRAM @GISPRAD<br>
+          CONTATO@GISPRAD.ORG
         </div>
       </header>
 
       <section class="panel tab-panel active" id="tab-gisprad">
-        <h2 class="section-title">Sobre o Laboratório</h2>
         <div class="logo-wrap">
-          <img src="IDENTIDADE%20VISUAL%20.png" alt="Identidade visual">
+          <img src="IDENTIDADE%20VISUAL%20.png" alt="Logo">
         </div>
-        <p class="text">O GISPRAD foca em pesquisa e desenvolvimento de soluções geoespaciais e análise de dados para ciência.</p>
-        <div class="grid">
-            <div class="card"><h3>Linhas de Pesquisa</h3><p>Sensoriamento remoto e WebGIS.</p></div>
-            <div class="card"><h3>Localização</h3><p>Cidade/Estado - Instituição.</p></div>
+        <h2 style="font-size: 24px;">Sobre o Lab</h2>
+        <p style="font-size: 15px; max-width: 800px; line-height: 1.8;">
+          O laboratório GISPRAD dedica-se à excelência em geotecnologias, fornecendo suporte técnico-científico 
+          através de métodos avançados de sensoriamento remoto e análise espacial.
+        </p>
+        <div class="grid" style="margin-top: 30px;">
+          <div class="card">
+            <h3>Nossa Missão</h3>
+            <p>Transformar dados geoespaciais brutos em inteligência aplicada para conservação e planejamento.</p>
+          </div>
+          <div class="card">
+            <h3>Infraestrutura</h3>
+            <p>Sistemas computacionais de alto desempenho voltados para processamento de imagens orbitais.</p>
+          </div>
         </div>
       </section>
 
@@ -211,45 +199,46 @@
   </div>
 
   <script>
-    // Lógica de abas e tema (mesma funcionalidade do original, otimizada)
     const html = document.documentElement;
     const btnTheme = document.getElementById("btn-theme");
-    const setTheme = (t) => { html.setAttribute("data-theme", t); localStorage.setItem("theme", t); };
+    
+    const setTheme = (t) => { 
+      html.setAttribute("data-theme", t); 
+      localStorage.setItem("theme", t); 
+    };
+    
     btnTheme.addEventListener("click", () => setTheme(html.getAttribute("data-theme") === "dark" ? "light" : "dark"));
     setTheme(localStorage.getItem("theme") || "light");
 
     const tabs = document.querySelectorAll(".tab-btn");
     const panels = document.querySelectorAll(".tab-panel");
-    const meta = {
-      "tab-gisprad": { title:"GISPRAD", hint:"Institucional" },
-      "tab-projetos": { title:"PROJETOS", hint:"Pesquisas em curso" },
-      "tab-pubs": { title:"PUBLICAÇÕES", hint:"Produção científica" },
-      "tab-integrantes": { title:"INTEGRANTES", hint:"Nossa equipe" }
-    };
-
+    
     tabs.forEach(btn => btn.addEventListener("click", () => {
       const id = btn.dataset.tab;
       tabs.forEach(t => t.setAttribute("aria-selected", t === btn));
       panels.forEach(p => p.classList.toggle("active", p.id === id));
-      document.getElementById("pageTitle").textContent = meta[id].title;
-      document.getElementById("pageHint").textContent = meta[id].hint;
+      document.getElementById("pageTitle").textContent = btn.textContent;
     }));
 
-    // Mock Data para renderização
-    const projectsData = Array.from({length: 10}, (_, i) => ({ title: `Projeto ${i+1}`, desc: "Descrição breve do projeto geoespacial." }));
-    document.getElementById("projectsGrid").innerHTML = projectsData.map(p => `<article class="card"><h3>${p.title}</h3><p>${p.desc}</p></article>`).join("");
-    
-    // Integrantes
-    const membersData = Array.from({length: 12}, (_, i) => ({ name: `Integrante ${i+1}`, role: "Pesquisador" }));
-    document.getElementById("membersGrid").innerHTML = membersData.map(m => `
+    // Renderizando Projetos
+    const projects = [
+      { t: "Análise de Uso do Solo", d: "Classificação automática via Random Forest em séries Sentinel-2." },
+      { t: "Mapeamento Hidrográfico", d: "Extração de rede de drenagem a partir de modelos digitais de elevação." }
+    ];
+    document.getElementById("projectsGrid").innerHTML = projects.map(p => `
+      <article class="card"><h3>${p.t}</h3><p>${p.d}</p></article>
+    `).join("");
+
+    // Renderizando Integrantes
+    const team = ["Dr. Arnaldo Silva", "MSc. Beatriz Costa", "Eng. Carlos Lima"];
+    document.getElementById("membersGrid").innerHTML = team.map(name => `
       <article class="card">
         <div class="member">
-          <div class="avatar-fallback">${m.name[0]}</div>
-          <div><b>${m.name}</b><small>${m.role}</small>
-            <div class="social"><a href="#" class="icon-btn">LINKEDIN</a></div>
-          </div>
+          <div class="avatar-fallback">${name[0]}</div>
+          <div><div style="font-weight:700">${name}</div><div style="font-size:12px">Pesquisador</div></div>
         </div>
-      </article>`).join("");
+      </article>
+    `).join("");
   </script>
 </body>
 </html>
