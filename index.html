@@ -300,17 +300,21 @@
     function getIniciais(n){ return n.split(" ").map(x => x[0]).join("").substring(0,2).toUpperCase(); }
 
     document.getElementById("membersGrid").innerHTML = members.map(m => `
-      <article class="card">
-        <div class="member">
-          <div class="avatar-fallback">${getIniciais(m.name)}</div>
-          <div class="member-info">
-            <b>${m.name}</b>
-            <small>${m.role}</small>
-            <a href="${m.link}" class="ln-link" target="_blank" rel="noopener" title="LinkedIn">${LINKEDIN_ICON}</a>
-          </div>
-        </div>
-      </article>
-    `).join("");
+  <article class="card">
+    <div class="member">
+      ${m.photo
+        ? `<img src="${m.photo}" alt="Foto de ${m.name}" class="avatar-photo">`
+        : `<div class="avatar-fallback">${getIniciais(m.name)}</div>`
+      }
+      <div class="member-info">
+        <b>${m.name}</b>
+        <small>${m.role}</small>
+        <a href="${m.link}" class="ln-link" target="_blank" rel="noopener" title="LinkedIn">${LINKEDIN_ICON}</a>
+      </div>
+    </div>
+  </article>
+`).join("");
+
 
     // PROJETOS
     const projects = [
