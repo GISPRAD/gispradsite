@@ -99,11 +99,10 @@
     .ln-link{ 
       display:inline-flex; 
       align-items:center; 
-      color: #0077b5; 
       transition: transform 0.2s;
     }
     .ln-link:hover{ transform: scale(1.1); }
-    .ln-ico{ width:20px; height:20px; display:block; fill: currentColor; }
+    .ln-ico{ width:20px; height:20px; display:block; object-fit: contain; }
 
     .map-container { width: 100%; height: 250px; margin-top: 10px; border:0; filter: grayscale(1); transition: 0.3s;}
     .map-container:hover { filter: grayscale(0); }
@@ -204,8 +203,8 @@
   </div>
 
   <script>
-    // Logo do LinkedIn em SVG
-    const LINKEDIN_SVG = `<svg class="ln-ico" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>`;
+    // Definição da imagem do LinkedIn
+    const LINKEDIN_ICON = `<img src="logo_linkedin.png" alt="LinkedIn" class="ln-ico">`;
 
     const members = [
       { photo: "Logo_2025_sem_fundo.png", name: "Álvaro P. Berghetti", role: "Professor Orientador", email: "alvaro.berghetti@ufpr.br", link: "https://www.linkedin.com/in/alvaro-berghetti-82b6b5158/" },
@@ -236,24 +235,26 @@
       return n.split(" ").map(x => x[0]).join("").substring(0,2).toUpperCase();
     }
 
-    document.getElementById("membersGrid").innerHTML = members.map(m => `
-      <article class="card">
-        <div class="member">
-          ${m.photo
-            ? `<img src="${m.photo}" alt="Foto de ${m.name}" class="avatar-photo">`
-            : `<div class="avatar-fallback">${getIniciais(m.name)}</div>`
-          }
-          <div class="member-info">
-            <div class="member-title">
-              <span class="member-name">${m.name}</span>
-              <span class="member-role-inline">| ${m.role}</span>
+    function renderMembers() {
+      const grid = document.getElementById("membersGrid");
+      grid.innerHTML = members.map(m => `
+        <article class="card">
+          <div class="member">
+            ${m.photo
+              ? `<img src="${m.photo}" alt="Foto de ${m.name}" class="avatar-photo">`
+              : `<div class="avatar-fallback">${getIniciais(m.name)}</div>`
+            }
+            <div class="member-info">
+              <div class="member-title">
+                <span class="member-name">${m.name}</span>
+                <span class="member-role-inline">| ${m.role}</span>
+              </div>
+              <small>${m.email}</small><br>
+              <a href="${m.link}" class="ln-link" target="_blank" rel="noopener" title="LinkedIn">${LINKEDIN_ICON}</a>
             </div>
-            ${m.email ? `<small>${m.email}</small>` : ``}
-            <a href="${m.link}" class="ln-link" target="_blank" rel="noopener" title="LinkedIn">${LINKEDIN_ICON}</a>
           </div>
-        </div>
-      </article>
-    `).join("");
+        </article>
+      `).join("");
     }
 
     const projects = [
@@ -262,9 +263,12 @@
     ];
 
     function renderProjects() {
-      document.getElementById("projectsGrid").innerHTML = projects.map(p => `
-        <div class="card"><h3>${p.title}</h3><p>${p.desc}</p></div>
-      `).join("");
+      const pGrid = document.getElementById("projectsGrid");
+      if(pGrid) {
+        pGrid.innerHTML = projects.map(p => `
+          <div class="card"><h3>${p.title}</h3><p>${p.desc}</p></div>
+        `).join("");
+      }
     }
 
     const meta = {
