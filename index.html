@@ -170,7 +170,9 @@
 
     .member-info b{ font-size:15px; display:block; line-height:1.2; margin-bottom: 2px; }
     .member-info small{ color:var(--muted); font-size:13px; display: block; margin-bottom: 6px; }
-
+  font-weight:400;
+  color:var(--muted);
+}
     /* LINKEDIN */
     .ln-link{
       display:inline-flex;
@@ -328,7 +330,7 @@
 
     // INTEGRANTES
     const members = [
-      { photo: "Logo_2025_sem_fundo.png", name: "Álvaro P. Berghetti | Professor Orientador", role: "alvaro@ufpr.br", link: "https://www.linkedin.com/in/alvaro-berghetti-82b6b5158/" },
+      { photo: "Logo_2025_sem_fundo.png", name: "Álvaro P. Berghetti", role: "Professor Orientador", role: "alvaro@ufpr.br", link: "https://www.linkedin.com/in/alvaro-berghetti-82b6b5158/" },
       { name: "Viviane Maia Corrêa", role: "Doutorado", link: "#" },
       { name: "Cleberson Porath", role: "Mestrado", link: "https://www.linkedin.com/in/cleberson-porath/" },
       { name: "Eduardo Praxedes B. Raymundo", role: "Mestrado", link: "https://www.linkedin.com/in/eduardo-praxedes-189468160/" },
@@ -362,7 +364,7 @@
             : `<div class="avatar-fallback">${getIniciais(m.name)}</div>`
           }
           <div class="member-info">
-            <b>${m.name}</b>
+            <b>${m.name}</b> <span class="member-role-inline">| ${m.role}</span>
             <small>${m.role}</small>
             <a href="${m.link}" class="ln-link" target="_blank" rel="noopener" title="LinkedIn">${LINKEDIN_ICON}</a>
           </div>
