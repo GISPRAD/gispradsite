@@ -121,9 +121,12 @@
     .panel{ background:var(--panel); padding:20px; margin-bottom: 16px; }
     .grid{ display:grid; grid-template-columns:repeat(12, 1fr); gap:16px; }
 
-    /* CARDS - ALTERADO PARA SPAN 6 PARA CRIAR DUAS COLUNAS NO INÍCIO */
-    .card{ grid-column:span 6; background:var(--panel-2); padding:20px; transition: background .2s; border: none; }
+    /* CARDS */
+    .card{ grid-column:span 12; background:var(--panel-2); padding:20px; transition: background .2s; border: none; }
     .card:hover{ background:var(--card-hover); }
+
+    /* ESTA REGRA CRIA AS DUAS COLUNAS NO INÍCIO */
+    .grid .card.half { grid-column: span 6; }
 
     .projects .card{ grid-column:span 6; }
 
@@ -219,8 +222,7 @@
       .app{ flex-direction:column; }
       .sidebar{ width:100%; height:auto; position:relative; }
       .projects .card{ grid-column:span 12; }
-      /* Em telas pequenas, o bloco de localização volta a ser tela cheia */
-      .card { grid-column: span 12; }
+      .grid .card.half { grid-column: span 12; }
     }
   </style>
 </head>
@@ -257,27 +259,30 @@
           <p id="pageTitle" style="font-weight:700; margin:0; font-size: 18px;">GISPRAD</p>
           <p id="pageHint" style="margin:0; font-size:11px; color:var(--muted);">Informações institucionais</p>
         </div>
-        <div style="font-size:14px; text-align: right;">
-          <b>Contato:</b> contato@gisprad.org<br>
-          <b>Instagram:</b> @gisprad
-        </div>
       </div>
 
       <section class="panel tab-panel active" id="tab-gisprad">
-        <h2 style="grid-column: span 12;">Laboratório GISPRAD</h2>
-        <p style="grid-column: span 12;">O GISPRAD é um laboratório voltado a pesquisa, desenvolvimento e aplicação de soluções em geotecnologias, análise espacial e integração de dados para suporte à tomada de decisão.</p>
+        <div class="card" style="margin-bottom: 16px;">
+            <h2>Laboratório GISPRAD</h2>
+            <p>O GISPRAD é um laboratório voltado a pesquisa, desenvolvimento e aplicação de soluções em geotecnologias, análise espacial e integração de dados para suporte à tomada de decisão.</p>
+        </div>
 
         <div class="grid">
-          <div class="card">
-            <h3>Linhas de pesquisa</h3>
-            <p>Geoprocessamento, Sensoriamento Remoto, WebGIS e Automação de Dados Ambientais.</p>
-          </div>
-          <div class="card">
+          <div class="card half">
             <h3>Localização</h3>
             <p>Universidade Federal de Santa Catarina (UFSC) — Campus Florianópolis.</p>
             <iframe class="map-container"
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3535.84586026848!2d-48.5235894!3d-27.600135!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95273909774643cf%3A0x6331908d13292415!2sUFSC%20-%20Universidade%20Federal%20de%20Santa%20Catarina!5e0!3m2!1spt-BR!2sbr!4v1700000000000"
               allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+
+          <div class="card half">
+            <h3>Contato e Redes Sociais</h3>
+            <div style="margin-top: 20px;">
+                <p style="margin-bottom: 12px;"><b>E-mail:</b><br>contato@gisprad.org</p>
+                <p style="margin-bottom: 12px;"><b>Instagram:</b><br>@gisprad</p>
+                <p style="margin-bottom: 12px;"><b>Linhas de pesquisa:</b><br>Geoprocessamento, Sensoriamento Remoto, WebGIS e Automação de Dados Ambientais.</p>
+            </div>
           </div>
         </div>
       </section>
