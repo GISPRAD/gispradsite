@@ -3,266 +3,430 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>GISPRAD | UFSC</title>
-  
+  <title>GISPRAD</title>
+  <link rel="icon" type="image/png" href="Logo_2025_sem_fundo.png">
+
   <style>
-    /* Cores Originais e Variáveis */
-    :root {
+    @font-face{
+      font-family:"Glacial Indifference";
+      src:url("fonts/GlacialIndifference-Regular.woff2") format("woff2"),
+          url("fonts/GlacialIndifference-Regular.woff") format("woff");
+      font-weight:400; font-style:normal; font-display:swap;
+    }
+    @font-face{
+      font-family:"Glacial Indifference";
+      src:url("fonts/GlacialIndifference-Bold.woff2") format("woff2"),
+          url("fonts/GlacialIndifference-Bold.woff") format("woff");
+      font-weight:700; font-style:normal; font-display:swap;
+    }
+    @font-face{
+      font-family:"SUGO DISPLAY";
+      src:url("fonts/SugoDisplay.woff2") format("woff2"),
+          url("fonts/SugoDisplay.woff") format("woff");
+      font-weight:400; font-style:normal; font-display:swap;
+    }
+
+    :root{
       --g1:#436526; --g2:#33551A; --g3:#274910; --g4:#163105; --g5:#050F00;
       --b1:#FFF4DE; --b2:#DDB871; --b3:#BE8141; --b4:#5C3A17; --b5:#1C1107;
-      --font-text:"Glacial Indifference", "Segoe UI", Arial, sans-serif;
-      --sidebar-w: 270px;
+      --font-text:"Glacial Indifference","Segoe UI",Arial,sans-serif;
+      --font-tabs:"SUGO DISPLAY","Glacial Indifference","Segoe UI",Arial,sans-serif;
+      --fs-title:16px;
+      --fs-text:12px;
+      --sidebar-w:270px;
+      --radius:0px;
     }
 
-    html[data-theme="light"] {
-      --bg:#fbfbfc; --panel:#ffffff; --panel-2:#f6f6f7;
-      --text:#151515; --muted:rgba(21,21,21,.72); --line:rgba(21,21,21,.12);
-      --accent: var(--g2); --accent-2: var(--b3);
+    html[data-theme="light"]{
+      --bg:#fbfbfc;
+      --panel:#ffffff;
+      --panel-2:#f6f6f7;
+      --text:#151515;
+      --muted:rgba(21,21,21,.72);
+      --line:rgba(21,21,21,.12);
+      --card:#ffffff;
+      --card-hover:#ececed;
+      --accent: var(--g2);
+      --accent-2: var(--b3);
     }
 
-    html[data-theme="dark"] {
-      --bg:#0b0f0b; --panel:rgba(255,255,255,.06); --panel-2:rgba(255,255,255,.04);
-      --text:rgba(255,255,255,.92); --muted:rgba(255,255,255,.70); --line:rgba(255,255,255,.14);
-      --accent: var(--b2); --accent-2: var(--g1);
+    html[data-theme="dark"]{
+      --bg:#0b0f0b;
+      --panel:rgba(255,255,255,.06);
+      --panel-2:rgba(255,255,255,.04);
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.70);
+      --line:rgba(255,255,255,.14);
+      --card:rgba(255,255,255,.06);
+      --card-hover:rgba(255,255,255,.12);
+      --accent: var(--b2);
+      --accent-2: var(--g1);
     }
 
-    * { box-sizing: border-box; }
-    body { margin:0; font-family:var(--font-text); background: var(--bg); color:var(--text); min-height:100vh; }
-    
-    .app { display: flex; min-height: 100vh; }
+    *{box-sizing:border-box}
+    body{ margin:0; font-family:var(--font-text); background: var(--bg); color:var(--text); min-height:100vh; }
+    a{ text-decoration: none; color: inherit; }
+    .app{ display:flex; min-height:100vh; }
 
     /* SIDEBAR */
-    .sidebar { width: var(--sidebar-w); padding: 18px; background: var(--panel); position: sticky; top: 0; height: 100vh; overflow: auto; border-right: 1px solid var(--line); }
-    .brand { display: flex; align-items: center; gap: 12px; padding: 12px; background: var(--panel-2); margin-bottom: 20px; }
-    .brand img { width: 60px; height: 60px; object-fit: cover; }
-    .brand h1 { margin: 0; font-size: 14px; font-weight: 700; letter-spacing: .2px; }
-    .brand p { margin: 0; font-size: 11px; color: var(--muted); }
+    .sidebar{ width:var(--sidebar-w); padding:18px; background:var(--panel); position:sticky; top:0; height:100vh; overflow:auto; }
+    .brand{ display:flex; align-items:center; gap:12px; padding:12px; background:var(--panel-2); }
+    .brand-mark{ width:60px; height:60px; background: var(--panel); display:flex; align-items:center; justify-content:center; overflow:hidden; }
+    .brand-logo{ width:100%; height:100%; object-fit: cover; }
+    .brand h1{ margin:0; font-size:14px; font-weight:700; letter-spacing:.2px; }
+    .brand p{ margin:0; font-size:11px; color:var(--muted); }
 
-    .tabs { display: flex; flex-direction: column; gap: 2px; }
-    .tab-btn { 
-      text-align: left; border: none; background: var(--panel); color: var(--text); 
-      padding: 12px; cursor: pointer; letter-spacing: .8px; text-transform: uppercase; 
-      font-size: 12px; transition: background .2s; font-weight: 700;
+    .tabs{ margin-top:14px; display:flex; flex-direction:column; gap:2px; }
+    .tab-btn{ font-family:var(--font-tabs); text-align:left; border:none; background:var(--panel); color:var(--text); padding:12px; cursor:pointer; letter-spacing:.8px; text-transform:uppercase; font-size:12px; transition: background .2s; }
+    .tab-btn:hover{ background: var(--panel-2); }
+    .tab-btn[aria-selected="true"]{ background: var(--accent); color: white; }
+
+    /* ACTIONS (LUPA + TEMA) */
+    .actions-row{
+      margin-top:12px;
+      display:flex;
+      gap:10px;
     }
-    .tab-btn:hover { background: var(--panel-2); }
-    .tab-btn[aria-selected="true"] { background: var(--accent); color: white; }
-
-    /* AÇÕES */
-    .actions-row { margin-top: 12px; display: flex; gap: 10px; }
-    .btn-action { 
-      flex: 1; height: 44px; border: none; background: var(--panel-2); 
-      color: var(--text); cursor: pointer; display: flex; align-items: center; justify-content: center; 
+    .actions-row .btn-search,
+    .actions-row .btn-theme{
+      flex:1;
+      width:auto;     /* anula width antigo */
+      margin-top:0;   /* anula margin antigo */
+      height:44px;    /* mesma altura */
+      padding:0;
+      border:none;
+      background:var(--panel-2);
+      color:var(--text);
+      cursor:pointer;
+      transition: background .2s;
+      display:flex;
+      align-items:center;
+      justify-content:center;
     }
-    .btn-action:hover { background: var(--accent-2); color: white; }
-
-    /* CONTEÚDO PRINCIPAL */
-    .main { flex: 1; padding: 22px; }
-    .topbar { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; background: var(--panel); margin-bottom: 16px; border-bottom: 2px solid var(--accent); }
-    
-    .grid { 
-      display: grid; 
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
-      gap: 16px; 
+    .actions-row .btn-search:hover,
+    .actions-row .btn-theme:hover{
+      background: var(--accent-2);
+      color: white;
+    }
+    .actions-row .btn-search svg,
+    .actions-row .btn-theme svg{
+      width:18px;
+      height:18px;
+      display:block;
     }
 
-    .card { background: var(--panel-2); padding: 20px; transition: background .2s; border: none; }
-    .card:hover { background: var(--line); }
+    /* MAIN */
+    .main{ flex:1; padding:22px; }
+    .topbar{ display:flex; justify-content:space-between; align-items:center; padding:14px 16px; background:var(--panel); margin-bottom: 16px; }
+    .panel{ background:var(--panel); padding:20px; margin-bottom: 16px; }
+    .grid{ display:grid; grid-template-columns:repeat(12, 1fr); gap:16px; }
 
-    /* MEMBROS */
-    .category-divider { grid-column: 1 / -1; margin: 20px 0 10px 0; font-size: 14px; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid var(--line); padding-bottom: 5px; }
-    .member { display: flex; gap: 16px; align-items: center; }
-    .avatar { width: 70px; height: 70px; border-radius: 12px; background: var(--line); object-fit: cover; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px; flex-shrink: 0; }
-    
-    .member-info { min-width: 0; flex: 1; }
-    .member-title { display: flex; align-items: baseline; gap: 6px; }
-    .member-name { font-size: 15px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .member-role { font-size: 13px; color: var(--muted); font-weight: 400; }
-    .member-email { display: block; font-size: 12px; color: var(--muted); margin-bottom: 5px; overflow: hidden; text-overflow: ellipsis; }
+    /* CARDS */
+    .card{ grid-column:span 12; background:var(--panel-2); padding:20px; transition: background .2s; border: none; }
+    .card:hover{ background:var(--card-hover); }
+
+    .projects .card{ grid-column:span 6; }
+
+    /* INTEGRANTES (3 por linha) */
+    .members .card{ grid-column:span 4; }
+    .member{ display:flex; gap:16px; align-items:center; }
+
+    /* AVATAR */
+    .avatar-fallback{
+      width:70px; height:70px;
+      background:var(--line);
+      display:flex; align-items:center; justify-content:center;
+      font-weight:700; font-size:18px; flex-shrink: 0;
+      border-radius:12px;
+    }
+    .avatar-photo{
+      width:70px;
+      height:70px;
+      object-fit:cover;
+      display:block;
+      flex-shrink:0;
+      background:var(--line);
+      border-radius:12px;
+    }
+
+    /* TÍTULO (NOME + | ROLE NA MESMA LINHA) */
+    .member-title{
+      display:flex;
+      align-items:baseline;
+      gap:6px;
+      flex-wrap:nowrap;
+    }
+    .member-name{
+      font-size:15px;
+      font-weight:700;
+      line-height:1.2;
+      min-width:0;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+    .member-role-inline{
+      font-weight:400;
+      color:var(--muted);
+      white-space:nowrap;
+    }
+
+    .member-info small{
+      color:var(--muted);
+      font-size:13px;
+      display:block;
+      margin-bottom:6px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    /* LINKEDIN */
+    .ln-link{
+      display:inline-flex;
+      align-items:center;
+      line-height:0;
+      color: var(--muted);
+      transition: color .2s;
+    }
+    .ln-link:hover{ color: #0077b5; }
+    .ln-ico{
+      width:18px;
+      height:18px;
+      display:block;
+      object-fit:contain;
+    }
 
     /* MAPA */
-    .map-container { width: 100%; height: 250px; margin-top: 10px; filter: grayscale(1) opacity(0.8); transition: 0.3s; border: 0; }
+    .map-container {
+      width: 100%;
+      height: 250px;
+      margin-top: 10px;
+      filter: grayscale(1) opacity(0.8);
+      transition: filter 0.3s;
+      border:0;
+    }
     .map-container:hover { filter: grayscale(0) opacity(1); }
 
-    .tab-panel { display: none; }
-    .tab-panel.active { display: block; }
+    .tab-panel{ display:none; }
+    .tab-panel.active{ display:block; }
 
-    @media (max-width: 980px) {
-      .app { flex-direction: column; }
-      .sidebar { width: 100%; height: auto; position: relative; }
+    @media (max-width: 1100px){
+      .members .card{ grid-column:span 12; }
+    }
+
+    @media (max-width: 980px){
+      .app{ flex-direction:column; }
+      .sidebar{ width:100%; height:auto; position:relative; }
+      .projects .card{ grid-column:span 12; }
     }
   </style>
 </head>
+
 <body>
-
-<div class="app">
-  <aside class="sidebar">
-    <div class="brand">
-      <img src="IDENTIDADE%20VISUAL%20.png" alt="Logo">
-      <div>
-        <h1>GISPRAD</h1>
-        <p>Laboratório • Institucional</p>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">
+          <img src="IDENTIDADE%20VISUAL%20.png" class="brand-logo" alt="Logo">
+        </div>
+        <div>
+          <h1>GISPRAD</h1>
+          <p>Laboratório • Institucional</p>
+        </div>
       </div>
-    </div>
 
-    <div class="tabs" role="tablist">
-      <button class="tab-btn" role="tab" aria-selected="true" data-tab="tab-gisprad">GISPRAD</button>
-      <button class="tab-btn" role="tab" aria-selected="false" data-tab="tab-projetos">PROJETOS</button>
-      <button class="tab-btn" role="tab" aria-selected="false" data-tab="tab-integrantes">INTEGRANTES</button>
-    </div>
-
-    <div class="actions-row">
-      <button class="btn-action" id="btn-theme" title="Alternar Tema">🌓</button>
-      <button class="btn-action" id="btn-search" title="Pesquisar">🔍</button>
-    </div>
-  </aside>
-
-  <main class="main">
-    <header class="topbar">
-      <div>
-        <p id="pageTitle" style="font-weight:700; margin:0; font-size: 18px;">GISPRAD</p>
-        <p id="pageHint" style="margin:0; font-size:11px; color:var(--muted);">Informações institucionais</p>
+      <div class="tabs" role="tablist">
+        <button class="tab-btn" role="tab" aria-selected="true" data-tab="tab-gisprad">GISPRAD</button>
+        <button class="tab-btn" role="tab" aria-selected="false" data-tab="tab-projetos">PROJETOS</button>
+        <button class="tab-btn" role="tab" aria-selected="false" data-tab="tab-pubs">PUBLICAÇÕES</button>
+        <button class="tab-btn" role="tab" aria-selected="false" data-tab="tab-integrantes">INTEGRANTES</button>
       </div>
-      <div style="font-size:13px; text-align: right;">
-        <b>Contato:</b> contato@gisprad.org<br>
-        <b>Instagram:</b> @gisprad
-      </div>
-    </header>
 
-    <section class="tab-panel active" id="tab-gisprad">
-      <div class="card" style="margin-bottom: 16px;">
+      <div class="actions-row">
+        <button class="btn-search" id="btn-search" aria-label="Pesquisar"><span id="searchIconWrap"></span></button>
+        <button class="btn-theme" id="btn-theme" aria-label="Alternar tema"><span id="themeIconWrap"></span></button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <div class="topbar">
+        <div>
+          <p id="pageTitle" style="font-weight:700; margin:0; font-size: 18px;">GISPRAD</p>
+          <p id="pageHint" style="margin:0; font-size:11px; color:var(--muted);">Informações institucionais</p>
+        </div>
+        <div style="font-size:14px; text-align: right;">
+          <b>Contato:</b> contato@gisprad.org<br>
+          <b>Instagram:</b> @gisprad
+        </div>
+      </div>
+
+      <section class="panel tab-panel active" id="tab-gisprad">
         <h2>Laboratório GISPRAD</h2>
         <p>O GISPRAD é um laboratório voltado a pesquisa, desenvolvimento e aplicação de soluções em geotecnologias, análise espacial e integração de dados para suporte à tomada de decisão.</p>
-      </div>
-      <div class="grid">
-        <div class="card">
-          <h3>Linhas de pesquisa</h3>
-          <p>Geoprocessamento, Sensoriamento Remoto, WebGIS e Automação de Dados Ambientais.</p>
-        </div>
-        <div class="card">
-          <h3>Localização</h3>
-          <p>Universidade Federal de Santa Catarina (UFSC) — Campus Florianópolis.</p>
-          <iframe class="map-container" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3535.844615873523!2d-48.52554702453637!3d-27.600640476241183!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9527394662657e45%3A0x6d900609b7c87c0a!2sUFSC%20-%20Universidade%20Federal%20de%20Santa%20Catarina!5e0!3m2!1spt-BR!2sbr!4v1700000000000" allowfullscreen="" loading="lazy"></iframe>
-        </div>
-      </div>
-    </section>
 
-    <section class="tab-panel" id="tab-projetos">
-      <div class="grid" id="projectsGrid"></div>
-    </section>
-
-    <section class="tab-panel" id="tab-integrantes">
-      <div class="grid" id="membersGrid"></div>
-    </section>
-  </main>
-</div>
-
-<script>
-  // Dados Originais
-  const members = [
-    { photo: "Logo_2025_sem_fundo.png", name: "Álvaro P. Berghetti", role: "Professor Orientador", cat: "Docente", email: "alvaro.berghetti@ufpr.br", link: "https://www.linkedin.com/in/alvaro-berghetti-82b6b5158/" },
-    { name: "Viviane Maia Corrêa", role: "Doutorado", cat: "Pesquisadores", email: "viviane.correa@ufpr.br", link: "#" },
-    { name: "Cleberson Porath", role: "Mestrado", cat: "Pesquisadores", email: "cleberson.porath@ufpr.br", link: "https://www.linkedin.com/in/cleberson-porath/" },
-    { name: "Eduardo Praxedes B. Raymundo", role: "Mestrado", cat: "Pesquisadores", email: "eduardopraxedes@ufpr.br", link: "https://www.linkedin.com/in/eduardo-praxedes-189468160/" },
-    { name: "Julia Silva Rodrigues", role: "Mestrado", cat: "Pesquisadores", email: "julia.s.rodrigues.21@ufpr.br", link: "https://www.linkedin.com/in/julia-rodrigues-0a92b2160/" },
-    { name: "Juliana Hoepers M. Tedesco", role: "Mestrado", cat: "Pesquisadores", email: "juliana.tedesco@ufpr.br", link: "https://www.linkedin.com/in/juliana-tedesco/" },
-    { name: "Kemelyn Hack Pires", role: "Mestrado", cat: "Pesquisadores", email: "kemelynpires@ufpr.br", link: "https://www.linkedin.com/in/kemelyn-hack-pires-a254ba1b2/" },
-    { name: "Lucas Soares Miguez", role: "Mestrado", cat: "Pesquisadores", email: "lucas.miguez@ufpr.br", link: "https://www.linkedin.com/in/lucas-miguez-166814248/" },
-    { name: "Patrícia Portela Feldmann", role: "Mestrado", cat: "Pesquisadores", email: "patricia.feldmann@ufpr.br", link: "https://www.linkedin.com/in/patricia-portela-feldmann-a502b798/" },
-    { name: "Thainá Aloísio Saraiva", role: "Mestrado", cat: "Pesquisadores", email: "thaina.aloisio@ufpr.br", link: "https://www.linkedin.com/in/thainaasaraiva/" },
-    { name: "Agnes Aleixo da Luz", role: "Graduação", cat: "Graduação", email: "agnes.luz@ufpr.br", link: "https://www.linkedin.com/in/agnes-aleixo-da-luz-3aa1343a9/" },
-    { name: "Alonso Cortés do Amaral", role: "Graduação", cat: "Graduação", email: "alonso.amaral@ufpr.br", link: "#" },
-    { name: "Carolina Pulido Arce", role: "Graduação", cat: "Graduação", email: "carolinaarce@ufpr.br", link: "https://www.linkedin.com/in/carolina-pulido-arce/" },
-    { name: "Dheimilly Krachinski", role: "Graduação", cat: "Graduação", email: "dheimilly.krachinski@ufpr.br", link: "https://www.linkedin.com/in/dheimilly-krachinski-439941361/" },
-    { name: "Eduarda Cristina M. dos Santos", role: "Graduação", cat: "Graduação", email: "eduarda.moraes@ufpr.br", link: "https://www.linkedin.com/in/eduardacristinams/" },
-    { name: "Francisco Erê Consani Steidle", role: "Graduação", cat: "Graduação", email: "franciscoere@ufpr.br", link: "https://www.linkedin.com/in/francisco-er%C3%AA-consani-05b027367/" },
-    { name: "Gabriel de Oliveira Bonfim Araujo", role: "Graduação", cat: "Graduação", email: "gabriel.bonfim@ufpr.br", link: "#" },
-    { name: "Heitor do Nascimento Moreira", role: "Graduação", cat: "Graduação", email: "heitor.nascimento@ufpr.br", link: "#" },
-    { name: "Katrielle Alessandra R. S. Isaias", role: "Graduação", cat: "Graduação", email: "katrielle@ufpr.br", link: "#" },
-    { name: "Lara Brand Bordenousky", role: "Graduação", cat: "Graduação", email: "lara.brand@ufpr.br", link: "https://www.linkedin.com/in/lara-brand-bordenousky-859205313/" },
-    { name: "Laura Gabriela Bortoli Mariotto", role: "Graduação", cat: "Graduação", email: "laura.mariotto@upfr.br", link: "#" },
-    { name: "Ruan Pablo da Trindade", role: "Graduação", cat: "Graduação", email: "ruantrindade@ufpr.br", link: "https://www.linkedin.com/in/rptrindade/" }
-  ];
-
-  const projects = [
-    { title: "Monitoramento Ambiental", desc: "Uso de sensoriamento remoto para análise de mudanças no solo." },
-    { title: "WebGIS Institucional", desc: "Desenvolvimento de plataforma interativa para visualização de dados espaciais." },
-    { title: "Automação ETL", desc: "Scripts para processamento automático de grandes volumes de dados geoespaciais." }
-  ];
-
-  // Iniciais para avatar
-  function getIniciais(n) { return n.split(" ").map(x => x[0]).join("").substring(0,2).toUpperCase(); }
-
-  // Renderização Organizada
-  function renderMembers() {
-    const grid = document.getElementById("membersGrid");
-    const categories = ["Docente", "Pesquisadores", "Graduação"];
-    
-    grid.innerHTML = categories.map(cat => `
-      <div class="category-divider">${cat}</div>
-      ${members.filter(m => m.cat === cat).map(m => `
-        <article class="card">
-          <div class="member">
-            ${m.photo 
-              ? `<img src="${m.photo}" class="avatar">` 
-              : `<div class="avatar">${getIniciais(m.name)}</div>`}
-            <div class="member-info">
-              <div class="member-title">
-                <span class="member-name">${m.name}</span>
-                <span class="member-role">| ${m.role}</span>
-              </div>
-              <small class="member-email">${m.email}</small>
-              <a href="${m.link}" target="_blank" style="color:var(--accent-2); font-size:11px; text-decoration:none;">LinkedIn ↗</a>
-            </div>
+        <div class="grid">
+          <div class="card">
+            <h3>Linhas de pesquisa</h3>
+            <p>Geoprocessamento, Sensoriamento Remoto, WebGIS e Automação de Dados Ambientais.</p>
           </div>
-        </article>
-      `).join("")}
-    `).join("");
-  }
+          <div class="card">
+            <h3>Localização</h3>
+            <p>Universidade Federal de Santa Catarina (UFSC) — Campus Florianópolis.</p>
+            <iframe class="map-container"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3535.84586026848!2d-48.5235894!3d-27.600135!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95273909774643cf%3A0x6331908d13292415!2sUFSC%20-%20Universidade%20Federal%20de%20Santa%20Catarina!5e0!3m2!1spt-BR!2sbr!4v1700000000000"
+              allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+      </section>
 
-  function renderProjects() {
-    document.getElementById("projectsGrid").innerHTML = projects.map(p => `
-      <article class="card"><h3>${p.title}</h3><p>${p.desc}</p></article>
-    `).join("");
-  }
+      <section class="panel tab-panel" id="tab-projetos">
+        <h2>Projetos em Destaque</h2>
+        <div class="grid projects" id="projectsGrid"></div>
+      </section>
 
-  // Navegação
-  const meta = {
-    "tab-gisprad": { title:"GISPRAD", hint:"Informações institucionais" },
-    "tab-projetos": { title:"PROJETOS", hint:"Pesquisas em desenvolvimento" },
-    "tab-integrantes": { title:"INTEGRANTES", hint:"Equipe e pesquisadores" }
-  };
+      <section class="panel tab-panel" id="tab-pubs">
+        <h2>Publicações</h2>
+        <div class="grid pubs" id="pubsGrid"></div>
+      </section>
 
-  document.querySelectorAll(".tab-btn").forEach(btn => {
-    btn.onclick = () => {
-      document.querySelectorAll(".tab-btn").forEach(b => b.setAttribute("aria-selected", "false"));
-      document.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
-      btn.setAttribute("aria-selected", "true");
-      const tid = btn.dataset.tab;
-      document.getElementById(tid).classList.add("active");
-      document.getElementById("pageTitle").textContent = meta[tid].title;
-      document.getElementById("pageHint").textContent = meta[tid].hint;
-    }
-  });
+      <section class="panel tab-panel" id="tab-integrantes">
+        <h2 style="margin-bottom: 20px;">Equipe</h2>
+        <div class="grid members" id="membersGrid"></div>
+      </section>
+    </main>
+  </div>
 
-  // Tema
-  document.getElementById("btn-theme").onclick = () => {
+  <script>
+    // ÍCONES
+    const SUN_SVG = `<svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zM11 2v2h2V2h-2zM11 20v2h2v-2h-2z"/></svg>`;
+    const MOON_SVG = `<svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg>`;
+    const SEARCH_SVG = `<svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 3a6.5 6.5 0 1 1 0 13A6.5 6.5 0 0 1 9.5 3m0 2a4.5 4.5 0 1 0 0 9a4.5 4.5 0 0 0 0-9m9.6 14.2l-3.2-3.2a8.2 8.2 0 1 0-1.4 1.4l3.2 3.2a1 1 0 0 0 1.4 0a1 1 0 0 0 0-1.4Z"/></svg>`;
+    const LINKEDIN_ICON = `<img src="logo_linkedin.png" alt="LinkedIn" class="ln-ico">`;
+
     const html = document.documentElement;
-    const isDark = html.getAttribute("data-theme") === "dark";
-    html.setAttribute("data-theme", isDark ? "light" : "dark");
-  };
+    const themeIconWrap = document.getElementById("themeIconWrap");
+    const searchIconWrap = document.getElementById("searchIconWrap");
+    searchIconWrap.innerHTML = SEARCH_SVG;
 
-  // Busca Simples
-  document.getElementById("btn-search").onclick = () => {
-    const q = (prompt("Pesquisar Integrante ou Projeto:") || "").toLowerCase().trim();
-    if(!q) return;
-    document.querySelectorAll(".card").forEach(c => {
-      c.style.display = c.textContent.toLowerCase().includes(q) ? "" : "none";
+    function setTheme(t){
+      html.setAttribute("data-theme", t);
+      themeIconWrap.innerHTML = t === "dark" ? SUN_SVG : MOON_SVG;
+    }
+    setTheme(localStorage.getItem("gisprad_theme") || "light");
+    document.getElementById("btn-theme").onclick = () => {
+      const newTheme = html.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      setTheme(newTheme);
+      localStorage.setItem("gisprad_theme", newTheme);
+    };
+
+    // NAVEGAÇÃO
+    const meta = {
+      "tab-gisprad": { title:"GISPRAD", hint:"Informações institucionais" },
+      "tab-projetos": { title:"PROJETOS", hint:"Pesquisas em desenvolvimento" },
+      "tab-pubs": { title:"PUBLICAÇÕES", hint:"Produção acadêmica e técnica" },
+      "tab-integrantes": { title:"INTEGRANTES", hint:"Equipe e pesquisadores" },
+    };
+
+    document.querySelectorAll(".tab-btn").forEach(btn => {
+      btn.onclick = () => {
+        document.querySelectorAll(".tab-btn").forEach(b => b.setAttribute("aria-selected", "false"));
+        document.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
+        btn.setAttribute("aria-selected", "true");
+        const tid = btn.dataset.tab;
+        document.getElementById(tid).classList.add("active");
+        document.getElementById("pageTitle").textContent = meta[tid].title;
+        document.getElementById("pageHint").textContent = meta[tid].hint;
+      }
     });
-  };
 
-  renderMembers();
-  renderProjects();
-</script>
+    // INTEGRANTES (use: photo, name, role, email, link)
+    const members = [
+      { photo: "Logo_2025_sem_fundo.png", name: "Álvaro P. Berghetti", role: "Professor Orientador", email: "alvaro@ufpr.br", link: "https://www.linkedin.com/in/alvaro-berghetti-82b6b5158/" },
+      { name: "Viviane Maia Corrêa", role: "Doutorado", email: "viviane@exemplo.com", link: "#" },
+      { name: "Cleberson Porath", role: "Mestrado", email: "cleberson@exemplo.com", link: "https://www.linkedin.com/in/cleberson-porath/" },
+      { name: "Eduardo Praxedes B. Raymundo", role: "Mestrado", email: "eduardo@exemplo.com", link: "https://www.linkedin.com/in/eduardo-praxedes-189468160/" },
+      { name: "Julia Silva Rodrigues", role: "Mestrado", email: "julia@exemplo.com", link: "https://www.linkedin.com/in/julia-rodrigues-0a92b2160/" },
+      { name: "Juliana Hoepers M. Tedesco", role: "Mestrado", email: "juliana@exemplo.com", link: "https://www.linkedin.com/in/juliana-tedesco/" },
+      { name: "Kemelyn Hack Pires", role: "Mestrado", email: "kemelyn@exemplo.com", link: "https://www.linkedin.com/in/kemelyn-hack-pires-a254ba1b2/" },
+      { name: "Lucas Soares Miguez", role: "Mestrado", email: "lucas@exemplo.com", link: "https://www.linkedin.com/in/lucas-miguez-166814248/" },
+      { name: "Patrícia Portela Feldmann", role: "Mestrado", email: "patricia@exemplo.com", link: "https://www.linkedin.com/in/patricia-portela-feldmann-a502b798/" },
+      { name: "Thainá Aloísio Saraiva", role: "Mestrado", email: "thaina@exemplo.com", link: "https://www.linkedin.com/in/thainaasaraiva/" },
+      { name: "Agnes Aleixo da Luz", role: "Graduação", email: "agnes@exemplo.com", link: "https://www.linkedin.com/in/agnes-aleixo-da-luz-3aa1343a9/" },
+      { name: "Alonso Cortés do Amaral", role: "Graduação", email: "alonso@exemplo.com", link: "#" },
+      { name: "Carolina Pulido Arce", role: "Graduação", email: "carolina@exemplo.com", link: "https://www.linkedin.com/in/carolina-pulido-arce/" },
+      { name: "Dheimilly Krachinski", role: "Graduação", email: "dheimilly@exemplo.com", link: "https://www.linkedin.com/in/dheimilly-krachinski-439941361/" },
+      { name: "Eduarda Cristina M. dos Santos", role: "Graduação", email: "eduarda@exemplo.com", link: "https://www.linkedin.com/in/eduardacristinams/" },
+      { name: "Francisco Erê Consani Steidle", role: "Graduação", email: "francisco@exemplo.com", link: "https://www.linkedin.com/in/francisco-er%C3%AA-consani-05b027367/" },
+      { name: "Gabriel de Oliveira Bonfim Araujo", role: "Graduação", email: "gabriel@exemplo.com", link: "#" },
+      { name: "Heitor do Nascimento Moreira", role: "Graduação", email: "heitor@exemplo.com", link: "#" },
+      { name: "Katrielle Alessandra R. S. Isaias", role: "Graduação", email: "katrielle@exemplo.com", link: "#" },
+      { name: "Lara Brand Bordenousky", role: "Graduação", email: "lara@exemplo.com", link: "https://www.linkedin.com/in/lara-brand-bordenousky-859205313/" },
+      { name: "Laura Gabriela Bortoli Mariotto", role: "Graduação", email: "laura@exemplo.com", link: "#" },
+      { name: "Ruan Pablo da Trindade", role: "Graduação", email: "ruan@exemplo.com", link: "https://www.linkedin.com/in/rptrindade/" }
+      { photo: "Logo_2025_sem_fundo.png", name: "Álvaro P. Berghetti", role: "Professor Orientador", email: "alvaro.berghetti@ufpr.br", link: "https://www.linkedin.com/in/alvaro-berghetti-82b6b5158/" },
+      { name: "Viviane Maia Corrêa", role: "Doutorado", email: "viviane.correa@ufpr.br", link: "#" },
+      { name: "Cleberson Porath", role: "Mestrado", email: "cleberson.porath@ufpr.br", link: "https://www.linkedin.com/in/cleberson-porath/" },
+      { name: "Eduardo Praxedes B. Raymundo", role: "Mestrado", email: "eduardopraxedes@ufpr.br", link: "https://www.linkedin.com/in/eduardo-praxedes-189468160/" },
+      { name: "Julia Silva Rodrigues", role: "Mestrado", email: "julia.s.rodrigues.21@ufpr.br", link: "https://www.linkedin.com/in/julia-rodrigues-0a92b2160/" },
+      { name: "Juliana Hoepers M. Tedesco", role: "Mestrado", email: "juliana.tedesco@ufpr.br", link: "https://www.linkedin.com/in/juliana-tedesco/" },
+      { name: "Kemelyn Hack Pires", role: "Mestrado", email: "kemelynpires@ufpr.br", link: "https://www.linkedin.com/in/kemelyn-hack-pires-a254ba1b2/" },
+      { name: "Lucas Soares Miguez", role: "Mestrado", email: "lucas.miguez@ufpr.br", link: "https://www.linkedin.com/in/lucas-miguez-166814248/" },
+      { name: "Patrícia Portela Feldmann", role: "Mestrado", email: "patricia.feldmann@ufpr.br", link: "https://www.linkedin.com/in/patricia-portela-feldmann-a502b798/" },
+      { name: "Thainá Aloísio Saraiva", role: "Mestrado", email: "thaina.aloisio@ufpr.br", link: "https://www.linkedin.com/in/thainaasaraiva/" },
+      { name: "Agnes Aleixo da Luz", role: "Graduação", email: "agnes.luz@ufpr.br", link: "https://www.linkedin.com/in/agnes-aleixo-da-luz-3aa1343a9/" },
+      { name: "Alonso Cortés do Amaral", role: "Graduação", email: "alonso.amaral@ufpr.br", link: "#" },
+      { name: "Carolina Pulido Arce", role: "Graduação", email: "carolinaarce@ufpr.br", link: "https://www.linkedin.com/in/carolina-pulido-arce/" },
+      { name: "Dheimilly Krachinski", role: "Graduação", email: "dheimilly.krachinski@ufpr.br", link: "https://www.linkedin.com/in/dheimilly-krachinski-439941361/" },
+      { name: "Eduarda Cristina M. dos Santos", role: "Graduação", email: "eduarda.moraes@ufpr.br", link: "https://www.linkedin.com/in/eduardacristinams/" },
+      { name: "Francisco Erê Consani Steidle", role: "Graduação", email: "franciscoere@ufpr.br", link: "https://www.linkedin.com/in/francisco-er%C3%AA-consani-05b027367/" },
+      { name: "Gabriel de Oliveira Bonfim Araujo", role: "Graduação", email: "gabriel.bonfim@ufpr.br", link: "#" },
+      { name: "Heitor do Nascimento Moreira", role: "Graduação", email: "heitor.nascimento@ufpr.br", link: "#" },
+      { name: "Katrielle Alessandra R. S. Isaias", role: "Graduação", email: "katrielle@ufpr.br", link: "#" },
+      { name: "Lara Brand Bordenousky", role: "Graduação", email: "lara.brand@ufpr.br", link: "https://www.linkedin.com/in/lara-brand-bordenousky-859205313/" },
+      { name: "Laura Gabriela Bortoli Mariotto", role: "Graduação", email: "laura.mariotto@upfr.br", link: "#" },
+      { name: "Ruan Pablo da Trindade", role: "Graduação", email: "ruantrindade@ufpr.br", link: "https://www.linkedin.com/in/rptrindade/" }
+    ];
 
+    function getIniciais(n){
+      return n.split(" ").map(x => x[0]).join("").substring(0,2).toUpperCase();
+    }
+
+    document.getElementById("membersGrid").innerHTML = members.map(m => `
+      <article class="card">
+        <div class="member">
+          ${m.photo
+            ? `<img src="${m.photo}" alt="Foto de ${m.name}" class="avatar-photo">`
+            : `<div class="avatar-fallback">${getIniciais(m.name)}</div>`
+          }
+          <div class="member-info">
+            <div class="member-title">
+              <span class="member-name">${m.name}</span>
+              <span class="member-role-inline">| ${m.role}</span>
+            </div>
+            ${m.email ? `<small>${m.email}</small>` : ``}
+            <a href="${m.link}" class="ln-link" target="_blank" rel="noopener" title="LinkedIn">${LINKEDIN_ICON}</a>
+          </div>
+        </div>
+      </article>
+    `).join("");
+
+    // PROJETOS
+    const projects = [
+      { title: "Monitoramento Ambiental", desc: "Uso de sensoriamento remoto para análise de mudanças no solo." },
+      { title: "WebGIS Institucional", desc: "Desenvolvimento de plataforma interativa para visualização de dados espaciais." },
+      { title: "Automação ETL", desc: "Scripts para processamento automático de grandes volumes de dados geoespaciais." }
+    ];
+    document.getElementById("projectsGrid").innerHTML =
+      projects.map(p => `<article class="card"><h3>${p.title}</h3><p>${p.desc}</p></article>`).join("");
+
+    // BUSCA (LUPA)
+    document.getElementById("btn-search").onclick = () => {
+      const q = (prompt("Pesquisar:") || "").toLowerCase().trim();
+      document.querySelectorAll(".card").forEach(c => {
+        c.style.display = !q || c.textContent.toLowerCase().includes(q) ? "" : "none";
+      });
+    };
+  </script>
 </body>
 </html>
