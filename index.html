@@ -90,9 +90,9 @@
     .actions-row .btn-search,
     .actions-row .btn-theme{
       flex:1;
-      width:auto;     /* anula width antigo */
-      margin-top:0;   /* anula margin antigo */
-      height:44px;    /* mesma altura */
+      width:auto;
+      margin-top:0;
+      height:44px;
       padding:0;
       border:none;
       background:var(--panel-2);
@@ -121,8 +121,8 @@
     .panel{ background:var(--panel); padding:20px; margin-bottom: 16px; }
     .grid{ display:grid; grid-template-columns:repeat(12, 1fr); gap:16px; }
 
-    /* CARDS */
-    .card{ grid-column:span 12; background:var(--panel-2); padding:20px; transition: background .2s; border: none; }
+    /* CARDS - ALTERADO PARA SPAN 6 PARA CRIAR DUAS COLUNAS NO INÍCIO */
+    .card{ grid-column:span 6; background:var(--panel-2); padding:20px; transition: background .2s; border: none; }
     .card:hover{ background:var(--card-hover); }
 
     .projects .card{ grid-column:span 6; }
@@ -219,6 +219,8 @@
       .app{ flex-direction:column; }
       .sidebar{ width:100%; height:auto; position:relative; }
       .projects .card{ grid-column:span 12; }
+      /* Em telas pequenas, o bloco de localização volta a ser tela cheia */
+      .card { grid-column: span 12; }
     }
   </style>
 </head>
@@ -262,8 +264,8 @@
       </div>
 
       <section class="panel tab-panel active" id="tab-gisprad">
-        <h2>Laboratório GISPRAD</h2>
-        <p>O GISPRAD é um laboratório voltado a pesquisa, desenvolvimento e aplicação de soluções em geotecnologias, análise espacial e integração de dados para suporte à tomada de decisão.</p>
+        <h2 style="grid-column: span 12;">Laboratório GISPRAD</h2>
+        <p style="grid-column: span 12;">O GISPRAD é um laboratório voltado a pesquisa, desenvolvimento e aplicação de soluções em geotecnologias, análise espacial e integração de dados para suporte à tomada de decisão.</p>
 
         <div class="grid">
           <div class="card">
@@ -342,28 +344,6 @@
 
     // INTEGRANTES (use: photo, name, role, email, link)
     const members = [
-      { photo: "Logo_2025_sem_fundo.png", name: "Álvaro P. Berghetti", role: "Professor Orientador", email: "alvaro@ufpr.br", link: "https://www.linkedin.com/in/alvaro-berghetti-82b6b5158/" },
-      { name: "Viviane Maia Corrêa", role: "Doutorado", email: "viviane@exemplo.com", link: "#" },
-      { name: "Cleberson Porath", role: "Mestrado", email: "cleberson@exemplo.com", link: "https://www.linkedin.com/in/cleberson-porath/" },
-      { name: "Eduardo Praxedes B. Raymundo", role: "Mestrado", email: "eduardo@exemplo.com", link: "https://www.linkedin.com/in/eduardo-praxedes-189468160/" },
-      { name: "Julia Silva Rodrigues", role: "Mestrado", email: "julia@exemplo.com", link: "https://www.linkedin.com/in/julia-rodrigues-0a92b2160/" },
-      { name: "Juliana Hoepers M. Tedesco", role: "Mestrado", email: "juliana@exemplo.com", link: "https://www.linkedin.com/in/juliana-tedesco/" },
-      { name: "Kemelyn Hack Pires", role: "Mestrado", email: "kemelyn@exemplo.com", link: "https://www.linkedin.com/in/kemelyn-hack-pires-a254ba1b2/" },
-      { name: "Lucas Soares Miguez", role: "Mestrado", email: "lucas@exemplo.com", link: "https://www.linkedin.com/in/lucas-miguez-166814248/" },
-      { name: "Patrícia Portela Feldmann", role: "Mestrado", email: "patricia@exemplo.com", link: "https://www.linkedin.com/in/patricia-portela-feldmann-a502b798/" },
-      { name: "Thainá Aloísio Saraiva", role: "Mestrado", email: "thaina@exemplo.com", link: "https://www.linkedin.com/in/thainaasaraiva/" },
-      { name: "Agnes Aleixo da Luz", role: "Graduação", email: "agnes@exemplo.com", link: "https://www.linkedin.com/in/agnes-aleixo-da-luz-3aa1343a9/" },
-      { name: "Alonso Cortés do Amaral", role: "Graduação", email: "alonso@exemplo.com", link: "#" },
-      { name: "Carolina Pulido Arce", role: "Graduação", email: "carolina@exemplo.com", link: "https://www.linkedin.com/in/carolina-pulido-arce/" },
-      { name: "Dheimilly Krachinski", role: "Graduação", email: "dheimilly@exemplo.com", link: "https://www.linkedin.com/in/dheimilly-krachinski-439941361/" },
-      { name: "Eduarda Cristina M. dos Santos", role: "Graduação", email: "eduarda@exemplo.com", link: "https://www.linkedin.com/in/eduardacristinams/" },
-      { name: "Francisco Erê Consani Steidle", role: "Graduação", email: "francisco@exemplo.com", link: "https://www.linkedin.com/in/francisco-er%C3%AA-consani-05b027367/" },
-      { name: "Gabriel de Oliveira Bonfim Araujo", role: "Graduação", email: "gabriel@exemplo.com", link: "#" },
-      { name: "Heitor do Nascimento Moreira", role: "Graduação", email: "heitor@exemplo.com", link: "#" },
-      { name: "Katrielle Alessandra R. S. Isaias", role: "Graduação", email: "katrielle@exemplo.com", link: "#" },
-      { name: "Lara Brand Bordenousky", role: "Graduação", email: "lara@exemplo.com", link: "https://www.linkedin.com/in/lara-brand-bordenousky-859205313/" },
-      { name: "Laura Gabriela Bortoli Mariotto", role: "Graduação", email: "laura@exemplo.com", link: "#" },
-      { name: "Ruan Pablo da Trindade", role: "Graduação", email: "ruan@exemplo.com", link: "https://www.linkedin.com/in/rptrindade/" }
       { photo: "Logo_2025_sem_fundo.png", name: "Álvaro P. Berghetti", role: "Professor Orientador", email: "alvaro.berghetti@ufpr.br", link: "https://www.linkedin.com/in/alvaro-berghetti-82b6b5158/" },
       { name: "Viviane Maia Corrêa", role: "Doutorado", email: "viviane.correa@ufpr.br", link: "#" },
       { name: "Cleberson Porath", role: "Mestrado", email: "cleberson.porath@ufpr.br", link: "https://www.linkedin.com/in/cleberson-porath/" },
