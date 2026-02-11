@@ -89,7 +89,17 @@
     /* MAIN */
     .main{ flex:1; padding:22px; }
     .topbar{ display:flex; justify-content:space-between; align-items:center; padding:14px 16px; background:var(--panel); margin-bottom: 16px; }
+    .topbar-left{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
 
+.topbar-logo{
+  height:42px;       /* ajuste se quiser maior/menor */
+  width:auto;
+  object-fit:contain;
+}
     .panel{ background:var(--panel); padding:20px; margin-bottom: 16px; }
 
     .grid{ display:grid; grid-template-columns:repeat(12, 1fr); gap:16px; }
@@ -168,18 +178,21 @@
       <button class="btn-theme" id="btn-theme"><span id="themeIconWrap"></span></button>
     </aside>
 
-    <main class="main">
-      <div class="topbar">
-        <div>
-            <p id="pageTitle" style="font-weight:700; margin:0; font-size: 18px;">GISPRAD</p>
-            <p id="pageHint" style="margin:0; font-size:11px; color:var(--muted);">Informações institucionais</p>
-        </div>
-        <div style="font-size:12px; text-align: right;">
-            <b>Contato:</b> contato@gisprad.org<br>
-            <b>Instagram:</b> @gisprad
-        </div>
-      </div>
+<div class="topbar">
+  <div class="topbar-left">
+    <img src="Logo_2025_sem_fundo.png" alt="Logo GISPRAD" class="topbar-logo">
 
+    <div>
+      <p id="pageTitle" style="font-weight:700; margin:0; font-size: 18px;">GISPRAD</p>
+      <p id="pageHint" style="margin:0; font-size:11px; color:var(--muted);">Informações institucionais</p>
+    </div>
+  </div>
+
+  <div style="font-size:12px; text-align: right;">
+    <b>Contato:</b> contato@gisprad.org<br>
+    <b>Instagram:</b> @gisprad
+  </div>
+</div>
       <section class="panel tab-panel active" id="tab-gisprad">
         <h2>Laboratório GISPRAD</h2>
         <p>O GISPRAD é um laboratório voltado a pesquisa, desenvolvimento e aplicação de soluções em geotecnologias, análise espacial e integração de dados para suporte à tomada de decisão.</p>
