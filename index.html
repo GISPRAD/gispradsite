@@ -81,53 +81,35 @@
     .tab-btn:hover{ background: var(--panel-2); }
     .tab-btn[aria-selected="true"]{ background: var(--accent); color: white; }
 
-    .btn-theme{ width: 100%; margin-top:12px; border:none; background:var(--panel-2); color:var(--text); padding:10px; cursor:pointer; transition: background .2s; }
-    .btn-theme:hover{ background: var(--accent-2); color: white; }
-
-    /* ACTIONS (LUPA + TEMA LADO A LADO) */
+    /* ACTIONS (LUPA + TEMA) */
     .actions-row{
       margin-top:12px;
       display:flex;
       gap:10px;
     }
-.actions-row .btn-search,
-.actions-row .btn-theme{
-  height:44px;
-  padding:0;
-}
-  .actions-row .btn-search,
-.actions-row .btn-theme{
-  flex:1;
-  width:auto;        /* anula o width:100% antigo do btn-theme */
-  margin-top:0;      /* anula o margin-top antigo do btn-theme */
-  height:44px;       /* mesma altura */
-  padding:0;         /* ou 10px se preferir */
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-    .btn-search,
-    .btn-theme{
+    .actions-row .btn-search,
+    .actions-row .btn-theme{
       flex:1;
+      width:auto;     /* anula width antigo */
+      margin-top:0;   /* anula margin antigo */
+      height:44px;    /* mesma altura */
+      padding:0;
       border:none;
       background:var(--panel-2);
       color:var(--text);
-      padding:10px;
       cursor:pointer;
       transition: background .2s;
       display:flex;
       align-items:center;
       justify-content:center;
     }
-
-    .btn-search:hover,
-    .btn-theme:hover{
+    .actions-row .btn-search:hover,
+    .actions-row .btn-theme:hover{
       background: var(--accent-2);
       color: white;
     }
-
-    .btn-search svg,
-    .btn-theme svg{
+    .actions-row .btn-search svg,
+    .actions-row .btn-theme svg{
       width:18px;
       height:18px;
       display:block;
@@ -136,9 +118,7 @@
     /* MAIN */
     .main{ flex:1; padding:22px; }
     .topbar{ display:flex; justify-content:space-between; align-items:center; padding:14px 16px; background:var(--panel); margin-bottom: 16px; }
-
     .panel{ background:var(--panel); padding:20px; margin-bottom: 16px; }
-
     .grid{ display:grid; grid-template-columns:repeat(12, 1fr); gap:16px; }
 
     /* CARDS */
@@ -147,9 +127,8 @@
 
     .projects .card{ grid-column:span 6; }
 
-    /* INTEGRANTES AMPLIADOS (3 por linha) */
+    /* INTEGRANTES (3 por linha) */
     .members .card{ grid-column:span 4; }
-
     .member{ display:flex; gap:16px; align-items:center; }
 
     /* AVATAR */
@@ -158,6 +137,7 @@
       background:var(--line);
       display:flex; align-items:center; justify-content:center;
       font-weight:700; font-size:18px; flex-shrink: 0;
+      border-radius:12px;
     }
     .avatar-photo{
       width:70px;
@@ -166,13 +146,41 @@
       display:block;
       flex-shrink:0;
       background:var(--line);
+      border-radius:12px;
     }
 
-    .member-info b{ font-size:15px; display:block; line-height:1.2; margin-bottom: 2px; }
-    .member-info small{ color:var(--muted); font-size:13px; display: block; margin-bottom: 6px; }
-  font-weight:400;
-  color:var(--muted);
-}
+    /* TÍTULO (NOME + | ROLE NA MESMA LINHA) */
+    .member-title{
+      display:flex;
+      align-items:baseline;
+      gap:6px;
+      flex-wrap:nowrap;
+    }
+    .member-name{
+      font-size:15px;
+      font-weight:700;
+      line-height:1.2;
+      min-width:0;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+    .member-role-inline{
+      font-weight:400;
+      color:var(--muted);
+      white-space:nowrap;
+    }
+
+    .member-info small{
+      color:var(--muted);
+      font-size:13px;
+      display:block;
+      margin-bottom:6px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
     /* LINKEDIN */
     .ln-link{
       display:inline-flex;
@@ -182,7 +190,6 @@
       transition: color .2s;
     }
     .ln-link:hover{ color: #0077b5; }
-
     .ln-ico{
       width:18px;
       height:18px;
@@ -197,6 +204,7 @@
       margin-top: 10px;
       filter: grayscale(1) opacity(0.8);
       transition: filter 0.3s;
+      border:0;
     }
     .map-container:hover { filter: grayscale(0) opacity(1); }
 
@@ -219,7 +227,9 @@
   <div class="app">
     <aside class="sidebar">
       <div class="brand">
-        <div class="brand-mark"><img src="IDENTIDADE%20VISUAL%20.png" class="brand-logo" alt="Logo"></div>
+        <div class="brand-mark">
+          <img src="IDENTIDADE%20VISUAL%20.png" class="brand-logo" alt="Logo">
+        </div>
         <div>
           <h1>GISPRAD</h1>
           <p>Laboratório • Institucional</p>
@@ -242,12 +252,12 @@
     <main class="main">
       <div class="topbar">
         <div>
-            <p id="pageTitle" style="font-weight:700; margin:0; font-size: 18px;">GISPRAD</p>
-            <p id="pageHint" style="margin:0; font-size:11px; color:var(--muted);">Informações institucionais</p>
+          <p id="pageTitle" style="font-weight:700; margin:0; font-size: 18px;">GISPRAD</p>
+          <p id="pageHint" style="margin:0; font-size:11px; color:var(--muted);">Informações institucionais</p>
         </div>
         <div style="font-size:14px; text-align: right;">
-            <b>Contato:</b> contato@gisprad.org<br>
-            <b>Instagram:</b> @gisprad
+          <b>Contato:</b> contato@gisprad.org<br>
+          <b>Instagram:</b> @gisprad
         </div>
       </div>
 
@@ -256,15 +266,17 @@
         <p>O GISPRAD é um laboratório voltado a pesquisa, desenvolvimento e aplicação de soluções em geotecnologias, análise espacial e integração de dados para suporte à tomada de decisão.</p>
 
         <div class="grid">
-            <div class="card">
-                <h3>Linhas de pesquisa</h3>
-                <p>Geoprocessamento, Sensoriamento Remoto, WebGIS e Automação de Dados Ambientais.</p>
-            </div>
-            <div class="card">
-                <h3>Localização</h3>
-                <p>Universidade Federal de Santa Catarina (UFSC) — Campus Florianópolis.</p>
-                <iframe class="map-container" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3535.84586026848!2d-48.5235894!3d-27.600135!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95273909774643cf%3A0x6331908d13292415!2sUFSC%20-%20Universidade%20Federal%20de%20Santa%20Catarina!5e0!3m2!1spt-BR!2sbr!4v1700000000000" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
+          <div class="card">
+            <h3>Linhas de pesquisa</h3>
+            <p>Geoprocessamento, Sensoriamento Remoto, WebGIS e Automação de Dados Ambientais.</p>
+          </div>
+          <div class="card">
+            <h3>Localização</h3>
+            <p>Universidade Federal de Santa Catarina (UFSC) — Campus Florianópolis.</p>
+            <iframe class="map-container"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3535.84586026848!2d-48.5235894!3d-27.600135!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95273909774643cf%3A0x6331908d13292415!2sUFSC%20-%20Universidade%20Federal%20de%20Santa%20Catarina!5e0!3m2!1spt-BR!2sbr!4v1700000000000"
+              allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
         </div>
       </section>
 
@@ -286,7 +298,7 @@
   </div>
 
   <script>
-    // TEMA
+    // ÍCONES
     const SUN_SVG = `<svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zM11 2v2h2V2h-2zM11 20v2h2v-2h-2z"/></svg>`;
     const MOON_SVG = `<svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg>`;
     const SEARCH_SVG = `<svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M9.5 3a6.5 6.5 0 1 1 0 13A6.5 6.5 0 0 1 9.5 3m0 2a4.5 4.5 0 1 0 0 9a4.5 4.5 0 0 0 0-9m9.6 14.2l-3.2-3.2a8.2 8.2 0 1 0-1.4 1.4l3.2 3.2a1 1 0 0 0 1.4 0a1 1 0 0 0 0-1.4Z"/></svg>`;
@@ -328,33 +340,35 @@
       }
     });
 
-    // INTEGRANTES
+    // INTEGRANTES (use: photo, name, role, email, link)
     const members = [
-      { photo: "Logo_2025_sem_fundo.png", name: "Álvaro P. Berghetti", role: "Professor Orientador", role: "alvaro@ufpr.br", link: "https://www.linkedin.com/in/alvaro-berghetti-82b6b5158/" },
-      { name: "Viviane Maia Corrêa", role: "Doutorado", link: "#" },
-      { name: "Cleberson Porath", role: "Mestrado", link: "https://www.linkedin.com/in/cleberson-porath/" },
-      { name: "Eduardo Praxedes B. Raymundo", role: "Mestrado", link: "https://www.linkedin.com/in/eduardo-praxedes-189468160/" },
-      { name: "Julia Silva Rodrigues", role: "Mestrado", link: "https://www.linkedin.com/in/julia-rodrigues-0a92b2160/" },
-      { name: "Juliana Hoepers M. Tedesco", role: "Mestrado", link: "https://www.linkedin.com/in/juliana-tedesco/" },
-      { name: "Kemelyn Hack Pires", role: "Mestrado", link: "https://www.linkedin.com/in/kemelyn-hack-pires-a254ba1b2/" },
-      { name: "Lucas Soares Miguez", role: "Mestrado", link: "https://www.linkedin.com/in/lucas-miguez-166814248/" },
-      { name: "Patrícia Portela Feldmann", role: "Mestrado", link: "https://www.linkedin.com/in/patricia-portela-feldmann-a502b798/" },
-      { name: "Thainá Aloísio Saraiva", role: "Mestrado", link: "https://www.linkedin.com/in/thainaasaraiva/" },
-      { name: "Agnes Aleixo da Luz", role: "Graduação", link: "https://www.linkedin.com/in/agnes-aleixo-da-luz-3aa1343a9/" },
-      { name: "Alonso Cortés do Amaral", role: "Graduação", link: "#" },
-      { name: "Carolina Pulido Arce", role: "Graduação", link: "https://www.linkedin.com/in/carolina-pulido-arce/" },
-      { name: "Dheimilly Krachinski", role: "Graduação", link: "https://www.linkedin.com/in/dheimilly-krachinski-439941361/" },
-      { name: "Eduarda Cristina M. dos Santos", role: "Graduação", link: "https://www.linkedin.com/in/eduardacristinams/" },
-      { name: "Francisco Erê Consani Steidle", role: "Graduação", link: "https://www.linkedin.com/in/francisco-er%C3%AA-consani-05b027367/" },
-      { name: "Gabriel de Oliveira Bonfim Araujo", role: "Graduação", link: "#" },
-      { name: "Heitor do Nascimento Moreira", role: "Graduação", link: "#" },
-      { name: "Katrielle Alessandra R. S. Isaias", role: "Graduação", link: "#" },
-      { name: "Lara Brand Bordenousky", role: "Graduação", link: "https://www.linkedin.com/in/lara-brand-bordenousky-859205313/" },
-      { name: "Laura Gabriela Bortoli Mariotto", role: "Graduação", link: "#" },
-      { name: "Ruan Pablo da Trindade", role: "Graduação", link: "https://www.linkedin.com/in/rptrindade/" }
+      { photo: "Logo_2025_sem_fundo.png", name: "Álvaro P. Berghetti", role: "Professor Orientador", email: "alvaro@ufpr.br", link: "https://www.linkedin.com/in/alvaro-berghetti-82b6b5158/" },
+      { name: "Viviane Maia Corrêa", role: "Doutorado", email: "viviane@exemplo.com", link: "#" },
+      { name: "Cleberson Porath", role: "Mestrado", email: "cleberson@exemplo.com", link: "https://www.linkedin.com/in/cleberson-porath/" },
+      { name: "Eduardo Praxedes B. Raymundo", role: "Mestrado", email: "eduardo@exemplo.com", link: "https://www.linkedin.com/in/eduardo-praxedes-189468160/" },
+      { name: "Julia Silva Rodrigues", role: "Mestrado", email: "julia@exemplo.com", link: "https://www.linkedin.com/in/julia-rodrigues-0a92b2160/" },
+      { name: "Juliana Hoepers M. Tedesco", role: "Mestrado", email: "juliana@exemplo.com", link: "https://www.linkedin.com/in/juliana-tedesco/" },
+      { name: "Kemelyn Hack Pires", role: "Mestrado", email: "kemelyn@exemplo.com", link: "https://www.linkedin.com/in/kemelyn-hack-pires-a254ba1b2/" },
+      { name: "Lucas Soares Miguez", role: "Mestrado", email: "lucas@exemplo.com", link: "https://www.linkedin.com/in/lucas-miguez-166814248/" },
+      { name: "Patrícia Portela Feldmann", role: "Mestrado", email: "patricia@exemplo.com", link: "https://www.linkedin.com/in/patricia-portela-feldmann-a502b798/" },
+      { name: "Thainá Aloísio Saraiva", role: "Mestrado", email: "thaina@exemplo.com", link: "https://www.linkedin.com/in/thainaasaraiva/" },
+      { name: "Agnes Aleixo da Luz", role: "Graduação", email: "agnes@exemplo.com", link: "https://www.linkedin.com/in/agnes-aleixo-da-luz-3aa1343a9/" },
+      { name: "Alonso Cortés do Amaral", role: "Graduação", email: "alonso@exemplo.com", link: "#" },
+      { name: "Carolina Pulido Arce", role: "Graduação", email: "carolina@exemplo.com", link: "https://www.linkedin.com/in/carolina-pulido-arce/" },
+      { name: "Dheimilly Krachinski", role: "Graduação", email: "dheimilly@exemplo.com", link: "https://www.linkedin.com/in/dheimilly-krachinski-439941361/" },
+      { name: "Eduarda Cristina M. dos Santos", role: "Graduação", email: "eduarda@exemplo.com", link: "https://www.linkedin.com/in/eduardacristinams/" },
+      { name: "Francisco Erê Consani Steidle", role: "Graduação", email: "francisco@exemplo.com", link: "https://www.linkedin.com/in/francisco-er%C3%AA-consani-05b027367/" },
+      { name: "Gabriel de Oliveira Bonfim Araujo", role: "Graduação", email: "gabriel@exemplo.com", link: "#" },
+      { name: "Heitor do Nascimento Moreira", role: "Graduação", email: "heitor@exemplo.com", link: "#" },
+      { name: "Katrielle Alessandra R. S. Isaias", role: "Graduação", email: "katrielle@exemplo.com", link: "#" },
+      { name: "Lara Brand Bordenousky", role: "Graduação", email: "lara@exemplo.com", link: "https://www.linkedin.com/in/lara-brand-bordenousky-859205313/" },
+      { name: "Laura Gabriela Bortoli Mariotto", role: "Graduação", email: "laura@exemplo.com", link: "#" },
+      { name: "Ruan Pablo da Trindade", role: "Graduação", email: "ruan@exemplo.com", link: "https://www.linkedin.com/in/rptrindade/" }
     ];
 
-    function getIniciais(n){ return n.split(" ").map(x => x[0]).join("").substring(0,2).toUpperCase(); }
+    function getIniciais(n){
+      return n.split(" ").map(x => x[0]).join("").substring(0,2).toUpperCase();
+    }
 
     document.getElementById("membersGrid").innerHTML = members.map(m => `
       <article class="card">
@@ -364,8 +378,11 @@
             : `<div class="avatar-fallback">${getIniciais(m.name)}</div>`
           }
           <div class="member-info">
-            <b>${m.name}</b> <span class="member-role-inline">| ${m.role}</span>
-            <small>${m.role}</small>
+            <div class="member-title">
+              <span class="member-name">${m.name}</span>
+              <span class="member-role-inline">| ${m.role}</span>
+            </div>
+            ${m.email ? `<small>${m.email}</small>` : ``}
             <a href="${m.link}" class="ln-link" target="_blank" rel="noopener" title="LinkedIn">${LINKEDIN_ICON}</a>
           </div>
         </div>
@@ -378,7 +395,8 @@
       { title: "WebGIS Institucional", desc: "Desenvolvimento de plataforma interativa para visualização de dados espaciais." },
       { title: "Automação ETL", desc: "Scripts para processamento automático de grandes volumes de dados geoespaciais." }
     ];
-    document.getElementById("projectsGrid").innerHTML = projects.map(p => `<article class="card"><h3>${p.title}</h3><p>${p.desc}</p></article>`).join("");
+    document.getElementById("projectsGrid").innerHTML =
+      projects.map(p => `<article class="card"><h3>${p.title}</h3><p>${p.desc}</p></article>`).join("");
 
     // BUSCA (LUPA)
     document.getElementById("btn-search").onclick = () => {
