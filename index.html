@@ -53,7 +53,7 @@
     a{ text-decoration: none; color: inherit; }
     .app{ display:flex; min-height:100vh; }
 
-    .sidebar{ width:var(--sidebar-w); padding:18px; background:var(--panel); position:sticky; top:0; height:100vh; overflow:auto; }
+    .sidebar{ width:var(--sidebar-w); padding:18px; background:var(--panel); position:sticky; top:0; height:100vh; overflow:auto; border-right: 1px solid var(--line); }
     .brand{ display:flex; align-items:center; gap:12px; padding:12px; background:var(--panel-2); }
     .brand-mark{ width:60px; height:60px; background: var(--panel); display:flex; align-items:center; justify-content:center; overflow:hidden; }
     .brand-logo{ width:100%; height:100%; object-fit: cover; }
@@ -66,11 +66,11 @@
     .tab-btn[aria-selected="true"]{ background: var(--accent); color: white; }
 
     .actions-row{ margin-top:12px; display:flex; gap:10px; }
-    .actions-row .btn-search, .actions-row .btn-theme{
+    .btn-search, .btn-theme{
       flex:1; height:44px; border:none; background:var(--panel-2); color:var(--text); cursor:pointer;
       display:flex; align-items:center; justify-content:center;
     }
-    .actions-row .btn-search:hover, .actions-row .btn-theme:hover{ background: var(--accent-2); color: white; }
+    .btn-search:hover, .btn-theme:hover{ background: var(--accent-2); color: white; }
 
     .main{ flex:1; padding:22px; }
     .topbar{ display:flex; justify-content:space-between; align-items:center; padding:14px 16px; background:var(--panel); margin-bottom: 16px; }
@@ -78,6 +78,7 @@
     .grid{ display:grid; grid-template-columns:repeat(12, 1fr); gap:16px; }
 
     .card{ grid-column:span 12; background:var(--panel-2); padding:20px; transition: background .2s; border: none; }
+    .card:hover{ background:var(--card-hover); }
     .grid .card.half { grid-column: span 6; }
     .projects .card{ grid-column:span 6; }
     .members .card{ grid-column:span 4; }
@@ -135,8 +136,8 @@
       </div>
 
       <div class="actions-row">
-        <button class="btn-search" id="btn-search" aria-label="Pesquisar">🔍</button>
-        <button class="btn-theme" id="btn-theme" aria-label="Alternar tema">🌓</button>
+        <button class="btn-search" id="btn-search">🔍</button>
+        <button class="btn-theme" id="btn-theme">🌓</button>
       </div>
     </aside>
 
@@ -198,30 +199,9 @@
   </div>
 
   <script>
-     // INTEGRANTES (use: photo, name, role, email, link)
+    const LINKEDIN_ICON = `[LI]`; // Substitua pelo seu ícone SVG ou imagem se preferir
+
     const members = [
-      { photo: "Logo_2025_sem_fundo.png", name: "Álvaro P. Berghetti", role: "Professor Orientador", email: "alvaro@ufpr.br", link: "https://www.linkedin.com/in/alvaro-berghetti-82b6b5158/" },
-      { name: "Viviane Maia Corrêa", role: "Doutorado", email: "viviane@exemplo.com", link: "#" },
-      { name: "Cleberson Porath", role: "Mestrado", email: "cleberson@exemplo.com", link: "https://www.linkedin.com/in/cleberson-porath/" },
-      { name: "Eduardo Praxedes B. Raymundo", role: "Mestrado", email: "eduardo@exemplo.com", link: "https://www.linkedin.com/in/eduardo-praxedes-189468160/" },
-      { name: "Julia Silva Rodrigues", role: "Mestrado", email: "julia@exemplo.com", link: "https://www.linkedin.com/in/julia-rodrigues-0a92b2160/" },
-      { name: "Juliana Hoepers M. Tedesco", role: "Mestrado", email: "juliana@exemplo.com", link: "https://www.linkedin.com/in/juliana-tedesco/" },
-      { name: "Kemelyn Hack Pires", role: "Mestrado", email: "kemelyn@exemplo.com", link: "https://www.linkedin.com/in/kemelyn-hack-pires-a254ba1b2/" },
-      { name: "Lucas Soares Miguez", role: "Mestrado", email: "lucas@exemplo.com", link: "https://www.linkedin.com/in/lucas-miguez-166814248/" },
-      { name: "Patrícia Portela Feldmann", role: "Mestrado", email: "patricia@exemplo.com", link: "https://www.linkedin.com/in/patricia-portela-feldmann-a502b798/" },
-      { name: "Thainá Aloísio Saraiva", role: "Mestrado", email: "thaina@exemplo.com", link: "https://www.linkedin.com/in/thainaasaraiva/" },
-      { name: "Agnes Aleixo da Luz", role: "Graduação", email: "agnes@exemplo.com", link: "https://www.linkedin.com/in/agnes-aleixo-da-luz-3aa1343a9/" },
-      { name: "Alonso Cortés do Amaral", role: "Graduação", email: "alonso@exemplo.com", link: "#" },
-      { name: "Carolina Pulido Arce", role: "Graduação", email: "carolina@exemplo.com", link: "https://www.linkedin.com/in/carolina-pulido-arce/" },
-      { name: "Dheimilly Krachinski", role: "Graduação", email: "dheimilly@exemplo.com", link: "https://www.linkedin.com/in/dheimilly-krachinski-439941361/" },
-      { name: "Eduarda Cristina M. dos Santos", role: "Graduação", email: "eduarda@exemplo.com", link: "https://www.linkedin.com/in/eduardacristinams/" },
-      { name: "Francisco Erê Consani Steidle", role: "Graduação", email: "francisco@exemplo.com", link: "https://www.linkedin.com/in/francisco-er%C3%AA-consani-05b027367/" },
-      { name: "Gabriel de Oliveira Bonfim Araujo", role: "Graduação", email: "gabriel@exemplo.com", link: "#" },
-      { name: "Heitor do Nascimento Moreira", role: "Graduação", email: "heitor@exemplo.com", link: "#" },
-      { name: "Katrielle Alessandra R. S. Isaias", role: "Graduação", email: "katrielle@exemplo.com", link: "#" },
-      { name: "Lara Brand Bordenousky", role: "Graduação", email: "lara@exemplo.com", link: "https://www.linkedin.com/in/lara-brand-bordenousky-859205313/" },
-      { name: "Laura Gabriela Bortoli Mariotto", role: "Graduação", email: "laura@exemplo.com", link: "#" },
-      { name: "Ruan Pablo da Trindade", role: "Graduação", email: "ruan@exemplo.com", link: "https://www.linkedin.com/in/rptrindade/" }
       { photo: "Logo_2025_sem_fundo.png", name: "Álvaro P. Berghetti", role: "Professor Orientador", email: "alvaro.berghetti@ufpr.br", link: "https://www.linkedin.com/in/alvaro-berghetti-82b6b5158/" },
       { name: "Viviane Maia Corrêa", role: "Doutorado", email: "viviane.correa@ufpr.br", link: "#" },
       { name: "Cleberson Porath", role: "Mestrado", email: "cleberson.porath@ufpr.br", link: "https://www.linkedin.com/in/cleberson-porath/" },
@@ -250,41 +230,66 @@
       return n.split(" ").map(x => x[0]).join("").substring(0,2).toUpperCase();
     }
 
-    document.getElementById("membersGrid").innerHTML = members.map(m => `
-      <article class="card">
-        <div class="member">
-          ${m.photo
-            ? `<img src="${m.photo}" alt="Foto de ${m.name}" class="avatar-photo">`
-            : `<div class="avatar-fallback">${getIniciais(m.name)}</div>`
-          }
-          <div class="member-info">
-            <div class="member-title">
-              <span class="member-name">${m.name}</span>
-              <span class="member-role-inline">| ${m.role}</span>
+    function renderMembers() {
+      const grid = document.getElementById("membersGrid");
+      grid.innerHTML = members.map(m => `
+        <article class="card">
+          <div class="member">
+            ${m.photo 
+              ? `<img src="${m.photo}" class="avatar-photo">` 
+              : `<div class="avatar-fallback">${getIniciais(m.name)}</div>`}
+            <div class="member-info">
+              <div class="member-title">
+                <span class="member-name">${m.name}</span>
+                <span class="member-role-inline">| ${m.role}</span>
+              </div>
+              <small>${m.email}</small><br>
+              <a href="${m.link}" class="ln-link" target="_blank">LinkedIn</a>
             </div>
-            ${m.email ? `<small>${m.email}</small>` : ``}
-            <a href="${m.link}" class="ln-link" target="_blank" rel="noopener" title="LinkedIn">${LINKEDIN_ICON}</a>
           </div>
-        </div>
-      </article>
-    `).join("");
+        </article>
+      `).join("");
+    }
 
-    // PROJETOS
     const projects = [
-      { title: "Monitoramento Ambiental", desc: "Uso de sensoriamento remoto para análise de mudanças no solo." },
-      { title: "WebGIS Institucional", desc: "Desenvolvimento de plataforma interativa para visualização de dados espaciais." },
-      { title: "Automação ETL", desc: "Scripts para processamento automático de grandes volumes de dados geoespaciais." }
+      { title: "Monitoramento Ambiental", desc: "Uso de sensoriamento remoto para análise de solo." },
+      { title: "WebGIS Institucional", desc: "Plataforma interativa para visualização de dados." }
     ];
-    document.getElementById("projectsGrid").innerHTML =
-      projects.map(p => `<article class="card"><h3>${p.title}</h3><p>${p.desc}</p></article>`).join("");
 
-    // BUSCA (LUPA)
-    document.getElementById("btn-search").onclick = () => {
-      const q = (prompt("Pesquisar:") || "").toLowerCase().trim();
-      document.querySelectorAll(".card").forEach(c => {
-        c.style.display = !q || c.textContent.toLowerCase().includes(q) ? "" : "none";
-      });
+    function renderProjects() {
+      document.getElementById("projectsGrid").innerHTML = projects.map(p => `
+        <div class="card"><h3>${p.title}</h3><p>${p.desc}</p></div>
+      `).join("");
+    }
+
+    // Tabs logic
+    const meta = {
+      "tab-gisprad": { title: "GISPRAD", hint: "Informações institucionais" },
+      "tab-projetos": { title: "PROJETOS", hint: "Pesquisas em desenvolvimento" },
+      "tab-pubs": { title: "PUBLICAÇÕES", hint: "Produção técnica" },
+      "tab-integrantes": { title: "INTEGRANTES", hint: "Equipe" }
     };
+
+    document.querySelectorAll(".tab-btn").forEach(btn => {
+      btn.onclick = () => {
+        document.querySelectorAll(".tab-btn").forEach(b => b.setAttribute("aria-selected", "false"));
+        document.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
+        btn.setAttribute("aria-selected", "true");
+        const tid = btn.dataset.tab;
+        document.getElementById(tid).classList.add("active");
+        document.getElementById("pageTitle").textContent = meta[tid].title;
+        document.getElementById("pageHint").textContent = meta[tid].hint;
+      }
+    });
+
+    // Theme logic
+    document.getElementById("btn-theme").onclick = () => {
+      const theme = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", theme);
+    };
+
+    renderMembers();
+    renderProjects();
   </script>
 </body>
 </html>
