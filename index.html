@@ -246,54 +246,45 @@
       { name: "Ruan Pablo da Trindade", role: "Graduação", email: "ruantrindade@ufpr.br", link: "https://www.linkedin.com/in/rptrindade/" }
     ];
 
-    function renderMembers() {
-      const grid = document.getElementById("membersGrid");
-      grid.innerHTML = members.map(m => `
-        <article class="card">
-          <div class="member">
-            <div class="avatar-fallback">${m.name.substring(0,2).toUpperCase()}</div>
-            <div class="member-info">
-              <div class="member-title">
-                <span class="member-name">${m.name}</span>
-                <span class="member-role-inline">| ${m.role}</span>
-              </div>
-              <small>${m.email}</small>
+    function getIniciais(n){
+      return n.split(" ").map(x => x[0]).join("").substring(0,2).toUpperCase();
+    }
+
+    document.getElementById("membersGrid").innerHTML = members.map(m => `
+      <article class="card">
+        <div class="member">
+          ${m.photo
+            ? `<img src="${m.photo}" alt="Foto de ${m.name}" class="avatar-photo">`
+            : `<div class="avatar-fallback">${getIniciais(m.name)}</div>`
+          }
+          <div class="member-info">
+            <div class="member-title">
+              <span class="member-name">${m.name}</span>
+              <span class="member-role-inline">| ${m.role}</span>
             </div>
+            ${m.email ? `<small>${m.email}</small>` : ``}
+            <a href="${m.link}" class="ln-link" target="_blank" rel="noopener" title="LinkedIn">${LINKEDIN_ICON}</a>
           </div>
-        </article>
-      `).join("");
-    }
+        </div>
+      </article>
+    `).join("");
 
+    // PROJETOS
     const projects = [
-      { title: "Monitoramento Ambiental", desc: "Uso de sensoriamento remoto para análise de solo." },
-      { title: "WebGIS Institucional", desc: "Plataforma interativa para visualização de dados." }
+      { title: "Monitoramento Ambiental", desc: "Uso de sensoriamento remoto para análise de mudanças no solo." },
+      { title: "WebGIS Institucional", desc: "Desenvolvimento de plataforma interativa para visualização de dados espaciais." },
+      { title: "Automação ETL", desc: "Scripts para processamento automático de grandes volumes de dados geoespaciais." }
     ];
+    document.getElementById("projectsGrid").innerHTML =
+      projects.map(p => `<article class="card"><h3>${p.title}</h3><p>${p.desc}</p></article>`).join("");
 
-    function renderProjects() {
-      document.getElementById("projectsGrid").innerHTML = projects.map(p => `
-        <div class="card"><h3>${p.title}</h3><p>${p.desc}</p></div>
-      `).join("");
-    }
-
-    // Tabs logic
-    document.querySelectorAll(".tab-btn").forEach(btn => {
-      btn.onclick = () => {
-        document.querySelectorAll(".tab-btn").forEach(b => b.setAttribute("aria-selected", "false"));
-        document.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
-        btn.setAttribute("aria-selected", "true");
-        document.getElementById(btn.dataset.tab).classList.add("active");
-        document.getElementById("pageTitle").textContent = btn.textContent;
-      }
-    });
-
-    // Theme logic
-    document.getElementById("btn-theme").onclick = () => {
-      const theme = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
-      document.documentElement.setAttribute("data-theme", theme);
+    // BUSCA (LUPA)
+    document.getElementById("btn-search").onclick = () => {
+      const q = (prompt("Pesquisar:") || "").toLowerCase().trim();
+      document.querySelectorAll(".card").forEach(c => {
+        c.style.display = !q || c.textContent.toLowerCase().includes(q) ? "" : "none";
+      });
     };
-
-    renderMembers();
-    renderProjects();
   </script>
 </body>
 </html>
