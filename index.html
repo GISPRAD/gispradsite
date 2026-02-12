@@ -39,6 +39,8 @@
 
       --container: 1180px;
       --container-pad: 14px;
+
+      --logo-top: 82px; /* tamanho logo topo */
     }
 
     html[data-theme="light"]{
@@ -116,7 +118,7 @@
       font-size: 15px;
     }
 
-    /* ===== TOPBAR full-width (não segue a margem do conteúdo) ===== */
+    /* TOPBAR full width */
     .site-topbar{
       position:absolute; top:0; left:0; right:0; z-index:60;
       background: rgba(255,255,255,.18);
@@ -128,43 +130,26 @@
       background: rgba(11,15,11,.35);
       border-bottom-color: rgba(255,255,255,.08);
     }
-
-    /* agora o conteúdo do topo usa padding próprio e ocupa a largura total */
-    .topbar-fluid{
-      width: 100%;
-      padding: 10px 32px;          /* controla a “margem” do topo */
-    }
-
+    .topbar-fluid{ width: 100%; padding: 10px 32px; }
     .topbar-row{
       display:grid;
-      grid-template-columns: 360px 1fr 360px; /* esquerda | centro | direita */
+      grid-template-columns: 360px 1fr 360px;
       align-items:center;
       gap: 16px;
-      padding: 0;
     }
 
     /* esquerda */
-    .brand{
-      display:flex;
-      align-items:center;
-      gap: 12px;
-      min-width: 0;
-    }
+    .brand{ display:flex; align-items:center; gap: 12px; min-width: 0; }
     .brand-logo{
-      width: 64px;
-      height: 64px;
+      width: var(--logo-top);
+      height: var(--logo-top);
       border-radius: 0;
       background: transparent;
       border: none;
       overflow: visible;
       flex-shrink: 0;
     }
-    .brand-logo img{
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      display:block;
-    }
+    .brand-logo img{ width:100%; height:100%; object-fit: contain; display:block; }
     .brand-path{
       font-family: var(--font-tabs);
       font-size: 15px;
@@ -179,13 +164,9 @@
     .brand-path b{ font-weight:700; }
     .brand-path .sep{ opacity:.70; margin: 0 6px; }
 
-    /* centro */
-    .nav-center{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      min-width: 0;
-    }
+    /* centro: abas + idiomas */
+    .nav-center{ display:flex; align-items:center; justify-content:center; min-width:0; }
+    .nav-middle{ display:flex; align-items:center; gap: 14px; min-width:0; }
     .tabs{
       display:flex;
       align-items:center;
@@ -214,16 +195,6 @@
       background: rgba(51,85,26,.78);
       border-color: rgba(255,255,255,.12);
     }
-
-    /* direita */
-    .topbar-tools{
-      display:flex;
-      flex-direction:column;
-      align-items:flex-end;
-      gap: 10px;
-    }
-
-    /* idiomas */
     .lang{
       display:flex;
       align-items:center;
@@ -233,7 +204,7 @@
       border-radius: 999px;
       border: 1px solid rgba(255,255,255,.22);
       background: rgba(255,255,255,.10);
-      align-self: flex-end;
+      flex-shrink:0;
     }
     .lang button{
       border:none;
@@ -250,12 +221,14 @@
     }
     .lang button.active{ opacity:1; background: rgba(255,255,255,.16); }
 
-    /* ícones em 2 linhas */
+    /* direita: ícones (duas linhas) */
+    .topbar-tools{ display:flex; align-items:center; justify-content:flex-end; }
     .tools-icons{
       display:grid;
       grid-template-columns: repeat(2, 38px);
       gap: 10px;
-      justify-content: end;
+      justify-content:end;
+      align-content:center;
     }
     .soc, .iconbtn{
       width: 38px;
@@ -271,21 +244,18 @@
       opacity: .95;
     }
     .soc:hover, .iconbtn:hover{ transform: translateY(-1px); opacity: 1; }
-    .soc img, .iconbtn img{
-      width: 22px;
-      height: 22px;
-      object-fit: contain;
-      display:block;
-    }
+    .soc img, .iconbtn img{ width: 22px; height: 22px; object-fit: contain; display:block; }
 
     @media (max-width: 980px){
       .topbar-fluid{ padding: 10px 16px; }
       .topbar-row{ grid-template-columns: 1fr; gap: 10px; }
       .nav-center{ justify-content:flex-start; }
+      .nav-middle{ flex-wrap: wrap; justify-content:flex-start; }
       .tabs{ justify-content:flex-start; overflow:auto; padding-bottom: 6px; }
-      .topbar-tools{ align-items:flex-start; }
-      .tools-icons{ justify-content:start; }
+      :root{ --logo-top: 70px; }
       .brand-path{ max-width: 100%; }
+      .tools-icons{ justify-content:start; }
+      .topbar-tools{ justify-content:flex-start; }
     }
 
     /* CONTEÚDO */
@@ -329,12 +299,6 @@
       background: var(--panel);
       color: var(--muted);
       white-space: nowrap;
-    }
-
-    .about-text{
-      margin:0;
-      line-height:1.80;
-      font-size: 15px;
     }
 
     /* MEMBERS */
@@ -526,7 +490,7 @@
       filter: none;
     }
 
-    /* ===== FOOTER full width ===== */
+    /* FOOTER full width */
     .footer{ width: 100%; margin-top: 18px; background: transparent; color: rgba(255,255,255,.90); }
     .footer-edge{
       width: 100vw;
@@ -541,17 +505,28 @@
       gap: 18px;
       align-items:start;
     }
-    .footer-left{ display:flex; gap: 16px; align-items:center; min-width: 280px; }
+    .footer-left{
+      display:flex;
+      gap: 16px;
+      align-items:center;
+      min-width: 280px;
+    }
+
+    /* ✅ logo do rodapé SEM BORDA/CAIXA e MESMO tamanho do topo */
     .footer-logo{
-      width: 86px; height: 86px;
-      border-radius: 22px;
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.10);
-      overflow:hidden;
-      display:flex; align-items:center; justify-content:center;
+      width: var(--logo-top);
+      height: var(--logo-top);
+      border-radius: 0;
+      background: transparent;
+      border: none;
+      overflow: visible;
+      display:flex;
+      align-items:center;
+      justify-content:center;
       flex-shrink:0;
     }
-    .footer-logo img{ width:100%; height:100%; object-fit:cover; }
+    .footer-logo img{ width:100%; height:100%; object-fit: contain; display:block; }
+
     .footer-title{
       font-family: var(--font-tabs);
       letter-spacing:.10em;
@@ -642,23 +617,25 @@
 
           <!-- CENTRO -->
           <div class="nav-center">
-            <nav class="tabs" role="tablist" aria-label="Navegação do site">
-              <button class="tab-btn" role="tab" aria-selected="true"  data-tab="tab-gisprad">GISPRAD</button>
-              <button class="tab-btn" role="tab" aria-selected="false" data-tab="tab-projetos">PROJETOS</button>
-              <button class="tab-btn" role="tab" aria-selected="false" data-tab="tab-pubs">PUBLICAÇÕES</button>
-              <button class="tab-btn" role="tab" aria-selected="false" data-tab="tab-integrantes">INTEGRANTES</button>
-              <button class="tab-btn" role="tab" aria-selected="false" data-tab="tab-contato">CONTATO</button>
-            </nav>
+            <div class="nav-middle">
+              <nav class="tabs" role="tablist" aria-label="Navegação do site">
+                <button class="tab-btn" role="tab" aria-selected="true"  data-tab="tab-gisprad">GISPRAD</button>
+                <button class="tab-btn" role="tab" aria-selected="false" data-tab="tab-projetos">PROJETOS</button>
+                <button class="tab-btn" role="tab" aria-selected="false" data-tab="tab-pubs">PUBLICAÇÕES</button>
+                <button class="tab-btn" role="tab" aria-selected="false" data-tab="tab-integrantes">INTEGRANTES</button>
+                <button class="tab-btn" role="tab" aria-selected="false" data-tab="tab-contato">CONTATO</button>
+              </nav>
+
+              <div class="lang" title="Idioma">
+                <button id="lang-pt" class="active" type="button">PT</button>
+                <button id="lang-en" type="button">EN</button>
+                <button id="lang-es" type="button">ES</button>
+              </div>
+            </div>
           </div>
 
           <!-- DIREITA -->
           <div class="topbar-tools">
-            <div class="lang" title="Idioma">
-              <button id="lang-pt" class="active" type="button">PT</button>
-              <button id="lang-en" type="button">EN</button>
-              <button id="lang-es" type="button">ES</button>
-            </div>
-
             <div class="tools-icons" aria-label="Ações rápidas">
               <a class="soc" href="https://www.linkedin.com/company/gisprad/?viewAsMember=true" target="_blank" rel="noopener" title="LinkedIn">
                 <img src="linkedin_logo_2.png" alt="LinkedIn">
@@ -692,7 +669,6 @@
   <main class="content-wrap">
     <div class="container">
 
-      <!-- GISPRAD -->
       <section class="tab-panel active" id="tab-gisprad">
         <div class="panel">
           <div class="panel-inner">
@@ -704,7 +680,7 @@
                   <span class="badge" data-i18n="badge_institucional">Institucional</span>
                 </div>
 
-                <p class="muted about-text" data-i18n="about_text">
+                <p class="muted" style="margin:0; line-height:1.8; font-size: 15px;" data-i18n="about_text">
                   O GISPRAD desenvolve métodos e ferramentas para análise espacial, automação de fluxos de dados e visualização
                   de informações geográficas em ambientes WebGIS.
                 </p>
@@ -737,7 +713,6 @@
         <footer class="footer" data-footer></footer>
       </section>
 
-      <!-- PROJETOS -->
       <section class="tab-panel" id="tab-projetos">
         <div class="panel">
           <div class="panel-inner">
@@ -762,7 +737,6 @@
         <footer class="footer" data-footer></footer>
       </section>
 
-      <!-- PUBLICAÇÕES -->
       <section class="tab-panel" id="tab-pubs">
         <div class="panel">
           <div class="panel-inner">
@@ -787,7 +761,6 @@
         <footer class="footer" data-footer></footer>
       </section>
 
-      <!-- INTEGRANTES -->
       <section class="tab-panel" id="tab-integrantes">
         <div class="panel">
           <div class="panel-inner">
@@ -820,7 +793,6 @@
         <footer class="footer" data-footer></footer>
       </section>
 
-      <!-- CONTATO -->
       <section class="tab-panel" id="tab-contato">
         <div class="panel">
           <div class="panel-inner">
@@ -897,7 +869,6 @@
     </div>
   </main>
 
-  <!-- Modal busca -->
   <div class="modal" id="searchModal" aria-hidden="true">
     <div class="modal-card" role="dialog" aria-modal="true" aria-label="Pesquisar no site">
       <div class="modal-head">
