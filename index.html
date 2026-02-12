@@ -123,11 +123,12 @@
       position:absolute; top:0; left:0; right:0; z-index:60;
       background: rgba(255,255,255,.18);
       backdrop-filter: blur(10px);
-      border-bottom: none; /* Borda removida */
+      border-bottom: 1px solid rgba(255,255,255,.18);
       color:#fff;
     }
     html[data-theme="dark"] .site-topbar{
       background: rgba(11,15,11,.35);
+      border-bottom-color: rgba(255,255,255,.08);
     }
     .topbar-fluid{ width: 100%; padding: 10px 32px; }
     .topbar-row{
@@ -180,6 +181,7 @@
       cursor:pointer;
       padding: 9px 11px;
       border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.22);
       background: rgba(255,255,255,.10);
       color:#fff;
       letter-spacing:.09em;
@@ -191,6 +193,7 @@
     .tab-btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.16); }
     .tab-btn[aria-selected="true"]{
       background: rgba(51,85,26,.78);
+      border-color: rgba(255,255,255,.12);
     }
     .lang{
       display:flex;
@@ -199,7 +202,7 @@
       gap: 6px;
       padding: 7px 10px;
       border-radius: 999px;
-      border: none; /* Borda removida */
+      border: 1px solid rgba(255,255,255,.22);
       background: rgba(255,255,255,.10);
       flex-shrink:0;
     }
@@ -259,7 +262,7 @@
     .content-wrap{ padding: 22px 0 0; }
     .panel{
       background:var(--panel);
-      border: none; /* Borda removida */
+      border:1px solid var(--line);
       border-radius: var(--radius);
       margin: 0 0 16px;
       box-shadow: var(--shadow-soft);
@@ -271,7 +274,7 @@
     .card{
       grid-column: span 12;
       background:var(--panel-2);
-      border: none; /* Borda removida */
+      border: 1px solid var(--line);
       border-radius: var(--radius);
       padding: 18px;
       transition: background .15s, transform .15s;
@@ -292,7 +295,7 @@
       padding: 6px 10px;
       border-radius: 999px;
       font-size: 12.5px;
-      border: none; /* Borda removida */
+      border: 1px solid var(--line);
       background: var(--panel);
       color: var(--muted);
       white-space: nowrap;
@@ -314,7 +317,7 @@
       object-fit:cover;
       display:block;
       border-radius: 14px;
-      border: none; /* Borda removida */
+      border: 1px solid var(--line);
       background: var(--panel);
     }
     .member-title{ display:flex; align-items:baseline; gap:6px; flex-wrap:nowrap; }
@@ -343,7 +346,7 @@
     .select{
       height: 40px;
       border-radius: 14px;
-      border: none; /* Borda removida */
+      border: 1px solid var(--line);
       background: var(--panel-2);
       color: var(--text);
       padding: 0 10px;
@@ -352,7 +355,7 @@
     .input{
       height: 40px;
       border-radius: 14px;
-      border: none; /* Borda removida */
+      border: 1px solid var(--line);
       background: var(--panel-2);
       color: var(--text);
       padding: 0 12px;
@@ -364,7 +367,7 @@
       color: var(--muted);
       padding: 6px 10px;
       border-radius: 999px;
-      border: none; /* Borda removida */
+      border: 1px solid var(--line);
       background: var(--panel);
     }
 
@@ -386,7 +389,7 @@
     .modal-card{
       width: min(860px, 100%);
       background: var(--bg);
-      border: none; /* Borda removida */
+      border: 1px solid var(--line);
       border-radius: 18px;
       box-shadow: var(--shadow);
       overflow:hidden;
@@ -398,7 +401,7 @@
       gap:10px;
       padding: 12px 14px;
       background: var(--panel);
-      border-bottom: none; /* Borda removida */
+      border-bottom: 1px solid var(--line);
     }
     .modal-head strong{ font-size: 14px; }
     .modal-body{ padding: 14px; }
@@ -406,7 +409,7 @@
       width:100%;
       height: 44px;
       border-radius: 14px;
-      border: none; /* Borda removida */
+      border: 1px solid var(--line);
       background: var(--panel-2);
       color: var(--text);
       padding: 0 12px;
@@ -425,7 +428,7 @@
     .result-item{
       padding: 12px 12px;
       border-radius: 14px;
-      border: none; /* Borda removida */
+      border: 1px solid var(--line);
       background: var(--panel);
       transition: transform .15s, background .15s;
       cursor:pointer;
@@ -452,7 +455,7 @@
     .field{ display:flex; flex-direction:column; gap:6px; }
     .field label{ font-size: 12px; color: var(--muted); }
     .field input, .field select, .field textarea{
-      border: none; /* Borda removida */
+      border: 1px solid var(--line);
       border-radius: 14px;
       background: var(--panel-2);
       color: var(--text);
@@ -493,7 +496,7 @@
       width: 100vw;
       margin-left: calc(50% - 50vw);
       background: var(--g5);
-      border-top: none; /* Borda removida */
+      border-top: 1px solid rgba(255,255,255,.08);
     }
     .footer-inner{
       padding: 26px 0;
@@ -602,6 +605,7 @@
       <div class="topbar-fluid">
         <div class="topbar-row">
 
+          <!-- ESQUERDA -->
           <div class="brand">
             <div class="brand-logo">
               <img src="Logo_2025_sem_fundo.png" alt="GISPRAD">
@@ -611,6 +615,7 @@
             </div>
           </div>
 
+          <!-- CENTRO -->
           <div class="nav-center">
             <div class="nav-middle">
               <nav class="tabs" role="tablist" aria-label="Navegação do site">
@@ -629,6 +634,7 @@
             </div>
           </div>
 
+          <!-- DIREITA -->
           <div class="topbar-tools">
             <div class="tools-icons" aria-label="Ações rápidas">
               <a class="soc" href="https://www.linkedin.com/company/gisprad/?viewAsMember=true" target="_blank" rel="noopener" title="LinkedIn">
@@ -654,7 +660,8 @@
       <div class="hero-kicker" data-i18n="hero_kicker">Geotecnologias • Análise Espacial • WebGIS</div>
       <h1 class="hero-title">GISPRAD</h1>
       <p class="hero-sub" data-i18n="hero_sub">
-        Grupo Integrado de Estudos em Silvicultura de Plantações Florestais e Recuperação de Áreas Degradadas.
+        Laboratório voltado à pesquisa e aplicação de soluções em geoprocessamento, sensoriamento remoto e integração de dados
+        para suporte à tomada de decisão.
       </p>
     </div>
   </section>
@@ -686,7 +693,7 @@
                 </div>
               </div>
 
-              <div class="card" style="grid-column: span 12;">
+              <div class="card" style="grid-column: span 12; border-left: 4px solid var(--accent);">
                 <div class="section-title">
                   <h3 data-i18n="lines_title">Linhas de pesquisa</h3>
                   <span class="badge" id="badgeLines">4 linhas</span>
@@ -987,7 +994,7 @@
     };
 
     function norm(s){ return (s||"").toString().normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase(); }
-    function escapeHtml(str){ return (str||"").replace(/[&<>"']/g, m => ({'&':'&','<':'<','>':'>','"':'"',"'":'''}[m])); }
+    function escapeHtml(str){ return (str||"").replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
     function getIniciais(n){ return n.split(" ").map(x => x[0]).join("").substring(0,2).toUpperCase(); }
     function highlight(text,q){
       if(!q) return escapeHtml(text);
@@ -1117,7 +1124,7 @@
           <div class="member">
             ${m.photo
               ? `<img src="${m.photo}" alt="Foto de ${escapeHtml(m.name)}" class="avatar-photo"
-                   onerror="this.style.display='none'; this.insertAdjacentHTML('afterend', '<div class="avatar-fallback">${getIniciais(m.name)}</div>')">`
+                   onerror="this.style.display='none'; this.insertAdjacentHTML('afterend', '<div class=&quot;avatar-fallback&quot;>${getIniciais(m.name)}</div>')">`
               : `<div class="avatar-fallback">${getIniciais(m.name)}</div>`
             }
             <div class="member-info" style="min-width:0;">
