@@ -116,7 +116,7 @@
       font-size: 15px;
     }
 
-    /* ===== TOPBAR (layout novo) ===== */
+    /* ===== TOPBAR full-width (não segue a margem do conteúdo) ===== */
     .site-topbar{
       position:absolute; top:0; left:0; right:0; z-index:60;
       background: rgba(255,255,255,.18);
@@ -129,12 +129,18 @@
       border-bottom-color: rgba(255,255,255,.08);
     }
 
+    /* agora o conteúdo do topo usa padding próprio e ocupa a largura total */
+    .topbar-fluid{
+      width: 100%;
+      padding: 10px 32px;          /* controla a “margem” do topo */
+    }
+
     .topbar-row{
       display:grid;
-      grid-template-columns: 320px 1fr 280px; /* esquerda | centro | direita */
+      grid-template-columns: 360px 1fr 360px; /* esquerda | centro | direita */
       align-items:center;
-      gap: 12px;
-      padding: 10px 0;
+      gap: 16px;
+      padding: 0;
     }
 
     /* esquerda */
@@ -145,9 +151,9 @@
       min-width: 0;
     }
     .brand-logo{
-      width: 52px;
-      height: 52px;
-      border-radius: 0;   /* sem contorno */
+      width: 64px;
+      height: 64px;
+      border-radius: 0;
       background: transparent;
       border: none;
       overflow: visible;
@@ -161,13 +167,13 @@
     }
     .brand-path{
       font-family: var(--font-tabs);
-      font-size: 14px;
+      font-size: 15px;
       letter-spacing: .08em;
       text-transform: uppercase;
       white-space: nowrap;
       overflow:hidden;
       text-overflow: ellipsis;
-      max-width: 240px;
+      max-width: 320px;
       text-shadow: 0 8px 18px rgba(0,0,0,.35);
     }
     .brand-path b{ font-weight:700; }
@@ -184,11 +190,10 @@
       display:flex;
       align-items:center;
       justify-content:center;
-      gap:8px;
-      flex-wrap: nowrap;     /* 1 linha */
+      gap:10px;
+      flex-wrap: nowrap;
       white-space: nowrap;
     }
-
     .tab-btn{
       font-family:var(--font-tabs);
       border:none;
@@ -215,16 +220,16 @@
       display:flex;
       flex-direction:column;
       align-items:flex-end;
-      gap: 8px;
+      gap: 10px;
     }
 
-    /* idiomas: 1 linha centralizada no bloco da direita */
+    /* idiomas */
     .lang{
       display:flex;
       align-items:center;
       justify-content:center;
       gap: 6px;
-      padding: 6px 8px;
+      padding: 7px 10px;
       border-radius: 999px;
       border: 1px solid rgba(255,255,255,.22);
       background: rgba(255,255,255,.10);
@@ -239,23 +244,22 @@
       letter-spacing:.10em;
       text-transform: uppercase;
       font-size: 11px;
-      padding: 6px 8px;
+      padding: 6px 10px;
       border-radius: 999px;
       opacity: .80;
     }
     .lang button.active{ opacity:1; background: rgba(255,255,255,.16); }
 
-    /* ícones: 2 linhas (4 itens) */
+    /* ícones em 2 linhas */
     .tools-icons{
       display:grid;
-      grid-template-columns: repeat(2, 34px);
-      gap: 8px;
+      grid-template-columns: repeat(2, 38px);
+      gap: 10px;
       justify-content: end;
     }
-
     .soc, .iconbtn{
-      width: 34px;
-      height: 34px;
+      width: 38px;
+      height: 38px;
       display:flex;
       align-items:center;
       justify-content:center;
@@ -267,13 +271,20 @@
       opacity: .95;
     }
     .soc:hover, .iconbtn:hover{ transform: translateY(-1px); opacity: 1; }
-    .soc img, .iconbtn img{ width: 18px; height:18px; object-fit:contain; display:block; }
+    .soc img, .iconbtn img{
+      width: 22px;
+      height: 22px;
+      object-fit: contain;
+      display:block;
+    }
 
     @media (max-width: 980px){
+      .topbar-fluid{ padding: 10px 16px; }
       .topbar-row{ grid-template-columns: 1fr; gap: 10px; }
       .nav-center{ justify-content:flex-start; }
       .tabs{ justify-content:flex-start; overflow:auto; padding-bottom: 6px; }
       .topbar-tools{ align-items:flex-start; }
+      .tools-icons{ justify-content:start; }
       .brand-path{ max-width: 100%; }
     }
 
@@ -515,13 +526,8 @@
       filter: none;
     }
 
-    /* ===== FOOTER full width (faixa até borda) ===== */
-    .footer{
-      width: 100%;
-      margin-top: 18px;
-      background: transparent;
-      color: rgba(255,255,255,.90);
-    }
+    /* ===== FOOTER full width ===== */
+    .footer{ width: 100%; margin-top: 18px; background: transparent; color: rgba(255,255,255,.90); }
     .footer-edge{
       width: 100vw;
       margin-left: calc(50% - 50vw);
@@ -535,10 +541,7 @@
       gap: 18px;
       align-items:start;
     }
-    .footer-left{
-      display:flex; gap: 16px; align-items:center;
-      min-width: 280px;
-    }
+    .footer-left{ display:flex; gap: 16px; align-items:center; min-width: 280px; }
     .footer-logo{
       width: 86px; height: 86px;
       border-radius: 22px;
@@ -612,8 +615,6 @@
       .footer-inner{ grid-template-columns: 1fr; }
       .footer-info{ align-items:flex-start; text-align:left; }
     }
-
-    /* Contato em 2 cards lado a lado (e 1 coluna no mobile) */
     @media (max-width: 980px){
       #tab-contato .card{ grid-column: span 12 !important; }
     }
@@ -626,7 +627,7 @@
     <div class="hero-overlay"></div>
 
     <header class="site-topbar">
-      <div class="container">
+      <div class="topbar-fluid">
         <div class="topbar-row">
 
           <!-- ESQUERDA -->
@@ -819,13 +820,12 @@
         <footer class="footer" data-footer></footer>
       </section>
 
-      <!-- CONTATO (2 cards: form + mapa) -->
+      <!-- CONTATO -->
       <section class="tab-panel" id="tab-contato">
         <div class="panel">
           <div class="panel-inner">
             <div class="grid">
 
-              <!-- FORM -->
               <div class="card" style="grid-column: span 6;">
                 <div class="section-title">
                   <h3 data-i18n="form_title">Enviar mensagem</h3>
@@ -872,7 +872,6 @@
                 </form>
               </div>
 
-              <!-- MAPA -->
               <div class="card" style="grid-column: span 6;">
                 <div class="section-title">
                   <h3 data-i18n="loc_title">Localização</h3>
@@ -919,7 +918,6 @@
     const BANNER_SRC = "banner_gisprad.jpg";
     const LINKEDIN_ICON = `<img src="logo_linkedin.png" alt="LinkedIn" class="ln-ico">`;
 
-    // ===== DADOS =====
     const members = [
       { photo: "Logo_2025_sem_fundo.png", name: "Álvaro P. Berghetti", role: "Professor Orientador", email: "alvaro.berghetti@ufpr.br", link: "https://www.linkedin.com/in/alvaro-berghetti-82b6b5158/" },
       { name: "Viviane Maia Corrêa", role: "Doutorado", email: "viviane.correa@ufpr.br", link: "#" },
@@ -955,7 +953,6 @@
       { title: "Produção científica (exemplo)", desc: "Artigo/Evento • 2025 • Autores do GISPRAD", link:"#", tags:["2025","Artigo"] }
     ];
 
-    // ===== i18n =====
     const I18N = {
       pt: {
         hero_kicker:"Geotecnologias • Análise Espacial • WebGIS",
@@ -1025,7 +1022,6 @@
       }
     };
 
-    // ===== util =====
     function norm(s){ return (s||"").toString().normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase(); }
     function escapeHtml(str){ return (str||"").replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
     function getIniciais(n){ return n.split(" ").map(x => x[0]).join("").substring(0,2).toUpperCase(); }
@@ -1038,7 +1034,6 @@
       return `${escapeHtml(pre)}<span class="hl">${escapeHtml(mid)}</span>${escapeHtml(post)}`;
     }
 
-    // ===== footer (com faixa full width) =====
     function renderFooter(el){
       const year = new Date().getFullYear();
       el.innerHTML = `
@@ -1087,7 +1082,6 @@
       `;
     }
 
-    // ===== render projects/pubs/members =====
     let projectsView = [...projects];
     function projectCard(p){
       const tags = (p.tags||[]).map(t => `<span class="badge">${escapeHtml(t)}</span>`).join(" ");
@@ -1196,7 +1190,6 @@
       renderMembers();
     }
 
-    // ===== tabs/meta/title =====
     const meta = {
       "tab-gisprad":      { top: "Inicial",      tabTitle: "GISPRAD" },
       "tab-projetos":     { top: "Projetos",     tabTitle: "Projetos" },
@@ -1215,7 +1208,6 @@
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
-    // ===== theme =====
     function toggleTheme(){
       const theme = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
       document.documentElement.setAttribute("data-theme", theme);
@@ -1228,7 +1220,6 @@
       }
     }
 
-    // ===== modal search =====
     const modal = document.getElementById("searchModal");
     const modalInput = document.getElementById("modalSearchInput");
     const resultsEl = document.getElementById("searchResults");
@@ -1288,7 +1279,6 @@
       }
     }
 
-    // ===== banner =====
     function setHeroBanner(){
       const el = document.getElementById("heroBg");
       el.style.backgroundImage = `url('${BANNER_SRC}')`;
@@ -1302,7 +1292,6 @@
       img.src = BANNER_SRC;
     }
 
-    // ===== lang =====
     let currentLang = localStorage.getItem("lang") || "pt";
     function setLang(lang){
       currentLang = lang;
@@ -1321,7 +1310,6 @@
       });
     }
 
-    // ===== contact mailto =====
     function buildMailto(){
       const name = document.getElementById("f_name").value.trim();
       const company = document.getElementById("f_company").value.trim();
@@ -1341,7 +1329,6 @@
       return `mailto:gisprad.ufpr@gmail.com?subject=${encodeURIComponent(fullSubject)}&body=${encodeURIComponent(body)}`;
     }
 
-    // ===== init =====
     loadTheme();
     setHeroBanner();
 
@@ -1360,10 +1347,7 @@
       setActiveTab(a.getAttribute("data-go"));
     });
 
-    document.getElementById("btn-theme").onclick = () => {
-      toggleTheme();
-      // se quiser trocar a imagem sol/lua depois, fazemos
-    };
+    document.getElementById("btn-theme").onclick = () => toggleTheme();
     document.getElementById("btn-search").onclick = openModal;
     document.getElementById("closeModal").onclick = closeModal;
 
