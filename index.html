@@ -118,13 +118,13 @@
       font-size: 15px;
     }
 
-    /* TOPBAR full width - SEM BORDA */
+    /* TOPBAR - SEM BORDA */
     .site-topbar{
       position:absolute; top:0; left:0; right:0; z-index:60;
       background: rgba(255,255,255,.12);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
-      border-bottom: none; /* Borda removida */
+      border-bottom: none;
       color:#fff;
     }
     html[data-theme="dark"] .site-topbar{
@@ -164,7 +164,7 @@
     .brand-path b{ font-weight:700; }
     .brand-path .sep{ opacity:.70; margin: 0 6px; }
 
-    /* centro: abas + idiomas - EFEITO TRANSPARENTE SEM BORDAS */
+    /* centro: abas + idiomas - QUADRADO E TRANSPARENTE */
     .nav-center{ display:flex; align-items:center; justify-content:center; min-width:0; }
     .nav-middle{ display:flex; align-items:center; gap: 14px; min-width:0; }
     .tabs{
@@ -180,8 +180,8 @@
       border:none;
       cursor:pointer;
       padding: 10px 14px;
-      border-radius: 999px;
-      background: transparent; /* Transparente por padrão */
+      border-radius: 4px; /* FORMA QUADRADA */
+      background: transparent;
       color:#fff;
       letter-spacing:.09em;
       text-transform:uppercase;
@@ -203,8 +203,8 @@
       justify-content:center;
       gap: 4px;
       padding: 4px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.08); /* Fundo sutil sem borda */
+      border-radius: 4px; /* FORMA QUADRADA */
+      background: rgba(255,255,255,0.08);
       flex-shrink:0;
     }
     .lang button{
@@ -217,13 +217,13 @@
       text-transform: uppercase;
       font-size: 10px;
       padding: 6px 10px;
-      border-radius: 999px;
+      border-radius: 4px; /* FORMA QUADRADA */
       opacity: .60;
       transition: all .2s;
     }
     .lang button.active{ opacity:1; background: rgba(255,255,255,.15); }
 
-    /* direita: ícones (duas linhas) */
+    /* direita: ícones */
     .topbar-tools{ display:flex; align-items:center; justify-content:flex-end; }
     .tools-icons{
       display:grid;
@@ -492,7 +492,7 @@
       filter: none;
     }
 
-    /* FOOTER full width */
+    /* FOOTER */
     .footer{ width: 100%; margin-top: 18px; background: transparent; color: rgba(255,255,255,.90); }
     .footer-edge{
       width: 100vw;
@@ -972,7 +972,7 @@
         hero_sub:"Laboratorio enfocado en investigación y soluciones prácticas en SIG, teledetección e integración de datos para apoyar la toma de decisiones.",
         about_title:"Sobre el laboratorio",
         badge_institucional:"Institucional",
-        about_text:"GISPRAD desarrolla métodos y herramientas para análisis espacial, automatización de flujos de datos y visualización de información geográfica en entornos WebGIS.",
+        about_text:"GISPRAD desarrolla métodos y herramientas para análisis espacial, automatización de flujos de datos y visualização de información geográfica en entornos WebGIS.",
         tag_geo:"SIG", tag_rs:"Teledetección", tag_data:"Ciencia de Datos",
         lines_title:"Líneas de investigación",
         line1:"SIG y Análisis Espacial",
