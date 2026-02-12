@@ -32,9 +32,10 @@
       --font-text:"Glacial Indifference","Segoe UI",Arial,sans-serif;
       --font-tabs:"SUGO DISPLAY","Glacial Indifference","Segoe UI",Arial,sans-serif;
 
-      --radius: 14px;
-      --shadow: 0 12px 30px rgba(0,0,0,.08);
-      --shadow-soft: 0 10px 22px rgba(0,0,0,.06);
+      --radius: 16px;
+      --shadow: 0 18px 45px rgba(0,0,0,.12);
+      --shadow-soft: 0 10px 26px rgba(0,0,0,.08);
+      --container: 1100px;
     }
 
     html[data-theme="light"]{
@@ -61,13 +62,23 @@
     .muted{ color: var(--muted); }
     .small{ font-size: 12px; color: var(--muted); }
 
-    /* ===== Header topo (com “GISPRAD | Aba”) ===== */
+    /* ===== Barra superior (abas à direita) ===== */
     .site-topbar{
       position: sticky;
       top: 0;
-      z-index: 50;
-      background: var(--panel);
+      z-index: 60;
+      background: rgba(255,255,255,.86);
+      backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--line);
+    }
+    html[data-theme="dark"] .site-topbar{
+      background: rgba(11,15,11,.70);
+    }
+
+    .container{
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 18px;
     }
 
     .topbar-row{
@@ -75,19 +86,19 @@
       align-items:center;
       justify-content:space-between;
       gap: 12px;
-      padding: 12px 18px;
+      padding: 10px 0;
     }
 
-    .topbar-left{
+    .brand{
       display:flex;
       align-items:center;
       gap: 10px;
       min-width: 220px;
     }
-    .topbar-logo{
+    .brand-logo{
       width: 38px;
       height: 38px;
-      border-radius: 12px;
+      border-radius: 14px;
       background: var(--panel-2);
       border: 1px solid var(--line);
       overflow:hidden;
@@ -96,28 +107,59 @@
       justify-content:center;
       flex-shrink:0;
     }
-    .topbar-logo img{ width:100%; height:100%; object-fit:cover; }
+    .brand-logo img{ width:100%; height:100%; object-fit:cover; }
 
-    /* Texto do topo no estilo: GISPRAD | Integrantes */
-    .topbar-path{
+    .brand-path{
       font-family: var(--font-tabs);
       font-size: 13px;
-      letter-spacing: .06em;
+      letter-spacing: .08em;
       text-transform: uppercase;
       white-space: nowrap;
       overflow:hidden;
       text-overflow: ellipsis;
-      max-width: 520px;
+      max-width: 360px;
     }
-    .topbar-path b{
-      font-weight: 700;
-    }
-    .topbar-path .sep{
-      opacity: .55;
-      margin: 0 6px;
+    .brand-path b{ font-weight: 700; }
+    .brand-path .sep{ opacity: .55; margin: 0 6px; }
+
+    .nav-right{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      flex: 1;
+      justify-content: flex-end; /* ✅ abas do lado direito */
     }
 
-    .topbar-actions{
+    .tabs{
+      display:flex;
+      align-items:center;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    .tab-btn{
+      font-family:var(--font-tabs);
+      border:none;
+      cursor:pointer;
+      padding: 9px 11px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--panel-2);
+      color: var(--text);
+      letter-spacing:.09em;
+      text-transform: uppercase;
+      font-size: 11.5px;
+      transition: transform .15s, background .15s;
+      white-space: nowrap;
+    }
+    .tab-btn:hover{ transform: translateY(-1px); }
+    .tab-btn[aria-selected="true"]{
+      background: var(--accent);
+      color: #fff;
+      border-color: transparent;
+    }
+
+    .actions{
       display:flex;
       align-items:center;
       gap: 10px;
@@ -126,7 +168,7 @@
     .iconbtn{
       height:40px; width:44px;
       border:none;
-      border-radius: 12px;
+      border-radius: 14px;
       cursor:pointer;
       background: var(--panel-2);
       color: var(--text);
@@ -140,55 +182,119 @@
       transform: translateY(-1px);
     }
 
-    /* ===== Abas no topo ===== */
-    .tabsbar{
-      padding: 0 18px 12px;
-    }
-    .tabs{
+    /* ===== Hero full width (banner faixa) ===== */
+    .hero{
+      position: relative;
+      width: 100%;
+      min-height: 64vh; /* bem chamativo */
       display:flex;
-      flex-wrap: wrap;
-      gap: 8px;
+      align-items: stretch;
+      justify-content: center;
+      overflow: hidden;
+      background: #000;
     }
-    .tab-btn{
-      font-family:var(--font-tabs);
-      border:none;
-      cursor:pointer;
-      padding: 10px 12px;
-      border-radius: 12px;
-      border: 1px solid var(--line);
-      background: var(--panel-2);
-      color: var(--text);
-      letter-spacing:.08em;
+    .hero-bg{
+      position:absolute;
+      inset:0;
+      background-size: cover;
+      background-position: center;
+      transform: scale(1.03);
+      filter: saturate(1.02);
+    }
+    .hero-overlay{
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(90deg, rgba(0,0,0,.62) 0%, rgba(0,0,0,.30) 55%, rgba(0,0,0,.50) 100%),
+        linear-gradient(180deg, rgba(0,0,0,.30) 0%, rgba(0,0,0,.25) 40%, rgba(0,0,0,.65) 100%);
+    }
+    .hero-content{
+      position: relative;
+      width: 100%;
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 86px 18px 48px;
+      display:flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      gap: 14px;
+      color: #fff;
+      z-index: 2;
+    }
+    .hero-kicker{
+      font-family: var(--font-tabs);
+      letter-spacing: .14em;
       text-transform: uppercase;
       font-size: 12px;
-      transition: background .15s, transform .15s;
+      opacity: .92;
     }
-    .tab-btn:hover{ transform: translateY(-1px); }
-    .tab-btn[aria-selected="true"]{
-      background: var(--accent);
+    .hero-title{
+      margin:0;
+      font-family: var(--font-tabs);
+      font-size: clamp(34px, 5vw, 58px);
+      line-height: 1.05;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      text-shadow: 0 12px 26px rgba(0,0,0,.35);
+    }
+    .hero-sub{
+      margin:0;
+      max-width: 720px;
+      color: rgba(255,255,255,.86);
+      line-height: 1.65;
+      font-size: 15px;
+    }
+    .hero-cta{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .btn{
+      border:none;
+      cursor:pointer;
+      padding: 11px 14px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.14);
       color: #fff;
-      border-color: transparent;
+      border: 1px solid rgba(255,255,255,.22);
+      transition: transform .15s, background .15s;
+      font-family: var(--font-tabs);
+      letter-spacing: .10em;
+      text-transform: uppercase;
+      font-size: 12px;
+    }
+    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.22); }
+    .btn-primary{
+      background: rgba(51,85,26,.78); /* usa seu verde */
+      border-color: rgba(255,255,255,.12);
+    }
+    .btn-primary:hover{ background: rgba(51,85,26,.92); }
+
+    /* ===== Conteúdo com margens laterais ===== */
+    .content-wrap{
+      padding: 22px 0 0;
     }
 
-    /* ===== Conteúdo ===== */
-    .content-wrap{
-      padding: 18px 22px 26px;
-    }
     .panel{
       background:var(--panel);
-      padding: 18px;
       border:1px solid var(--line);
       border-radius: var(--radius);
-      margin-bottom: 16px;
+      margin: 0 0 16px;
       box-shadow: var(--shadow-soft);
+      overflow: hidden;
     }
+    .panel-inner{
+      padding: 18px;
+    }
+
     .grid{
       display:grid;
       grid-template-columns:repeat(12, 1fr);
       gap:16px;
     }
     .card{
-      grid-column:span 12;
+      grid-column: span 12;
       background:var(--panel-2);
       border: 1px solid var(--line);
       border-radius: var(--radius);
@@ -198,8 +304,8 @@
     }
     .card:hover{ background:var(--card-hover); transform: translateY(-1px); }
     .grid .card.half { grid-column: span 6; }
-    .projects .card{ grid-column:span 6; }
-    .members .card{ grid-column:span 4; }
+    .projects .card{ grid-column: span 6; }
+    .members .card{ grid-column: span 4; }
 
     .section-title{
       display:flex;
@@ -222,84 +328,15 @@
       white-space: nowrap;
     }
 
-    /* ===== Hero e KPIs ===== */
-    .hero{
+    /* ===== bloco institucional (item 5) ===== */
+    .inst{
       display:flex;
-      gap: 16px;
-      align-items:stretch;
+      flex-direction: column;
+      gap: 8px;
+      line-height: 1.65;
     }
-    .hero-left{ flex: 1.2; min-width:0; }
-    .hero-right{ flex: .8; min-width: 280px; }
-
-    .hero-kpis{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-top: 12px;
-    }
-    .kpi{
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 10px 12px;
-    }
-    .kpi strong{ display:block; font-size: 16px; }
-    .kpi span{ display:block; font-size: 11px; color: var(--muted); margin-top: 2px; }
-
-    .meta-row{ display:flex; flex-wrap:wrap; gap:10px; margin-top: 12px; }
-    .meta-chip{
-      display:inline-flex;
-      align-items:center;
-      gap:6px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      font-size: 12px;
-      border: 1px solid var(--line);
-      background: var(--panel);
-      color: var(--text);
-      cursor:pointer;
-      user-select:none;
-      transition: background .15s, transform .15s;
-    }
-    .meta-chip:hover{ background: var(--panel-2); transform: translateY(-1px); }
-
-    /* ===== Banner ===== */
-    .hero-banner{
-      margin-top: 14px;
-      border-radius: var(--radius);
-      overflow:hidden;
-      border: 1px solid var(--line);
-      background: var(--panel);
-      box-shadow: var(--shadow-soft);
-    }
-    .hero-banner img{
-      width:100%;
-      height: 220px;
-      object-fit: cover;
-      display:block;
-      filter: saturate(1.02);
-    }
-    .hero-banner-caption{
-      padding: 10px 12px;
-      font-size: 12px;
-      color: var(--muted);
-      background: var(--panel);
-      border-top: 1px solid var(--line);
-    }
-    .hero-banner-fallback{
-      height: 220px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      color: var(--muted);
-      background:
-        radial-gradient(600px 240px at 20% 20%, rgba(190,129,65,.20), transparent 60%),
-        radial-gradient(520px 220px at 80% 30%, rgba(67,101,38,.18), transparent 60%),
-        linear-gradient(180deg, var(--panel), var(--panel-2));
-      padding: 18px;
-      text-align:center;
-    }
+    .inst strong{ font-weight: 700; }
+    .inst a{ color: var(--accent); }
 
     /* ===== Integrantes ===== */
     .member{ display:flex; gap:14px; align-items:center; }
@@ -333,7 +370,7 @@
     .ln-link:hover{ transform: scale(1.08); }
     .ln-ico{ width:18px; height:18px; display:block; object-fit: contain; }
 
-    /* ===== Toolbar (filtros) ===== */
+    /* ===== Toolbar ===== */
     .toolbar{
       display:flex;
       flex-wrap:wrap;
@@ -344,10 +381,9 @@
     }
     .toolbar-left{ display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
     .toolbar-right{ display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
-
     .select{
       height: 40px;
-      border-radius: 12px;
+      border-radius: 14px;
       border: 1px solid var(--line);
       background: var(--panel-2);
       color: var(--text);
@@ -356,7 +392,7 @@
     }
     .input{
       height: 40px;
-      border-radius: 12px;
+      border-radius: 14px;
       border: 1px solid var(--line);
       background: var(--panel-2);
       color: var(--text);
@@ -373,10 +409,10 @@
       background: var(--panel);
     }
 
-    /* ===== Mapa ===== */
+    /* ===== Mapa só no contato ===== */
     .map-container{
       width: 100%;
-      height: 240px;
+      height: 260px;
       margin-top: 10px;
       border:0;
       border-radius: var(--radius);
@@ -385,7 +421,7 @@
     }
     .map-container:hover{ filter: grayscale(0); }
 
-    /* ===== Tabs content ===== */
+    /* ===== Tabs ===== */
     .tab-panel{ display:none; }
     .tab-panel.active{ display:block; }
 
@@ -460,261 +496,341 @@
     .result-item .desc{ margin: 6px 0 0; color: var(--muted); font-size: 12px; line-height: 1.45; }
     .hl{ background: rgba(190,129,65,.25); padding: 0 3px; border-radius: 6px; }
 
+    /* ===== Footer padrão (item 9) ===== */
+    .footer{
+      margin-top: 18px;
+      background: var(--g5);
+      color: rgba(255,255,255,.88);
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+    .footer .container{
+      padding: 22px 18px;
+      display:flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer .left{
+      display:flex;
+      align-items:center;
+      gap: 14px;
+      min-width: 260px;
+    }
+    .footer .logo{
+      width: 54px;
+      height: 54px;
+      border-radius: 16px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.10);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+    }
+    .footer .logo img{ width:100%; height:100%; object-fit:cover; }
+    .footer .links{
+      display:flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 12px;
+      letter-spacing:.08em;
+      text-transform: uppercase;
+      font-family: var(--font-tabs);
+      opacity: .92;
+    }
+    .footer .mid{
+      display:flex;
+      gap: 16px;
+      align-items:flex-start;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      text-align: right;
+      flex: 1;
+    }
+    .footer .mid .block{
+      max-width: 320px;
+      font-size: 12px;
+      line-height: 1.6;
+      opacity: .92;
+    }
+    .footer .bottom{
+      width: 100%;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255,255,255,.10);
+      font-size: 12px;
+      opacity: .75;
+      display:flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
     /* ===== Responsivo ===== */
     @media (max-width: 1100px){
       .members .card{ grid-column: span 12; }
-      .hero{ flex-direction: column; }
-      .hero-right{ min-width: 0; }
-      .hero-kpis{ grid-template-columns: repeat(3, 1fr); }
-      .topbar-path{ max-width: 320px; }
+      .projects .card{ grid-column: span 12; }
+      .brand-path{ max-width: 220px; }
+      .hero-content{ padding-top: 78px; }
     }
-    @media (max-width: 980px){
-      .content-wrap{ padding: 14px 16px 24px; }
-      .grid .card.half, .projects .card{ grid-column: span 12; }
+    @media (max-width: 920px){
+      .tabs{ gap: 6px; }
+      .tab-btn{ font-size: 11px; padding: 8px 10px; }
+      .nav-right{ gap: 8px; }
+    }
+    @media (max-width: 780px){
+      .topbar-row{ gap: 10px; }
+      .brand{ min-width: 0; }
+      .brand-path{ display:none; } /* no mobile some o “GISPRAD | Aba” */
       .input{ min-width: 200px; width: 100%; }
-      .toolbar-left, .toolbar-right{ width:100%; justify-content:space-between; }
-      .topbar-row{ padding: 12px 14px; }
-      .tabsbar{ padding: 0 14px 12px; }
-      .topbar-path{ max-width: 220px; }
+      .hero{ min-height: 70vh; }
+      .hero-content{ padding-top: 90px; }
     }
   </style>
 </head>
 
 <body>
-  <!-- Header (Topo + Abas) -->
+  <!-- Topbar -->
   <header class="site-topbar">
-    <div class="topbar-row">
-      <div class="topbar-left">
-        <div class="topbar-logo">
-          <img src="Logo_2025_sem_fundo.png" alt="GISPRAD">
+    <div class="container">
+      <div class="topbar-row">
+        <div class="brand">
+          <div class="brand-logo">
+            <img src="Logo_2025_sem_fundo.png" alt="GISPRAD">
+          </div>
+          <div class="brand-path" id="topPath">
+            <b>GISPRAD</b><span class="sep">|</span><span id="topSection">Inicial</span>
+          </div>
         </div>
-        <div class="topbar-path" id="topPath">
-          <b>GISPRAD</b><span class="sep">|</span><span id="topSection">GISPRAD</span>
+
+        <div class="nav-right">
+          <nav class="tabs" role="tablist" aria-label="Navegação do site">
+            <button class="tab-btn" role="tab" aria-selected="true"  data-tab="tab-gisprad">GISPRAD</button>
+            <button class="tab-btn" role="tab" aria-selected="false" data-tab="tab-projetos">PROJETOS</button>
+            <button class="tab-btn" role="tab" aria-selected="false" data-tab="tab-pubs">PUBLICAÇÕES</button>
+            <button class="tab-btn" role="tab" aria-selected="false" data-tab="tab-integrantes">INTEGRANTES</button>
+            <button class="tab-btn" role="tab" aria-selected="false" data-tab="tab-contato">CONTATO</button>
+          </nav>
+
+          <div class="actions">
+            <button class="iconbtn" id="btn-search" title="Pesquisar (Ctrl/⌘ K)" aria-label="Pesquisar">🔍</button>
+            <button class="iconbtn" id="btn-theme" title="Alternar tema" aria-label="Alternar tema">🌓</button>
+          </div>
         </div>
-      </div>
-
-      <div class="topbar-actions">
-        <button class="iconbtn" id="btn-search" title="Pesquisar (Ctrl/⌘ K)" aria-label="Pesquisar">🔍</button>
-        <button class="iconbtn" id="btn-theme" title="Alternar tema" aria-label="Alternar tema">🌓</button>
-      </div>
-    </div>
-
-    <div class="tabsbar">
-      <div class="tabs" role="tablist" aria-label="Navegação do site">
-        <button class="tab-btn" role="tab" aria-selected="true"  data-tab="tab-gisprad">GISPRAD</button>
-        <button class="tab-btn" role="tab" aria-selected="false" data-tab="tab-projetos">PROJETOS</button>
-        <button class="tab-btn" role="tab" aria-selected="false" data-tab="tab-pubs">PUBLICAÇÕES</button>
-        <button class="tab-btn" role="tab" aria-selected="false" data-tab="tab-integrantes">INTEGRANTES</button>
-        <button class="tab-btn" role="tab" aria-selected="false" data-tab="tab-contato">CONTATO</button>
       </div>
     </div>
   </header>
 
+  <!-- Hero (full width) -->
+  <section class="hero" id="hero">
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+      <div class="hero-kicker">Geotecnologias • Análise Espacial • WebGIS</div>
+      <h1 class="hero-title">GISPRAD</h1>
+      <p class="hero-sub">
+        Laboratório voltado à pesquisa e aplicação de soluções em geoprocessamento, sensoriamento remoto e integração de dados
+        para suporte à tomada de decisão.
+      </p>
+
+      <div class="hero-cta">
+        <button class="btn btn-primary" id="ctaProjects">Ver projetos</button>
+        <button class="btn" id="ctaMembers">Conhecer a equipe</button>
+        <button class="btn" id="ctaContact">Contato</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Conteúdo (com margens laterais via container) -->
   <main class="content-wrap">
-    <!-- ====== GISPRAD ====== -->
-    <section class="panel tab-panel active" id="tab-gisprad">
-      <div class="grid">
-        <div class="card" style="grid-column: span 12;">
-          <div class="hero">
-            <div class="hero-left">
-              <div class="section-title">
-                <h3>Laboratório GISPRAD</h3>
-                <span class="badge">Institucional</span>
-              </div>
-              <p class="muted" style="margin-top:0; line-height:1.6;">
-                O GISPRAD é um laboratório voltado à pesquisa, desenvolvimento e aplicação de soluções em
-                geotecnologias, análise espacial e integração de dados para suporte à tomada de decisão.
-              </p>
+    <div class="container">
 
-              <div class="hero-kpis" aria-label="Indicadores">
-                <div class="kpi">
-                  <strong id="kpiMembers">—</strong>
-                  <span>Integrantes</span>
+      <!-- ====== GISPRAD ====== -->
+      <section class="tab-panel active" id="tab-gisprad">
+        <div class="panel">
+          <div class="panel-inner">
+            <div class="grid">
+              <div class="card half">
+                <div class="section-title">
+                  <h3>Sobre o laboratório</h3>
+                  <span class="badge">Institucional</span>
                 </div>
-                <div class="kpi">
-                  <strong id="kpiProjects">—</strong>
-                  <span>Projetos</span>
-                </div>
-                <div class="kpi">
-                  <strong id="kpiPubs">—</strong>
-                  <span>Publicações</span>
+                <p class="muted" style="margin:0; line-height:1.75;">
+                  O GISPRAD desenvolve métodos e ferramentas para análise espacial, automação de fluxos de dados e visualização
+                  de informações geográficas em ambientes WebGIS.
+                </p>
+
+                <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top: 14px;">
+                  <span class="badge">Geoprocessamento</span>
+                  <span class="badge">Sensoriamento Remoto</span>
+                  <span class="badge">WebGIS</span>
+                  <span class="badge">Ciência de Dados</span>
                 </div>
               </div>
 
-              <div class="meta-row" style="margin-top: 14px;">
-                <span class="meta-chip" id="goProjects">Ver projetos →</span>
-                <span class="meta-chip" id="goMembers">Ver equipe →</span>
-                <span class="meta-chip" id="goPubs">Ver publicações →</span>
-              </div>
-
-              <!-- Banner -->
-              <div class="hero-banner" id="heroBanner">
-                <img src="banner_gisprad.jpg" alt="Banner do GISPRAD"
-                  onerror="this.remove(); document.getElementById('heroBanner').insertAdjacentHTML('afterbegin', `
-                    <div class='hero-banner-fallback'>
-                      <span aria-hidden='true'>🛰️</span>
-                      <span>Adicionar a imagem <b>banner_gisprad.jpg</b> na pasta do site</span>
-                    </div>
-                  `)">
-                <div class="hero-banner-caption">
-                  Sugestão: foto do campus/laboratório ou imagem temática (satélite/ortofoto/WebGIS).
+              <div class="card half">
+                <div class="section-title">
+                  <h3>Vínculo institucional</h3>
+                  <span class="badge">UFPR</span>
+                </div>
+                <div class="inst">
+                  <div><strong>Universidade:</strong> Universidade Federal do Paraná (UFPR)</div>
+                  <div><strong>Departamento:</strong> Depto. de Geomática</div>
+                  <div><strong>Programa:</strong> PPG em Ciências Geodésicas</div>
+                  <div><strong>Local:</strong> Campus Botânico, Curitiba — PR</div>
+                  <div class="muted small">Essas informações também aparecem no Contato.</div>
                 </div>
               </div>
-            </div>
 
-            <div class="hero-right">
-              <div class="section-title">
-                <h3>Linhas de Pesquisa</h3>
-                <span class="badge" id="badgeLines">4 linhas</span>
+              <div class="card" style="grid-column: span 12; border-left: 4px solid var(--accent);">
+                <div class="section-title">
+                  <h3>Linhas de pesquisa</h3>
+                  <span class="badge" id="badgeLines">4 linhas</span>
+                </div>
+                <ul style="margin: 8px 0 0 18px; line-height: 1.9; color: var(--muted);">
+                  <li>Geoprocessamento e Análise Espacial</li>
+                  <li>Sensoriamento Remoto Aplicado</li>
+                  <li>Sistemas de Informação Geográfica na Web (WebGIS)</li>
+                  <li>Automação e Ciência de Dados Ambientais</li>
+                </ul>
               </div>
-              <ul id="linesList" style="margin: 8px 0 0 18px; line-height: 1.8; color: var(--muted);">
-                <li>Geoprocessamento e Análise Espacial</li>
-                <li>Sensoriamento Remoto Aplicado</li>
-                <li>Sistemas de Informação Geográfica na Web (WebGIS)</li>
-                <li>Automação e Ciência de Dados Ambientais</li>
-              </ul>
             </div>
           </div>
         </div>
 
-        <div class="card half">
-          <div class="section-title">
-            <h3>Localização</h3>
-            <span class="badge">UFPR • Campus Botânico</span>
-          </div>
-          <p style="margin:0;">
-            UFPR — Campus Botânico.<br>
-            <small class="small">Av. Prefeito Lothário Meissner, 632</small>
-          </p>
-          <iframe class="map-container"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3602.834743204961!2d-49.2391757!3d-25.4437905!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94dce50866509f6b%3A0x6b77c38c8236c53e!2sAv.%20Prefeito%20Loth%C3%A1rio%20Meissner%2C%20632!5e0!3m2!1spt-BR!2sbr!4v1700000000000"
-            allowfullscreen="" loading="lazy"></iframe>
-        </div>
+        <!-- footer padrão -->
+        <footer class="footer" data-footer></footer>
+      </section>
 
-        <div class="card half" id="card-contato">
-          <div class="section-title">
-            <h3>Contato</h3>
-            <span class="badge">Redes e e-mail</span>
-          </div>
-          <p style="margin:0 0 8px;"><b>E-mail:</b>
-            <a href="mailto:contato@gisprad.org" style="color: var(--accent);">contato@gisprad.org</a>
-          </p>
-          <p style="margin:0 0 8px;"><b>Instagram:</b>
-            <a href="https://instagram.com/gisprad" target="_blank" rel="noopener" style="color: var(--accent);">@gisprad</a>
-          </p>
-          <p style="margin:0;"><b>Vínculo:</b> Depto. de Geomática / PPG em Ciências Geodésicas - UFPR.</p>
+      <!-- ====== PROJETOS ====== -->
+      <section class="tab-panel" id="tab-projetos">
+        <div class="panel">
+          <div class="panel-inner">
+            <div class="toolbar">
+              <div class="toolbar-left">
+                <input class="input" id="projectsSearch" placeholder="Filtrar projetos..." />
+                <span class="count" id="projectsCount">0</span>
+              </div>
+              <div class="toolbar-right">
+                <select class="select" id="projectsSort" aria-label="Ordenar projetos">
+                  <option value="az">Ordenar: A–Z</option>
+                  <option value="za">Ordenar: Z–A</option>
+                </select>
+              </div>
+            </div>
 
-          <div class="meta-row" style="margin-top: 12px;">
-            <span class="meta-chip" id="copyEmail">Copiar e-mail</span>
-            <span class="meta-chip" id="openIG">Abrir Instagram</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ====== PROJETOS ====== -->
-    <section class="panel tab-panel" id="tab-projetos">
-      <div class="toolbar">
-        <div class="toolbar-left">
-          <input class="input" id="projectsSearch" placeholder="Filtrar projetos..." />
-          <span class="count" id="projectsCount">0</span>
-        </div>
-        <div class="toolbar-right">
-          <select class="select" id="projectsSort" aria-label="Ordenar projetos">
-            <option value="az">Ordenar: A–Z</option>
-            <option value="za">Ordenar: Z–A</option>
-          </select>
-        </div>
-      </div>
-      <div class="grid projects" id="projectsGrid"></div>
-      <p class="small" id="projectsEmpty" style="display:none; margin: 10px 0 0;">Nenhum projeto encontrado.</p>
-    </section>
-
-    <!-- ====== PUBLICAÇÕES ====== -->
-    <section class="panel tab-panel" id="tab-pubs">
-      <div class="toolbar">
-        <div class="toolbar-left">
-          <input class="input" id="pubsSearch" placeholder="Filtrar publicações..." />
-          <span class="count" id="pubsCount">0</span>
-        </div>
-        <div class="toolbar-right">
-          <select class="select" id="pubsSort" aria-label="Ordenar publicações">
-            <option value="az">Ordenar: A–Z</option>
-            <option value="za">Ordenar: Z–A</option>
-          </select>
-        </div>
-      </div>
-      <div class="grid pubs" id="pubsGrid"></div>
-      <p class="small" id="pubsEmpty" style="display:none; margin: 10px 0 0;">Nenhuma publicação encontrada.</p>
-    </section>
-
-    <!-- ====== INTEGRANTES ====== -->
-    <section class="panel tab-panel" id="tab-integrantes">
-      <div class="toolbar">
-        <div class="toolbar-left">
-          <input class="input" id="membersSearch" placeholder="Filtrar integrantes..." />
-          <span class="count" id="membersCount">0</span>
-        </div>
-        <div class="toolbar-right">
-          <select class="select" id="membersFilter" aria-label="Filtrar por nível">
-            <option value="all">Nível: Todos</option>
-            <option value="Professor Orientador">Professor Orientador</option>
-            <option value="Pós-doc">Pós-doc</option>
-            <option value="Doutorado">Doutorado</option>
-            <option value="Mestrado">Mestrado</option>
-            <option value="Graduação">Graduação</option>
-          </select>
-          <select class="select" id="membersSort" aria-label="Ordenar integrantes">
-            <option value="az">Ordenar: A–Z</option>
-            <option value="za">Ordenar: Z–A</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="grid members" id="membersGrid"></div>
-      <p class="small" id="membersEmpty" style="display:none; margin: 10px 0 0;">Nenhum integrante encontrado.</p>
-    </section>
-
-    <!-- ====== CONTATO ====== -->
-    <section class="panel tab-panel" id="tab-contato">
-      <div class="grid">
-        <div class="card half">
-          <div class="section-title">
-            <h3>Contato</h3>
-            <span class="badge">E-mail e redes</span>
-          </div>
-          <p style="margin:0 0 8px;"><b>E-mail:</b>
-            <a href="mailto:contato@gisprad.org" style="color: var(--accent);">contato@gisprad.org</a>
-          </p>
-          <p style="margin:0 0 8px;"><b>Instagram:</b>
-            <a href="https://instagram.com/gisprad" target="_blank" rel="noopener" style="color: var(--accent);">@gisprad</a>
-          </p>
-          <p style="margin:0;"><b>Vínculo:</b> Depto. de Geomática / PPG em Ciências Geodésicas - UFPR.</p>
-
-          <div class="meta-row" style="margin-top: 12px;">
-            <span class="meta-chip" id="copyEmail2">Copiar e-mail</span>
-            <span class="meta-chip" id="openIG2">Abrir Instagram</span>
+            <div class="grid projects" id="projectsGrid"></div>
+            <p class="small" id="projectsEmpty" style="display:none; margin: 10px 0 0;">Nenhum projeto encontrado.</p>
           </div>
         </div>
 
-        <div class="card half">
-          <div class="section-title">
-            <h3>Localização</h3>
-            <span class="badge">UFPR • Campus Botânico</span>
-          </div>
-          <p style="margin:0;">
-            UFPR — Campus Botânico.<br>
-            <small class="small">Av. Prefeito Lothário Meissner, 632</small>
-          </p>
-          <iframe class="map-container"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3602.834743204961!2d-49.2391757!3d-25.4437905!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94dce50866509f6b%3A0x6b77c38c8236c53e!2sAv.%20Prefeito%20Loth%C3%A1rio%20Meissner%2C%20632!5e0!3m2!1spt-BR!2sbr!4v1700000000000"
-            allowfullscreen="" loading="lazy"></iframe>
-        </div>
-      </div>
-    </section>
+        <footer class="footer" data-footer></footer>
+      </section>
 
-    <div class="small muted" style="text-align:center; padding: 10px 0 0;">
-      © <span id="year"></span> GISPRAD
+      <!-- ====== PUBLICAÇÕES ====== -->
+      <section class="tab-panel" id="tab-pubs">
+        <div class="panel">
+          <div class="panel-inner">
+            <div class="toolbar">
+              <div class="toolbar-left">
+                <input class="input" id="pubsSearch" placeholder="Filtrar publicações..." />
+                <span class="count" id="pubsCount">0</span>
+              </div>
+              <div class="toolbar-right">
+                <select class="select" id="pubsSort" aria-label="Ordenar publicações">
+                  <option value="az">Ordenar: A–Z</option>
+                  <option value="za">Ordenar: Z–A</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="grid pubs" id="pubsGrid"></div>
+            <p class="small" id="pubsEmpty" style="display:none; margin: 10px 0 0;">Nenhuma publicação encontrada.</p>
+          </div>
+        </div>
+
+        <footer class="footer" data-footer></footer>
+      </section>
+
+      <!-- ====== INTEGRANTES ====== -->
+      <section class="tab-panel" id="tab-integrantes">
+        <div class="panel">
+          <div class="panel-inner">
+            <div class="toolbar">
+              <div class="toolbar-left">
+                <input class="input" id="membersSearch" placeholder="Filtrar integrantes..." />
+                <span class="count" id="membersCount">0</span>
+              </div>
+              <div class="toolbar-right">
+                <select class="select" id="membersFilter" aria-label="Filtrar por nível">
+                  <option value="all">Nível: Todos</option>
+                  <option value="Professor Orientador">Professor Orientador</option>
+                  <option value="Pós-doc">Pós-doc</option>
+                  <option value="Doutorado">Doutorado</option>
+                  <option value="Mestrado">Mestrado</option>
+                  <option value="Graduação">Graduação</option>
+                </select>
+                <select class="select" id="membersSort" aria-label="Ordenar integrantes">
+                  <option value="az">Ordenar: A–Z</option>
+                  <option value="za">Ordenar: Z–A</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="grid members" id="membersGrid"></div>
+            <p class="small" id="membersEmpty" style="display:none; margin: 10px 0 0;">Nenhum integrante encontrado.</p>
+          </div>
+        </div>
+
+        <footer class="footer" data-footer></footer>
+      </section>
+
+      <!-- ====== CONTATO (com mapa) ====== -->
+      <section class="tab-panel" id="tab-contato">
+        <div class="panel">
+          <div class="panel-inner">
+            <div class="grid">
+              <div class="card half">
+                <div class="section-title">
+                  <h3>Contato</h3>
+                  <span class="badge">E-mail e redes</span>
+                </div>
+                <p style="margin:0 0 8px;"><b>E-mail:</b>
+                  <a href="mailto:contato@gisprad.org" style="color: var(--accent);">contato@gisprad.org</a>
+                </p>
+                <p style="margin:0 0 8px;"><b>Instagram:</b>
+                  <a href="https://instagram.com/gisprad" target="_blank" rel="noopener" style="color: var(--accent);">@gisprad</a>
+                </p>
+                <p style="margin:0;"><b>Vínculo:</b> Depto. de Geomática / PPG em Ciências Geodésicas - UFPR.</p>
+
+                <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top: 12px;">
+                  <button class="btn" id="copyEmail" style="color:#fff;">Copiar e-mail</button>
+                  <button class="btn" id="openIG" style="color:#fff;">Abrir Instagram</button>
+                </div>
+              </div>
+
+              <div class="card half">
+                <div class="section-title">
+                  <h3>Localização</h3>
+                  <span class="badge">UFPR • Campus Botânico</span>
+                </div>
+                <p style="margin:0;">
+                  UFPR — Campus Botânico.<br>
+                  <small class="small">Av. Prefeito Lothário Meissner, 632</small>
+                </p>
+
+                <iframe class="map-container"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3602.834743204961!2d-49.2391757!3d-25.4437905!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94dce50866509f6b%3A0x6b77c38c8236c53e!2sAv.%20Prefeito%20Loth%C3%A1rio%20Meissner%2C%20632!5e0!3m2!1spt-BR!2sbr!4v1700000000000"
+                  allowfullscreen="" loading="lazy"></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <footer class="footer" data-footer></footer>
+      </section>
+
     </div>
   </main>
 
@@ -729,15 +845,18 @@
         <input id="modalSearchInput" class="modal-input" placeholder="Buscar em projetos, publicações e integrantes..." />
         <div class="results" id="searchResults"></div>
         <p class="small muted" style="margin: 10px 0 0;">
-          Atalho: <b>Ctrl/⌘ K</b> para abrir • <b>Esc</b> para fechar
+          Atalho: <b>Ctrl/⌘ K</b> • <b>Esc</b> para fechar
         </p>
       </div>
     </div>
   </div>
 
   <script>
+    // ===== Config de imagens =====
+    const BANNER_SRC = "banner_gisprad.jpg"; // (1) banner full width
     const LINKEDIN_ICON = `<img src="logo_linkedin.png" alt="LinkedIn" class="ln-ico">`;
 
+    // ===== Dados (exemplos — você pode editar) =====
     const members = [
       { photo: "Logo_2025_sem_fundo.png", name: "Álvaro P. Berghetti", role: "Professor Orientador", email: "alvaro.berghetti@ufpr.br", link: "https://www.linkedin.com/in/alvaro-berghetti-82b6b5158/" },
       { name: "Viviane Maia Corrêa", role: "Doutorado", email: "viviane.correa@ufpr.br", link: "#" },
@@ -750,29 +869,21 @@
       { name: "Patrícia Portela Feldmann", role: "Mestrado", email: "patricia.feldmann@ufpr.br", link: "https://www.linkedin.com/in/patricia-portela-feldmann-a502b798/" },
       { name: "Thainá Aloísio Saraiva", role: "Mestrado", email: "thaina.aloisio@ufpr.br", link: "https://www.linkedin.com/in/thainaasaraiva/" },
       { name: "Agnes Aleixo da Luz", role: "Graduação", email: "agnes.luz@ufpr.br", link: "https://www.linkedin.com/in/agnes-aleixo-da-luz-3aa1343a9/" },
-      { name: "Alonso Cortés do Amaral", role: "Graduação", email: "alonso.amaral@ufpr.br", link: "#" },
       { name: "Carolina Pulido Arce", role: "Graduação", email: "carolinaarce@ufpr.br", link: "https://www.linkedin.com/in/carolina-pulido-arce/" },
-      { name: "Dheimilly Krachinski", role: "Graduação", email: "dheimilly.krachinski@ufpr.br", link: "https://www.linkedin.com/in/dheimilly-krachinski-439941361/" },
-      { name: "Eduarda Cristina M. dos Santos", role: "Graduação", email: "eduarda.moraes@ufpr.br", link: "https://www.linkedin.com/in/eduardacristinams/" },
-      { name: "Francisco Erê Consani Steidle", role: "Graduação", email: "franciscoere@ufpr.br", link: "https://www.linkedin.com/in/francisco-er%C3%AA-consani-05b027367/" },
-      { name: "Gabriel de Oliveira Bonfim Araujo", role: "Graduação", email: "gabriel.bonfim@ufpr.br", link: "#" },
-      { name: "Heitor do Nascimento Moreira", role: "Graduação", email: "heitor.nascimento@ufpr.br", link: "#" },
-      { name: "Katrielle Alessandra R. S. Isaias", role: "Graduação", email: "katrielle@ufpr.br", link: "#" },
-      { name: "Lara Brand Bordenousky", role: "Graduação", email: "lara.brand@ufpr.br", link: "https://www.linkedin.com/in/lara-brand-bordenousky-859205313/" },
-      { name: "Laura Gabriela Bortoli Mariotto", role: "Graduação", email: "laura.mariotto@upfr.br", link: "#" },
       { name: "Ruan Pablo da Trindade", role: "Graduação", email: "ruantrindade@ufpr.br", link: "https://www.linkedin.com/in/rptrindade/" }
     ];
 
     const projects = [
-      { title: "Monitoramento Ambiental", desc: "Uso de sensoriamento remoto para análise de solo.", tags:["Sensoriamento Remoto","Ambiente"] },
-      { title: "WebGIS Institucional", desc: "Plataforma interativa para visualização de dados.", tags:["WebGIS","SIG"] }
+      { title: "Monitoramento Ambiental", desc: "Uso de sensoriamento remoto e séries temporais para diagnóstico de mudanças ambientais.", tags:["Sensoriamento Remoto","Ambiente"] },
+      { title: "WebGIS Institucional", desc: "Plataforma interativa para publicação e exploração de dados geográficos.", tags:["WebGIS","SIG"] },
+      { title: "Automação de Processos", desc: "Rotinas para padronização e integração de bases geoespaciais e indicadores.", tags:["Automação","Dados"] }
     ];
 
     const publications = [
-      // Preencher depois (opcional)
-      // { title: "Título do artigo", desc: "Revista/Evento • Ano • Autores", link:"#", tags:["Artigo","2025"] }
+      { title: "Produção científica (exemplo)", desc: "Artigo/Evento • 2025 • Autores do GISPRAD", link:"#", tags:["2025","Artigo"] }
     ];
 
+    // ===== Utilidades =====
     function getIniciais(n){
       return n.split(" ").map(x => x[0]).join("").substring(0,2).toUpperCase();
     }
@@ -789,21 +900,141 @@
       if(!nq) return escapeHtml(text);
       const idx = ntext.indexOf(nq);
       if(idx < 0) return escapeHtml(text);
-
       const pre = text.slice(0, idx);
       const mid = text.slice(idx, idx + q.length);
       const post = text.slice(idx + q.length);
       return `${escapeHtml(pre)}<span class="hl">${escapeHtml(mid)}</span>${escapeHtml(post)}`;
     }
 
-    // ===== Render members =====
+    // ===== Footer padrão (9) =====
+    function renderFooter(el){
+      const year = new Date().getFullYear();
+      el.innerHTML = `
+        <div class="container">
+          <div class="left">
+            <div class="logo"><img src="Logo_2025_sem_fundo.png" alt="GISPRAD"></div>
+            <div class="links">
+              <span>GISPRAD</span>
+              <span class="small" style="opacity:.75; letter-spacing:.02em; text-transform:none; font-family:var(--font-text);">
+                Geotecnologias • Análise Espacial • WebGIS
+              </span>
+            </div>
+          </div>
+
+          <div class="mid">
+            <div class="block">
+              <b>UFPR — Campus Botânico</b><br>
+              Depto. de Geomática / PPG em Ciências Geodésicas<br>
+              Curitiba — PR, Brasil
+            </div>
+            <div class="block">
+              <b>Contato</b><br>
+              contato@gisprad.org<br>
+              Instagram: @gisprad
+            </div>
+          </div>
+
+          <div class="bottom">
+            <span>© ${year} GISPRAD</span>
+            <span style="opacity:.6;">Site institucional</span>
+          </div>
+        </div>
+      `;
+    }
+
+    // ===== Render Projects =====
+    let projectsView = [...projects];
+
+    function projectCard(p){
+      const tags = (p.tags || []).map(t => `<span class="badge">${escapeHtml(t)}</span>`).join(" ");
+      return `
+        <article class="card" data-title="${escapeHtml(p.title)}">
+          <div class="section-title">
+            <h3>${escapeHtml(p.title)}</h3>
+            <span class="badge">Projeto</span>
+          </div>
+          <p class="muted" style="margin:0; line-height:1.7;">${escapeHtml(p.desc)}</p>
+          ${tags ? `<div style="display:flex; gap:10px; flex-wrap:wrap; margin-top: 12px;">${tags}</div>` : ``}
+        </article>
+      `;
+    }
+
+    function renderProjects(){
+      const grid = document.getElementById("projectsGrid");
+      const empty = document.getElementById("projectsEmpty");
+      const count = document.getElementById("projectsCount");
+      if(!grid) return;
+
+      grid.innerHTML = projectsView.map(projectCard).join("");
+      count.textContent = `${projectsView.length} projeto(s)`;
+      empty.style.display = projectsView.length ? "none" : "block";
+    }
+
+    function applyProjectsFilters(){
+      const q = norm(document.getElementById("projectsSearch").value);
+      const sort = document.getElementById("projectsSort").value;
+
+      projectsView = projects
+        .filter(p => !q || norm(`${p.title} ${p.desc} ${(p.tags||[]).join(" ")}`).includes(q))
+        .sort((a,b) => sort === "az" ? a.title.localeCompare(b.title) : b.title.localeCompare(a.title));
+
+      renderProjects();
+    }
+
+    // ===== Render Publications =====
+    let pubsView = [...publications];
+
+    function pubCard(p){
+      const tags = (p.tags || []).map(t => `<span class="badge">${escapeHtml(t)}</span>`).join(" ");
+      const link = (p.link && p.link !== "#")
+        ? `<a class="badge" href="${p.link}" target="_blank" rel="noopener">Abrir</a>`
+        : ``;
+
+      return `
+        <article class="card" data-title="${escapeHtml(p.title)}">
+          <div class="section-title">
+            <h3>${escapeHtml(p.title)}</h3>
+            <span class="badge">Publicação</span>
+          </div>
+          <p class="muted" style="margin:0; line-height:1.7;">${escapeHtml(p.desc || "")}</p>
+          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top: 12px;">
+            ${link}
+            ${tags}
+          </div>
+        </article>
+      `;
+    }
+
+    function renderPubs(){
+      const grid = document.getElementById("pubsGrid");
+      const empty = document.getElementById("pubsEmpty");
+      const count = document.getElementById("pubsCount");
+      if(!grid) return;
+
+      grid.innerHTML = pubsView.map(pubCard).join("");
+      count.textContent = `${pubsView.length} publicação(ões)`;
+      empty.style.display = pubsView.length ? "none" : "block";
+    }
+
+    function applyPubsFilters(){
+      const q = norm(document.getElementById("pubsSearch").value);
+      const sort = document.getElementById("pubsSort").value;
+
+      pubsView = publications
+        .filter(p => !q || norm(`${p.title} ${p.desc} ${(p.tags||[]).join(" ")}`).includes(q))
+        .sort((a,b) => sort === "az" ? a.title.localeCompare(b.title) : b.title.localeCompare(a.title));
+
+      renderPubs();
+    }
+
+    // ===== Render Members =====
     let membersView = [...members];
 
     function memberCard(m){
       const hasValidLink = m.link && m.link !== "#";
       const ln = hasValidLink
         ? `<a href="${m.link}" class="ln-link" target="_blank" rel="noopener" title="LinkedIn">${LINKEDIN_ICON}</a>`
-        : `<span class="small muted">LinkedIn não informado</span>`;
+        : ``; // (8) sem nada se não tiver
 
       return `
         <article class="card" data-name="${escapeHtml(m.name)}" data-role="${escapeHtml(m.role)}">
@@ -837,76 +1068,29 @@
       empty.style.display = membersView.length ? "none" : "block";
     }
 
-    // ===== Render projects =====
-    let projectsView = [...projects];
+    function applyMembersFilters(){
+      const q = norm(document.getElementById("membersSearch").value);
+      const level = document.getElementById("membersFilter").value;
+      const sort = document.getElementById("membersSort").value;
 
-    function projectCard(p){
-      const tags = (p.tags || []).map(t => `<span class="badge">${escapeHtml(t)}</span>`).join(" ");
-      return `
-        <article class="card" data-title="${escapeHtml(p.title)}">
-          <div class="section-title">
-            <h3>${escapeHtml(p.title)}</h3>
-            <span class="badge">Projeto</span>
-          </div>
-          <p class="muted" style="margin:0; line-height:1.6;">${escapeHtml(p.desc)}</p>
-          ${tags ? `<div class="meta-row" style="margin-top: 12px;">${tags}</div>` : ``}
-        </article>
-      `;
+      membersView = members
+        .filter(m => {
+          const okLevel = (level === "all") ? true : (m.role === level);
+          const okText = !q || norm(`${m.name} ${m.role} ${m.email}`).includes(q);
+          return okLevel && okText;
+        })
+        .sort((a,b) => sort === "az" ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name));
+
+      renderMembers();
     }
 
-    function renderProjects(){
-      const grid = document.getElementById("projectsGrid");
-      const empty = document.getElementById("projectsEmpty");
-      const count = document.getElementById("projectsCount");
-      if(!grid) return;
-
-      grid.innerHTML = projectsView.map(projectCard).join("");
-      count.textContent = `${projectsView.length} projeto(s)`;
-      empty.style.display = projectsView.length ? "none" : "block";
-    }
-
-    // ===== Render pubs =====
-    let pubsView = [...publications];
-
-    function pubCard(p){
-      const tags = (p.tags || []).map(t => `<span class="badge">${escapeHtml(t)}</span>`).join(" ");
-      const link = (p.link && p.link !== "#")
-        ? `<a class="meta-chip" href="${p.link}" target="_blank" rel="noopener">Abrir →</a>`
-        : `<span class="meta-chip">Sem link</span>`;
-
-      return `
-        <article class="card" data-title="${escapeHtml(p.title)}">
-          <div class="section-title">
-            <h3>${escapeHtml(p.title)}</h3>
-            <span class="badge">Publicação</span>
-          </div>
-          <p class="muted" style="margin:0; line-height:1.6;">${escapeHtml(p.desc || "Descrição não informada.")}</p>
-          <div class="meta-row" style="margin-top: 12px;">
-            ${link}
-            ${tags}
-          </div>
-        </article>
-      `;
-    }
-
-    function renderPubs(){
-      const grid = document.getElementById("pubsGrid");
-      const empty = document.getElementById("pubsEmpty");
-      const count = document.getElementById("pubsCount");
-      if(!grid) return;
-
-      grid.innerHTML = pubsView.map(pubCard).join("");
-      count.textContent = `${pubsView.length} publicação(ões)`;
-      empty.style.display = pubsView.length ? "none" : "block";
-    }
-
-    // ===== Tabs meta (para atualizar GISPRAD | Aba) =====
+    // ===== Tabs meta + título do navegador (7) =====
     const meta = {
-      "tab-gisprad":      { top: "GISPRAD" },
-      "tab-projetos":     { top: "Projetos" },
-      "tab-pubs":         { top: "Publicações" },
-      "tab-integrantes":  { top: "Integrantes" },
-      "tab-contato":      { top: "Contato" }
+      "tab-gisprad":      { top: "Inicial",      tabTitle: "GISPRAD" },
+      "tab-projetos":     { top: "Projetos",     tabTitle: "Projetos" },
+      "tab-pubs":         { top: "Publicações",  tabTitle: "Publicações" },
+      "tab-integrantes":  { top: "Integrantes",  tabTitle: "Integrantes" },
+      "tab-contato":      { top: "Contato",      tabTitle: "Contato" }
     };
 
     function setActiveTab(tid){
@@ -917,6 +1101,10 @@
       document.getElementById(tid)?.classList.add("active");
 
       document.getElementById("topSection").textContent = meta[tid].top;
+
+      // (7) título do navegador no formato "Equipe | Laboratório"
+      document.title = `${meta[tid].tabTitle} | GISPRAD`;
+
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
@@ -993,63 +1181,42 @@
       }
     }
 
-    // ===== Filtros =====
-    function applyMembersFilters(){
-      const q = norm(document.getElementById("membersSearch").value);
-      const level = document.getElementById("membersFilter").value;
-      const sort = document.getElementById("membersSort").value;
+    // ===== Hero banner =====
+    function setHeroBanner(){
+      const el = document.getElementById("heroBg");
+      el.style.backgroundImage = `url('${BANNER_SRC}')`;
 
-      membersView = members
-        .filter(m => {
-          const okLevel = (level === "all") ? true : (m.role === level);
-          const okText = !q || norm(`${m.name} ${m.role} ${m.email}`).includes(q);
-          return okLevel && okText;
-        })
-        .sort((a,b) => sort === "az" ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name));
-
-      renderMembers();
-    }
-
-    function applyProjectsFilters(){
-      const q = norm(document.getElementById("projectsSearch").value);
-      const sort = document.getElementById("projectsSort").value;
-
-      projectsView = projects
-        .filter(p => !q || norm(`${p.title} ${p.desc} ${(p.tags||[]).join(" ")}`).includes(q))
-        .sort((a,b) => sort === "az" ? a.title.localeCompare(b.title) : b.title.localeCompare(a.title));
-
-      renderProjects();
-    }
-
-    function applyPubsFilters(){
-      const q = norm(document.getElementById("pubsSearch").value);
-      const sort = document.getElementById("pubsSort").value;
-
-      pubsView = publications
-        .filter(p => !q || norm(`${p.title} ${p.desc} ${(p.tags||[]).join(" ")}`).includes(q))
-        .sort((a,b) => sort === "az" ? a.title.localeCompare(b.title) : b.title.localeCompare(a.title));
-
-      renderPubs();
+      // fallback se imagem não existir
+      const img = new Image();
+      img.onload = () => {};
+      img.onerror = () => {
+        el.style.backgroundImage =
+          "radial-gradient(900px 360px at 20% 20%, rgba(190,129,65,.28), transparent 60%)," +
+          "radial-gradient(720px 320px at 80% 30%, rgba(67,101,38,.24), transparent 60%)," +
+          "linear-gradient(135deg, #0b0f0b, #1b241b)";
+      };
+      img.src = BANNER_SRC;
     }
 
     // ===== Init =====
     loadTheme();
-    document.getElementById("year").textContent = new Date().getFullYear();
+    setHeroBanner();
 
-    document.getElementById("kpiMembers").textContent = members.length;
-    document.getElementById("kpiProjects").textContent = projects.length;
-    document.getElementById("kpiPubs").textContent = publications.length;
+    // footers
+    document.querySelectorAll("[data-footer]").forEach(renderFooter);
 
-    renderMembers();
+    // render grids
     renderProjects();
     renderPubs();
+    renderMembers();
 
+    // tabs
     document.querySelectorAll(".tab-btn").forEach(btn => {
       btn.onclick = () => setActiveTab(btn.dataset.tab);
     });
 
+    // actions
     document.getElementById("btn-theme").onclick = toggleTheme;
-
     document.getElementById("btn-search").onclick = openModal;
     document.getElementById("closeModal").onclick = closeModal;
 
@@ -1059,36 +1226,32 @@
       if(isCmdK){ e.preventDefault(); openModal(); }
       if(e.key === "Escape"){ closeModal(); }
     });
-
     modalInput.addEventListener("input", (e) => renderSearchResults(e.target.value));
 
-    document.getElementById("membersSearch").addEventListener("input", applyMembersFilters);
-    document.getElementById("membersFilter").addEventListener("change", applyMembersFilters);
-    document.getElementById("membersSort").addEventListener("change", applyMembersFilters);
-
+    // filtros
     document.getElementById("projectsSearch").addEventListener("input", applyProjectsFilters);
     document.getElementById("projectsSort").addEventListener("change", applyProjectsFilters);
 
     document.getElementById("pubsSearch").addEventListener("input", applyPubsFilters);
     document.getElementById("pubsSort").addEventListener("change", applyPubsFilters);
 
+    document.getElementById("membersSearch").addEventListener("input", applyMembersFilters);
+    document.getElementById("membersFilter").addEventListener("change", applyMembersFilters);
+    document.getElementById("membersSort").addEventListener("change", applyMembersFilters);
+
+    // contato
     document.getElementById("copyEmail").onclick = async () => {
       try{ await navigator.clipboard.writeText("contato@gisprad.org"); alert("E-mail copiado: contato@gisprad.org"); }
       catch(e){ alert("Não foi possível copiar automaticamente. Copiar manualmente: contato@gisprad.org"); }
     };
     document.getElementById("openIG").onclick = () => window.open("https://instagram.com/gisprad", "_blank", "noopener");
 
-    document.getElementById("copyEmail2").onclick = async () => {
-      try{ await navigator.clipboard.writeText("contato@gisprad.org"); alert("E-mail copiado: contato@gisprad.org"); }
-      catch(e){ alert("Não foi possível copiar automaticamente. Copiar manualmente: contato@gisprad.org"); }
-    };
-    document.getElementById("openIG2").onclick = () => window.open("https://instagram.com/gisprad", "_blank", "noopener");
+    // CTA hero
+    document.getElementById("ctaProjects").onclick = () => setActiveTab("tab-projetos");
+    document.getElementById("ctaMembers").onclick = () => setActiveTab("tab-integrantes");
+    document.getElementById("ctaContact").onclick = () => setActiveTab("tab-contato");
 
-    document.getElementById("goProjects").onclick = () => setActiveTab("tab-projetos");
-    document.getElementById("goMembers").onclick = () => setActiveTab("tab-integrantes");
-    document.getElementById("goPubs").onclick = () => setActiveTab("tab-pubs");
-
-    // Aba inicial
+    // start
     setActiveTab("tab-gisprad");
   </script>
 </body>
